@@ -15,7 +15,7 @@ interface AICommandRibbonProps {
 
 const commandSignals = [
   { label: "Agents online", value: "12", icon: RiRobot2Line },
-  { label: "Signal scan", value: "Live", icon: RiRadarLine },
+  { label: "Signal scan", value: "Testing", icon: RiRadarLine },
   { label: "Idea engine", value: "Hot", icon: RiSparkling2Line },
   { label: "Build velocity", value: "Rising", icon: RiPulseLine },
 ]
