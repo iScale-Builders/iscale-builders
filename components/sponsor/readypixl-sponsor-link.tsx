@@ -42,7 +42,7 @@ export function ReadyPixlSponsorLink({ variant = "footer" }: ReadyPixlSponsorLin
         />
       </span>
       <span className="text-foreground group-hover:text-primary block text-xs font-black">
-        Bulk image editing
+        Bulk Image Editing
       </span>
     </Link>
   )
