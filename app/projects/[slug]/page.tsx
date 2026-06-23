@@ -12,7 +12,7 @@ import { breadcrumbSchema, softwareApplicationSchema } from "@/lib/seo/schema"
 import { slugify } from "@/lib/seo/slug"
 import { Button } from "@/components/ui/button"
 import { RichTextDisplay } from "@/components/ui/rich-text-editor"
-import { galleryFor, thumbnailFor } from "@/components/explore/explore-view"
+import { thumbnailFor } from "@/components/explore/explore-view"
 import { EditButton } from "@/components/project/edit-button"
 import { ProjectComments } from "@/components/project/project-comments"
 import { ProjectImageWithLoader } from "@/components/project/project-image-with-loader"
@@ -91,9 +91,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const isOwner = userId === projectData.createdBy
 
-  const projectGallery = galleryFor(projectData)
-  const projectThumbnail =
-    projectGallery[0] || thumbnailFor(projectData.productImage, projectData.coverImageUrl)
+  const projectThumbnail = thumbnailFor(projectData.productImage, projectData.coverImageUrl)
   const logoIsUploadedDataImage = projectData.logoUrl.startsWith("data:image/")
 
   // Structured data: SoftwareApplication (with upvotes as a rating signal) + breadcrumb.
@@ -314,38 +312,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
 
               {/* Product Image / Banner */}
-              <div className="space-y-3">
-                {projectThumbnail ? (
-                  <ProjectImageWithLoader
-                    src={projectThumbnail}
-                    alt={`${projectData.name} - Product Image`}
+              {projectThumbnail ? (
+                <ProjectImageWithLoader
+                  src={projectThumbnail}
+                  alt={`${projectData.name} - Product Image`}
+                />
+              ) : (
+                <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border">
+                  <ToolThumbnail
+                    name={projectData.name}
+                    category={projectData.categories[0]?.name}
+                    slug={projectData.slug}
                   />
-                ) : (
-                  <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border">
-                    <ToolThumbnail
-                      name={projectData.name}
-                      category={projectData.categories[0]?.name}
-                      slug={projectData.slug}
-                    />
-                  </div>
-                )}
-                {projectGallery.length >= 3 && (
-                  <div className="grid grid-cols-3 gap-3">
-                    {projectGallery.slice(0, 3).map((image, index) => (
-                      <div
-                        key={image}
-                        className="bg-muted border-border aspect-video overflow-hidden rounded-lg border"
-                      >
-                        <img
-                          src={image}
-                          alt={`${projectData.name} thumbnail ${index + 1}`}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
               {/* Description */}
               <div className="w-full">
                 <RichTextDisplay content={projectData.description} />
