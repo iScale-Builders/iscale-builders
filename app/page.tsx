@@ -23,8 +23,11 @@ export default async function Home() {
   const { userId } = await auth()
   const isAuthenticated = !!userId
 
-  const availableToolSlugs = ["pintwist", "iscale-images"]
-  const top3 = projects.slice(0, 3)
+  const featuredToolSlugs = ["promoteflow"]
+  const availableToolSlugs = ["pintwist", "iscale-images", "iscale-etsy", "iscale-merch"]
+  const top3 = featuredToolSlugs
+    .map((slug) => projects.find((p) => p.slug === slug))
+    .filter((p): p is ExploreProject => Boolean(p))
   const top3Ids = new Set(top3.map((p) => p.id))
   const pinnedAvailableTools = availableToolSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
