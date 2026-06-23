@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.3] - 2026-06-23
+
+### Fixed
+
+- Replaced the crashing listing-page comment widget with a native comment box
+  backed by the existing comments API, so signed-in users can leave comments on
+  coming-soon listings.
+
 ## [0.4.2] - 2026-06-23
 
 ### Fixed
@@ -194,7 +202,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - N/A
 
-[Unreleased]: https://github.com/iScale-Builders/iscale-builders/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/iScale-Builders/iscale-builders/compare/v0.4.3...HEAD
+[0.4.3]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.4.3
 [0.4.2]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.4.2
 [0.4.1]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.4.1
 [0.4.0]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.4.0

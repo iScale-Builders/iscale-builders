@@ -48,7 +48,7 @@ export default function FooterSection() {
             </Link>
             <p className="text-muted-foreground text-sm">
               © {new Date().getFullYear()} iScaleBuilders. All rights reserved.
-              <span className="ml-2">v0.4.2</span>
+              <span className="ml-2">v0.4.3</span>
             </p>
             <p className="text-muted-foreground text-sm">
               Built by the{" "}
