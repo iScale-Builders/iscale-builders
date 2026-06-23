@@ -126,12 +126,12 @@ export function ExploreHeroCard({
           )}
         </div>
         <h2 className="font-heading max-w-3xl text-2xl font-black tracking-tight text-white sm:text-4xl">
-          <span className="bg-black/60 box-decoration-clone [box-decoration-break:clone] px-2 py-0.5 leading-[1.25] shadow-black/30">
+          <span className="rounded-md bg-black/60 box-decoration-clone [box-decoration-break:clone] px-2 py-0.5 leading-[1.25] shadow-black/30">
             {name}
           </span>
         </h2>
         <p className="line-clamp-2 max-w-2xl text-sm leading-7 text-white/90 sm:text-base">
-          <span className="bg-black/60 box-decoration-clone [box-decoration-break:clone] px-1.5 py-0.5">
+          <span className="rounded-sm bg-black/60 box-decoration-clone [box-decoration-break:clone] px-1.5 py-0.5">
             {stripHtml(description)}
           </span>
         </p>
