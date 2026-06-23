@@ -17,10 +17,12 @@ interface ImageUploadInputProps {
   label: string
   value: string | null
   onChange: (value: string | null) => void
+  onMultiChange?: (values: string[]) => void
   helperText: string
   previewClassName?: string
   /** Longest-edge cap in px before storing (default 1280, i.e. 1280x720 covers). */
   maxDimension?: number
+  multiple?: boolean
 }
 
 // Downscale to fit within `max` (longest edge), re-encode as WebP (fallback JPEG),
@@ -72,14 +74,25 @@ async function compressImage(file: File, max: number): Promise<string> {
   }
 }
 
+function readRawImage(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const r = new FileReader()
+    r.onload = () => resolve(String(r.result))
+    r.onerror = () => reject(new Error("read failed"))
+    r.readAsDataURL(file)
+  })
+}
+
 export function ImageUploadInput({
   id,
   label,
   value,
   onChange,
+  onMultiChange,
   helperText,
   previewClassName = "aspect-video",
   maxDimension = 1280,
+  multiple = false,
 }: ImageUploadInputProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | null>(null)
@@ -91,36 +104,39 @@ export function ImageUploadInput({
   }, [value])
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const files = Array.from(event.target.files ?? [])
     setError(null)
-    if (!file) return
+    if (files.length === 0) return
 
-    if (!file.type.startsWith("image/")) {
+    if (files.some((file) => !file.type.startsWith("image/"))) {
       setError("Choose an image file.")
       return
     }
-    if (file.size > MAX_INPUT_BYTES) {
+    if (files.some((file) => file.size > MAX_INPUT_BYTES)) {
       setError("That image is over 20 MB. Try a smaller file.")
       return
     }
 
     setIsReading(true)
     try {
-      const dataUrl = await compressImage(file, maxDimension)
-      onChange(dataUrl)
-    } catch {
-      // Last-resort fallback: store the original as-is.
-      try {
-        const raw = await new Promise<string>((resolve, reject) => {
-          const r = new FileReader()
-          r.onload = () => resolve(String(r.result))
-          r.onerror = () => reject(new Error("read failed"))
-          r.readAsDataURL(file)
-        })
-        onChange(raw)
-      } catch {
-        setError("Could not process that image. Try another file.")
+      const dataUrls: string[] = []
+
+      for (const file of files) {
+        try {
+          dataUrls.push(await compressImage(file, maxDimension))
+        } catch {
+          // Last-resort fallback: store the original as-is.
+          dataUrls.push(await readRawImage(file))
+        }
       }
+
+      if (multiple && onMultiChange) {
+        onMultiChange(dataUrls)
+      } else {
+        onChange(dataUrls[0] ?? null)
+      }
+    } catch {
+      setError("Could not process that image. Try another file.")
     } finally {
       setIsReading(false)
       // allow re-selecting the same file
@@ -143,6 +159,7 @@ export function ImageUploadInput({
             ref={inputRef}
             type="file"
             accept="image/*"
+            multiple={multiple}
             className="hidden"
             onChange={handleFileChange}
           />

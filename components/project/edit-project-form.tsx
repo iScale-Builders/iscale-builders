@@ -161,6 +161,32 @@ export function EditProjectForm({
     setGalleryImages((current) => current.map((image, i) => (i === index ? value : image)))
   }
 
+  const handleGalleryImagesUpload = (index: number, values: string[]) => {
+    const incoming = normalizeGalleryImages(values)
+    if (incoming.length === 0) return
+
+    setGalleryImages((current) => {
+      const next = [...current]
+      next[index] = incoming[0]
+
+      for (const image of incoming.slice(1)) {
+        const emptyIndex = next.findIndex((value, i) => i > index && !value?.trim())
+        if (emptyIndex >= 0) {
+          next[emptyIndex] = image
+        } else if (next.length < MAX_GALLERY_IMAGES) {
+          next.push(image)
+        }
+      }
+
+      const normalized = normalizeGalleryImages(next)
+      return normalized.length > 0 ? normalized : [null]
+    })
+
+    if (incoming.length > 1) {
+      toast.success("Added selected images")
+    }
+  }
+
   const handleAddGalleryImage = () => {
     setGalleryImages((current) =>
       current.length >= MAX_GALLERY_IMAGES ? current : [...current, null],
@@ -209,7 +235,9 @@ export function EditProjectForm({
             label={`Image ${index + 1}`}
             value={image}
             onChange={(value) => handleGalleryImageChange(index, value)}
-            helperText="Paste an image URL or upload a screenshot/cover image. Recommended: 16:9."
+            onMultiChange={(values) => handleGalleryImagesUpload(index, values)}
+            helperText="Paste an image URL or upload one or more screenshots/cover images. Recommended: 16:9."
+            multiple
           />
         ))}
         {galleryImages.length < MAX_GALLERY_IMAGES && (
