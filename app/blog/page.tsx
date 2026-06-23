@@ -20,21 +20,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "/blog",
     siteName: "iScaleBuilders",
-    images: [
-      {
-        url: "/og-blog.png",
-        width: 1200,
-        height: 630,
-        alt: "iScaleBuilders Blog",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Blog | iScaleBuilders - Insights & Resources",
     description:
       "Discover insights, tutorials, and resources to help you build and launch successful products.",
-    images: ["/og-blog.png"],
   },
 }
 

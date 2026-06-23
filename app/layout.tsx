@@ -43,14 +43,6 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: appUrl,
     siteName: SITE_NAME,
-    images: [
-      {
-        url: "og.png",
-        width: 1200,
-        height: 630,
-        alt: DEFAULT_TITLE,
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -58,7 +50,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: DEFAULT_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["og.png"],
   },
 }
 
