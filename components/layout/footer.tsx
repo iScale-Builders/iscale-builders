@@ -3,6 +3,8 @@ import Link from "next/link"
 
 import { RiGithubFill } from "@remixicon/react"
 
+import { ReadyPixlSponsorLink } from "@/components/sponsor/readypixl-sponsor-link"
+
 // Link groups for a columnar layout
 const discoverLinks = [
   { title: "Trending", href: "/trending" },
@@ -46,9 +48,9 @@ export default function FooterSection() {
             </Link>
             <p className="text-muted-foreground text-sm">
               © {new Date().getFullYear()} iScaleBuilders. All rights reserved.
-              <span className="ml-2">v0.1.7</span>
+              <span className="ml-2">v0.4.1</span>
             </p>
-            <p className="text-muted-foreground mb-4 text-sm">
+            <p className="text-muted-foreground text-sm">
               Built by the{" "}
               <Link
                 href="https://github.com/iScale-Builders"
@@ -59,6 +61,9 @@ export default function FooterSection() {
                 iScale community
               </Link>
             </p>
+            <div className="mt-4 mb-4 w-full max-w-[300px]">
+              <ReadyPixlSponsorLink />
+            </div>
             {/* Legally-required "Powered by Open-Launch" attribution badge + dofollow link. DO NOT add nofollow or remove. */}
             <div className="flex items-center justify-start space-x-3">
               <a href="https://open-launch.com" target="_blank" title="Powered by Open-Launch">

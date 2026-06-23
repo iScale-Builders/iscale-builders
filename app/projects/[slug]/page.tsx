@@ -20,6 +20,7 @@ import { ShareButton } from "@/components/project/share-button"
 import { UpvoteButton } from "@/components/project/upvote-button"
 import { JsonLd } from "@/components/seo/json-ld"
 import { ToolThumbnail } from "@/components/shared/tool-thumbnail"
+import { ReadyPixlSponsorLink } from "@/components/sponsor/readypixl-sponsor-link"
 import { getProjectBySlug, hasUserUpvoted } from "@/app/actions/project-details"
 
 export const dynamic = "force-dynamic"
@@ -543,6 +544,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <p className="text-muted-foreground mt-2 text-sm">
                   Public access is queued while the iScaleLabs app catalog is prepared.
                 </p>
+              </div>
+
+              <div className="border-border border-t pt-4">
+                <ReadyPixlSponsorLink variant="sidebar" />
               </div>
             </div>
           </div>
