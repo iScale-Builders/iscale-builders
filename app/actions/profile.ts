@@ -12,6 +12,8 @@ import {
 } from "@/drizzle/db/schema"
 import { and, desc, eq, inArray, ne, sql } from "drizzle-orm"
 
+import { getSyncedCurrentUserId } from "@/lib/ensure-user"
+
 export interface MakerProject {
   id: string
   name: string
@@ -51,6 +53,8 @@ export interface MakerProfile {
  * Returns null if the user does not exist.
  */
 export async function getMakerProfile(userId: string): Promise<MakerProfile | null> {
+  await getSyncedCurrentUserId()
+
   const [userData] = await db
     .select({
       id: userTable.id,
