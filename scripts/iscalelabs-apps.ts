@@ -152,20 +152,6 @@ export const iscaleLabsApps: IScaleLabsAppSeed[] = [
     popularity: 88,
   },
   {
-    name: "Data Research",
-    slug: "data-research",
-    description:
-      "Data Research is the research workbench behind iScaleLabs data products: collection plans, source maps, evaluation notes, and structured research missions.",
-    websiteUrl: listingUrl("data-research"),
-    productImage: thumbnail("data-research"),
-    logoUrl: thumbnail("data-research"),
-    techStack: ["Research Ops", "Data", "Analysis"],
-    pricing: "free",
-    platforms: ["web"],
-    categories: ["Research", "Data", "Operations"],
-    popularity: 82,
-  },
-  {
     name: "Design Library Team",
     slug: "design-library-team",
     description:
