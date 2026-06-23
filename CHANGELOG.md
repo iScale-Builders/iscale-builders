@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2026-06-23
+
+### Fixed
+
+- Fixed the ReadyPixl sponsor wordmark theme swap so light mode uses the dark
+  wordmark and dark mode uses the light wordmark.
+- Reworked the sponsor unit copy so `Sponsored by` appears above the ReadyPixl
+  wordmark, with `Bulk image editing` underneath instead of a repeated typed
+  brand name.
+
 ## [0.4.1] - 2026-06-23
 
 ### Added
@@ -184,7 +194,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - N/A
 
-[Unreleased]: https://github.com/iScale-Builders/iscale-builders/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/iScale-Builders/iscale-builders/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.4.2
 [0.4.1]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.4.1
 [0.4.0]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.4.0
 [0.1.7]: https://github.com/iScale-Builders/iscale-builders/releases/tag/v0.1.7
