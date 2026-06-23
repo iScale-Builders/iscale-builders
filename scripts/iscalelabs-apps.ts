@@ -8,6 +8,7 @@ export interface IScaleLabsAppSeed {
   coverImage?: string
   logoUrl: string
   githubUrl?: string
+  launchStatus?: "scheduled" | "ongoing" | "launched"
   techStack: string[]
   pricing: "free" | "freemium" | "paid"
   platforms: string[]
@@ -133,6 +134,7 @@ export const iscaleLabsApps: IScaleLabsAppSeed[] = [
     pricing: "freemium",
     platforms: ["web"],
     categories: ["Images", "Automation", "Design"],
+    launchStatus: "launched",
     popularity: 90,
   },
   {

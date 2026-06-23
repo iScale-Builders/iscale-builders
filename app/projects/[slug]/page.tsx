@@ -8,6 +8,7 @@ import { auth } from "@clerk/nextjs/server"
 import { RiGithubFill, RiHashtag, RiTwitterFill, RiVipCrownLine } from "@remixicon/react"
 import { format } from "date-fns"
 
+import { isUpvotingOpen } from "@/lib/launch-utils"
 import { breadcrumbSchema, softwareApplicationSchema } from "@/lib/seo/schema"
 import { slugify } from "@/lib/seo/slug"
 import { Button } from "@/components/ui/button"
@@ -89,8 +90,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     ? new Date(projectData.scheduledLaunchDate)
     : null
 
-  const canUpvote = false
-  const isScheduled = true
+  const canUpvote = isUpvotingOpen(projectData.launchStatus)
+  const isScheduled = projectData.launchStatus === "scheduled"
+  const statusLabel =
+    projectData.launchStatus === "scheduled"
+      ? "Coming soon"
+      : projectData.launchStatus === "ongoing"
+        ? "Live"
+        : "Available"
 
   const isOwner = userId === projectData.createdBy
 
@@ -187,7 +194,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {/* Right side: Actions */}
                 <div className="ml-6 flex items-center gap-3">
                   <div className="border-border bg-muted text-foreground rounded-full border px-3 py-1 text-xs font-black">
-                    Coming soon
+                    {statusLabel}
                   </div>
 
                   {canUpvote ? (
@@ -256,7 +263,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {/* Actions - Same width buttons side by side */}
                 <div className="flex gap-3">
                   <div className="border-border bg-muted text-foreground flex h-9 items-center justify-center rounded-full border px-3 text-xs font-black">
-                    Coming soon
+                    {statusLabel}
                   </div>
 
                   {canUpvote ? (

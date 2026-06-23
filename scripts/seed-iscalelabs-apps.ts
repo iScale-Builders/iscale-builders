@@ -164,8 +164,11 @@ async function seed() {
     techStack: app.techStack,
     pricing: app.pricing,
     platforms: app.platforms,
-    launchStatus: launchStatus.SCHEDULED,
-    scheduledLaunchDate: new Date(scheduledDate.getTime() + index * 24 * 60 * 60 * 1000),
+    launchStatus: app.launchStatus ?? launchStatus.SCHEDULED,
+    scheduledLaunchDate:
+      app.launchStatus === launchStatus.LAUNCHED
+        ? null
+        : new Date(scheduledDate.getTime() + index * 24 * 60 * 60 * 1000),
     launchType: "free",
     featuredOnHomepage: index < 5,
     dailyRanking: null,

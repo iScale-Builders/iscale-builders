@@ -15,6 +15,12 @@ function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, "").trim()
 }
 
+function statusLabel(status: string): string {
+  if (status === "scheduled") return "Coming soon"
+  if (status === "ongoing") return "Live"
+  return "Available"
+}
+
 interface Category {
   id: string
   name: string
@@ -98,7 +104,7 @@ export function ProjectCard({
                 </h3>
               </Link>
               <span className="border-border bg-muted text-foreground rounded-full border px-2 py-0.5 text-[10px] font-black">
-                Coming soon
+                {statusLabel(launchStatus)}
               </span>
             </div>
 
