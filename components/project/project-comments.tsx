@@ -69,7 +69,7 @@ export function ProjectComments({ projectId, isAuthenticated, className }: Proje
   }, [])
 
   useEffect(() => {
-    if (!isAuthenticated || !isClient) return
+    if (!isClient) return
 
     let ignore = false
 
@@ -101,7 +101,7 @@ export function ProjectComments({ projectId, isAuthenticated, className }: Proje
     return () => {
       ignore = true
     }
-  }, [isAuthenticated, isClient, projectId])
+  }, [isClient, projectId])
 
   const trimmedComment = useMemo(() => commentText.trim(), [commentText])
 
@@ -143,29 +143,6 @@ export function ProjectComments({ projectId, isAuthenticated, className }: Proje
     }
   }
 
-  if (!isAuthenticated) {
-    return (
-      <div
-        className={cn(
-          "bg-card border-border mt-8 rounded-xl border p-5 text-center shadow-[0_18px_54px_rgb(0_0_0_/_0.22)] backdrop-blur-xl",
-          className,
-        )}
-      >
-        <p className="text-foreground text-sm font-semibold">Sign in to join the discussion.</p>
-        <p className="text-muted-foreground mt-1 text-xs">
-          Comments are available for signed-in iScaleBuilders members.
-        </p>
-        <Button
-          type="button"
-          onClick={signIn}
-          className="text-primary-foreground mt-4 rounded-full bg-cyan-200 px-5 font-bold hover:bg-cyan-100"
-        >
-          Sign in
-        </Button>
-      </div>
-    )
-  }
-
   if (!isClient) {
     return <CommentsLoading />
   }
@@ -177,33 +154,51 @@ export function ProjectComments({ projectId, isAuthenticated, className }: Proje
         className,
       )}
     >
-      <div className="mb-4">
-        <p className="text-foreground text-sm font-semibold">Discussion</p>
-        <p className="text-muted-foreground mt-1 text-xs">
-          Ask a question, leave feedback, or share what you want to see next.
-        </p>
-      </div>
+      {isAuthenticated ? (
+        <>
+          <div className="mb-4">
+            <p className="text-foreground text-sm font-semibold">Discussion</p>
+            <p className="text-muted-foreground mt-1 text-xs">
+              Ask a question, leave feedback, or share what you want to see next.
+            </p>
+          </div>
 
-      <div className="space-y-3">
-        <Textarea
-          value={commentText}
-          onChange={(event) => setCommentText(event.target.value)}
-          placeholder="Leave a comment"
-          maxLength={1500}
-          className="bg-background min-h-24 resize-y"
-        />
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-muted-foreground text-xs">{trimmedComment.length}/1500</p>
+          <div className="space-y-3">
+            <Textarea
+              value={commentText}
+              onChange={(event) => setCommentText(event.target.value)}
+              placeholder="Leave a comment"
+              maxLength={1500}
+              className="bg-background min-h-24 resize-y"
+            />
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-muted-foreground text-xs">{trimmedComment.length}/1500</p>
+              <Button
+                type="button"
+                onClick={submitComment}
+                disabled={!trimmedComment || isSubmitting}
+                className="text-primary-foreground rounded-full bg-cyan-200 px-5 font-bold hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSubmitting ? "Posting..." : "Post comment"}
+              </Button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="mb-5 text-center">
+          <p className="text-foreground text-sm font-semibold">Read the discussion below.</p>
+          <p className="text-muted-foreground mt-1 text-xs">
+            Sign in only when you want to leave a comment or reply.
+          </p>
           <Button
             type="button"
-            onClick={submitComment}
-            disabled={!trimmedComment || isSubmitting}
-            className="text-primary-foreground rounded-full bg-cyan-200 px-5 font-bold hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
+            onClick={signIn}
+            className="text-primary-foreground mt-4 rounded-full bg-cyan-200 px-5 font-bold hover:bg-cyan-100"
           >
-            {isSubmitting ? "Posting..." : "Post comment"}
+            Sign in to comment
           </Button>
         </div>
-      </div>
+      )}
 
       {errorMessage ? (
         <p className="text-destructive mt-4 text-sm font-medium">{errorMessage}</p>
