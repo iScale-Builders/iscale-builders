@@ -111,58 +111,60 @@ export function ExploreHeroCard({
 
       {/* overlaid title + description */}
       <div className="absolute right-0 bottom-0 left-0 flex flex-col gap-3 p-6 sm:p-8">
-        <div className="max-w-3xl rounded-xl bg-black/55 p-4 shadow-2xl backdrop-blur-sm sm:p-5">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
-              <RiFireLine className="h-3 w-3" />
-              Top tool
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
+            <RiFireLine className="h-3 w-3" />
+            Top tool
+          </span>
+          <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
+            {toolStatusLabel(launchStatus)}
+          </span>
+          {category && (
+            <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-medium text-white/90 backdrop-blur">
+              {category}
             </span>
-            <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
-              {toolStatusLabel(launchStatus)}
-            </span>
-            {category && (
-              <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-medium text-white/90 backdrop-blur">
-                {category}
-              </span>
-            )}
-          </div>
-          <h2 className="font-heading mt-3 text-2xl font-black tracking-tight text-white sm:text-4xl">
+          )}
+        </div>
+        <h2 className="font-heading max-w-3xl text-2xl font-black tracking-tight text-white sm:text-4xl">
+          <span className="bg-black/60 box-decoration-clone [box-decoration-break:clone] px-2 py-0.5 leading-[1.25] shadow-black/30">
             {name}
-          </h2>
-          <p className="mt-2 line-clamp-2 max-w-2xl text-sm text-white/85 sm:text-base">
+          </span>
+        </h2>
+        <p className="line-clamp-2 max-w-2xl text-sm leading-7 text-white/90 sm:text-base">
+          <span className="bg-black/60 box-decoration-clone [box-decoration-break:clone] px-1.5 py-0.5">
             {stripHtml(description)}
-          </p>
-          <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex min-w-0 flex-wrap items-center gap-2 text-xs font-semibold text-white/90 sm:text-sm">
-              <div className="flex min-w-0 items-center gap-2">
-                {creatorImage ? (
-                  <img
-                    src={creatorImage}
-                    alt={creatorName ?? "Maker"}
-                    className="h-7 w-7 flex-shrink-0 rounded-full border border-white/25 object-cover"
-                  />
-                ) : (
-                  <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 text-[11px] font-black text-white">
-                    {(creatorName ?? "?").charAt(0)}
-                  </div>
-                )}
-                <span className="min-w-0 truncate">{creatorName ?? "Unknown maker"}</span>
-              </div>
-              <span className="hidden h-1 w-1 rounded-full bg-white/50 sm:inline-flex" />
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-1 backdrop-blur">
-                <RiThumbUpLine className="h-3.5 w-3.5" />
-                {upvoteCount}
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-1 backdrop-blur">
-                <RiChat3Line className="h-3.5 w-3.5" />
-                {commentCount}
-              </span>
+          </span>
+        </p>
+        <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 flex-wrap items-center gap-2 text-xs font-semibold text-white/90 sm:text-sm">
+            <div className="flex min-w-0 items-center gap-2">
+              {creatorImage ? (
+                <img
+                  src={creatorImage}
+                  alt={creatorName ?? "Maker"}
+                  className="h-7 w-7 flex-shrink-0 rounded-full border border-white/25 object-cover"
+                />
+              ) : (
+                <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 text-[11px] font-black text-white">
+                  {(creatorName ?? "?").charAt(0)}
+                </div>
+              )}
+              <span className="min-w-0 truncate">{creatorName ?? "Unknown maker"}</span>
             </div>
-            <span className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-white">
-              View tool
-              <RiArrowRightLine className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            <span className="hidden h-1 w-1 rounded-full bg-white/50 sm:inline-flex" />
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-1 backdrop-blur">
+              <RiThumbUpLine className="h-3.5 w-3.5" />
+              {upvoteCount}
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-1 backdrop-blur">
+              <RiChat3Line className="h-3.5 w-3.5" />
+              {commentCount}
             </span>
           </div>
+          <span className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-white">
+            View tool
+            <RiArrowRightLine className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </span>
         </div>
       </div>
     </article>
