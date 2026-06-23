@@ -211,7 +211,7 @@ export function ExploreView({ projects, isAuthenticated = false }: ExploreViewPr
       {grid.length > 0 && (
         <section>
           <h2 className="font-heading text-foreground mb-4 text-xl font-black">All tools</h2>
-          <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
             {grid.map((p) => (
               <ExploreGridCard
                 key={p.id}

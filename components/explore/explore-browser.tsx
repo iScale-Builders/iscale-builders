@@ -98,7 +98,7 @@ export function ExploreBrowser({ projects, isAuthenticated = false }: ExploreBro
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((p) => (
             <ExploreGridCard
               key={p.id}
