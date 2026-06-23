@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest an improvement for iScaleBuilders.
+title: "[Feature]: "
+labels: ["enhancement", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please open an issue before starting large UI, schema, auth, licensing, or deployment changes.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or maintainer problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should change?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Public UI
+        - Submissions
+        - Search / discovery
+        - Comments
+        - Admin
+        - Documentation
+        - Infrastructure
+        - Other
+    validations:
+      required: true
