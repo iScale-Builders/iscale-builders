@@ -28,7 +28,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/reviews",
     "/how-we-review",
     "/winners",
-    "/pricing",
     "/sponsors",
     "/legal",
   ].map((route) => ({
@@ -38,28 +37,46 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === "" ? 1 : 0.7,
   }))
 
-  const [projects, blogArticles, reviewArticles, categories] = await Promise.all([
-    db
-      .select({
-        slug: project.slug,
-        updatedAt: project.updatedAt,
-        productImage: project.productImage,
-        coverImageUrl: project.coverImageUrl,
-        logoUrl: project.logoUrl,
-      })
-      .from(project),
-    db
-      .select({
-        slug: blogArticle.slug,
-        updatedAt: blogArticle.updatedAt,
-        image: blogArticle.image,
-      })
-      .from(blogArticle),
-    db
-      .select({ slug: seoArticle.slug, updatedAt: seoArticle.updatedAt, image: seoArticle.image })
-      .from(seoArticle),
-    db.select({ name: category.name, updatedAt: category.updatedAt }).from(category),
-  ])
+  let projects: {
+    slug: string
+    updatedAt: Date
+    productImage: string | null
+    coverImageUrl: string | null
+    logoUrl: string
+  }[] = []
+  let blogArticles: { slug: string; updatedAt: Date; image: string | null }[] = []
+  let reviewArticles: { slug: string; updatedAt: Date; image: string | null }[] = []
+  let categories: { name: string; updatedAt: Date }[] = []
+
+  try {
+    ;[projects, blogArticles, reviewArticles, categories] = await Promise.all([
+      db
+        .select({
+          slug: project.slug,
+          updatedAt: project.updatedAt,
+          productImage: project.productImage,
+          coverImageUrl: project.coverImageUrl,
+          logoUrl: project.logoUrl,
+        })
+        .from(project),
+      db
+        .select({
+          slug: blogArticle.slug,
+          updatedAt: blogArticle.updatedAt,
+          image: blogArticle.image,
+        })
+        .from(blogArticle),
+      db
+        .select({ slug: seoArticle.slug, updatedAt: seoArticle.updatedAt, image: seoArticle.image })
+        .from(seoArticle),
+      db.select({ name: category.name, updatedAt: category.updatedAt }).from(category),
+    ])
+  } catch {
+    projects = []
+    blogArticles = []
+    reviewArticles = []
+    categories = []
+  }
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((item) => ({
     url: `${siteUrl}/projects/${item.slug}`,

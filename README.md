@@ -37,8 +37,14 @@ npm run db:push
 npm run dev
 ```
 
-For local development, set `NEXT_PUBLIC_URL` and `BETTER_AUTH_URL` to your local
-URL in `.env`.
+For local development, set `NEXT_PUBLIC_URL` and `NEXT_PUBLIC_APP_URL` to your
+local URL in `.env`. Clerk, Postgres, and Redis are required for authenticated
+submissions, voting, comments, and admin workflows.
+
+The public build is designed to compile without a local database connection.
+When database env is missing, static category, alternative, comparison, and
+sitemap lists fall back to empty generated lists instead of using mock product
+data.
 
 ## Verification
 
@@ -57,7 +63,6 @@ node node_modules/typescript/bin/tsc --noEmit
 - PostgreSQL
 - Redis
 - Clerk
-- Stripe
 - Resend
 
 ## Deployment

@@ -52,8 +52,12 @@ async function getCurrentUserId() {
 
 // Get all categories
 export async function getAllCategories() {
-  const categories = await db.select().from(categoryTable).orderBy(categoryTable.name)
-  return categories
+  try {
+    const categories = await db.select().from(categoryTable).orderBy(categoryTable.name)
+    return categories
+  } catch {
+    return []
+  }
 }
 
 // Get top categories based on project count
@@ -462,7 +466,12 @@ export async function getCategoryBySlug(slug: string) {
 // never generate the full O(n^2) pair space. Pairs are alphabetically ordered
 // (canonical) and de-duplicated across categories.
 export async function getComparePairs(topPerCategory = 5, maxPairs = 300) {
-  const categories = await db.select({ id: categoryTable.id }).from(categoryTable)
+  let categories: { id: string }[] = []
+  try {
+    categories = await db.select({ id: categoryTable.id }).from(categoryTable)
+  } catch {
+    return []
+  }
   const seen = new Set<string>()
   const pairs: string[] = []
 
@@ -489,15 +498,19 @@ export async function getComparePairs(topPerCategory = 5, maxPairs = 300) {
 
 // Lightweight slug list for generateStaticParams on programmatic project pages.
 export async function getAllProjectSlugs() {
-  const rows = await db
-    .select({ slug: projectTable.slug })
-    .from(projectTable)
-    .where(
-      or(
-        eq(projectTable.launchStatus, "scheduled"),
-        eq(projectTable.launchStatus, "ongoing"),
-        eq(projectTable.launchStatus, "launched"),
-      ),
-    )
-  return rows.map((r) => r.slug)
+  try {
+    const rows = await db
+      .select({ slug: projectTable.slug })
+      .from(projectTable)
+      .where(
+        or(
+          eq(projectTable.launchStatus, "scheduled"),
+          eq(projectTable.launchStatus, "ongoing"),
+          eq(projectTable.launchStatus, "launched"),
+        ),
+      )
+    return rows.map((r) => r.slug)
+  } catch {
+    return []
+  }
 }

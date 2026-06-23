@@ -193,8 +193,7 @@ export default async function Nav() {
                           <span>Community</span>
                         </Link>
                       </SheetClose>
-                      {/* DECISION 4: payments OFF — /pricing sells paid
-                            Stripe launches, so the mobile link is hidden. */}
+                      {/* Payments are off, so paid launch links stay hidden. */}
                       {/* Sponsors tab hidden for now (2026-06-17) — bringing it
                             back later. Page + components kept; only nav entry hidden. */}
                       {/* <SheetClose asChild>

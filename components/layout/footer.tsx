@@ -11,8 +11,6 @@ const discoverLinks = [
 ]
 
 const resourcesLinks = [
-  // Pricing hidden until we need the public pricing surface.
-  // { title: "Pricing", href: "/pricing" },
   // Sponsors hidden for now (2026-06-17) — page kept, bringing it back later.
   // { title: "Sponsors", href: "/sponsors" },
   { title: "Blog", href: "/blog" },
