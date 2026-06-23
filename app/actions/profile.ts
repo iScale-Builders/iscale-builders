@@ -20,6 +20,7 @@ export interface MakerProject {
   logoUrl: string
   coverImageUrl: string | null
   productImage: string | null
+  galleryImages: string[] | null
   launchStatus: string
   upvoteCount: number
   commentCount: number
@@ -72,6 +73,7 @@ export async function getMakerProfile(userId: string): Promise<MakerProfile | nu
       logoUrl: projectTable.logoUrl,
       coverImageUrl: projectTable.coverImageUrl,
       productImage: projectTable.productImage,
+      galleryImages: projectTable.galleryImages,
       launchStatus: projectTable.launchStatus,
       createdAt: projectTable.createdAt,
       upvoteCount: sql<number>`cast(count(distinct ${upvote.id}) as int)`.mapWith(Number),
@@ -122,6 +124,7 @@ export async function getMakerProfile(userId: string): Promise<MakerProfile | nu
     logoUrl: row.logoUrl,
     coverImageUrl: row.coverImageUrl,
     productImage: row.productImage,
+    galleryImages: row.galleryImages,
     launchStatus: row.launchStatus,
     upvoteCount: row.upvoteCount,
     commentCount: row.commentCount,

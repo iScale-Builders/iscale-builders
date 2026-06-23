@@ -113,6 +113,7 @@ export const project = pgTable(
     logoUrl: text("logo_url").notNull(),
     coverImageUrl: text("cover_image_url"),
     productImage: text("product_image"),
+    galleryImages: text("gallery_images").array(),
     githubUrl: text("github_url"),
     twitterUrl: text("twitter_url"),
     techStack: text("tech_stack").array(), // Array des technologies

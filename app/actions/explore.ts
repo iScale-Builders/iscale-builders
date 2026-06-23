@@ -26,6 +26,7 @@ export interface ExploreProject {
   logoUrl: string
   coverImageUrl: string | null
   productImage: string | null
+  galleryImages: string[] | null
   websiteUrl: string
   launchStatus: string
   launchType: string | null
@@ -57,6 +58,7 @@ export async function getExploreProjects(limit = 60): Promise<ExploreProject[]> 
       logoUrl: projectTable.logoUrl,
       coverImageUrl: projectTable.coverImageUrl,
       productImage: projectTable.productImage,
+      galleryImages: projectTable.galleryImages,
       websiteUrl: projectTable.websiteUrl,
       launchStatus: projectTable.launchStatus,
       launchType: projectTable.launchType,
@@ -117,6 +119,7 @@ export async function getExploreProjects(limit = 60): Promise<ExploreProject[]> 
     logoUrl: row.logoUrl,
     coverImageUrl: row.coverImageUrl,
     productImage: row.productImage,
+    galleryImages: row.galleryImages,
     websiteUrl: row.websiteUrl,
     launchStatus: row.launchStatus,
     launchType: row.launchType,

@@ -159,6 +159,7 @@ async function seed() {
     logoUrl: app.logoUrl,
     coverImageUrl: app.coverImage ?? app.productImage,
     productImage: app.productImage,
+    galleryImages: app.galleryImages ?? null,
     githubUrl: app.githubUrl,
     twitterUrl: null,
     techStack: app.techStack,
