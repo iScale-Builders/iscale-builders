@@ -11,17 +11,19 @@ import {
   upvote,
   user,
 } from "@/drizzle/db/schema"
-import { auth } from "@clerk/nextjs/server"
 import { and, eq, ne, sql } from "drizzle-orm"
+
+import { getSyncedCurrentUserId } from "@/lib/ensure-user"
 
 // Returns the current Clerk userId (or null).
 async function getCurrentUserId() {
-  const { userId } = await auth()
-  return userId ?? null
+  return getSyncedCurrentUserId()
 }
 
 // Get project by slug
 export async function getProjectBySlug(slug: string) {
+  await getSyncedCurrentUserId()
+
   // Get project details - Exclure les projets avec le statut payment_pending
   const [projectData] = await db
     .select()

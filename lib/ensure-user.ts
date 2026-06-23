@@ -1,6 +1,6 @@
 import { db } from "@/drizzle/db"
 import { user as userTable } from "@/drizzle/db/schema"
-import { currentUser } from "@clerk/nextjs/server"
+import { auth, currentUser } from "@clerk/nextjs/server"
 import { eq } from "drizzle-orm"
 
 export interface LocalUser {
@@ -80,6 +80,23 @@ export async function ensureLocalUser(): Promise<LocalUser | null> {
   })
 
   return { id, name, email, image, role: null }
+}
+
+/**
+ * Best-effort sync for read paths that need the current user id and fresh local
+ * profile fields before rendering public UI, such as listing cards.
+ */
+export async function getSyncedCurrentUserId(): Promise<string | null> {
+  const { userId } = await auth()
+  if (!userId) return null
+
+  try {
+    const localUser = await ensureLocalUser()
+    return localUser?.id ?? userId
+  } catch (error) {
+    console.error("Failed to sync current local user:", error)
+    return userId
+  }
 }
 
 /**

@@ -10,13 +10,9 @@ import {
   upvote,
   user as userTable,
 } from "@/drizzle/db/schema"
-import { auth } from "@clerk/nextjs/server"
 import { and, desc, eq, inArray, ne, sql } from "drizzle-orm"
 
-async function getCurrentUserId() {
-  const { userId } = await auth()
-  return userId ?? null
-}
+import { getSyncedCurrentUserId } from "@/lib/ensure-user"
 
 export interface ExploreProject {
   id: string
@@ -47,7 +43,7 @@ export interface ExploreProject {
  * Used by the magazine-style /explore browse experience.
  */
 export async function getExploreProjects(limit = 60): Promise<ExploreProject[]> {
-  const userId = await getCurrentUserId()
+  const userId = await getSyncedCurrentUserId()
 
   const rows = await db
     .select({
