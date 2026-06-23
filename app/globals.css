@@ -1,0 +1,1461 @@
+@import "tailwindcss";
+@import "@fuma-comment/react/preset.css";
+
+/* Path du package relatif au fichier CSS */
+@source '../node_modules/@fuma-comment/react/dist/**/*.js';
+
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+/* Styles spécifiques pour Fuma Comment */
+/* Fix pour les popups de menu qui apparaissent derrière le contenu */
+div[role="menu"],
+div[role="dialog"],
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}
+
+/* S'assurer que le composant principal a un z-index inférieur */
+[data-fuma-comment] {
+  z-index: 10;
+  position: relative;
+}
+[data-fuma-comment-button] button,
+.fuma-comment button,
+.fuma-comment [role="button"] {
+  cursor: pointer !important;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===== LIGHT theme — "Paws & Paths" (warm orange + sky blue on soft light) ===== */
+:root {
+  --radius: 0.75rem;
+  --background: #f9f9ff;
+  --foreground: #151c27;
+  --card: #ffffff;
+  --card-foreground: #151c27;
+  --popover: #ffffff;
+  --popover-foreground: #151c27;
+  --primary: #855300;
+  --primary-foreground: #ffffff;
+  --secondary: #0058be;
+  --secondary-foreground: #ffffff;
+  --muted: #f0f3ff;
+  --muted-foreground: #534434;
+  --accent: #e7eefe;
+  --accent-foreground: #151c27;
+  --destructive: #ba1a1a;
+  --destructive-foreground: #ffffff;
+  --border: #d8c3ad;
+  --input: #d8c3ad;
+  --ring: #855300;
+  --chart-1: #855300;
+  --chart-2: #0058be;
+  --chart-3: #00658b;
+  --chart-4: #f59e0b;
+  --chart-5: #2170e4;
+  --sidebar: #f0f3ff;
+  --sidebar-foreground: #151c27;
+  --sidebar-primary: #855300;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e7eefe;
+  --sidebar-accent-foreground: #151c27;
+  --sidebar-border: #d8c3ad;
+  --sidebar-ring: #855300;
+}
+
+/* ===== DARK theme — "Dark Orbit / Totality" (gold + cyan on obsidian) ===== */
+.dark {
+  color-scheme: dark;
+  --background: #121318;
+  --foreground: #e3e1e9;
+  --card: #1a1b21;
+  --card-foreground: #e3e1e9;
+  --popover: #1e1f25;
+  --popover-foreground: #e3e1e9;
+  --primary: #ffd700;
+  --primary-foreground: #3a3000;
+  --secondary: #292a2f;
+  --secondary-foreground: #e3e1e9;
+  --muted: #1e1f25;
+  --muted-foreground: #d0c6ab;
+  --accent: #292a2f;
+  --accent-foreground: #fff6df;
+  --destructive: #93000a;
+  --destructive-foreground: #ffdad6;
+  --border: #4d4732;
+  --input: #34343a;
+  --ring: #00e3fd;
+  --chart-1: #ffd700;
+  --chart-2: #00e3fd;
+  --chart-3: #d6bcf4;
+  --chart-4: #e9c400;
+  --chart-5: #00daf3;
+  --sidebar: #0d0e13;
+  --sidebar-foreground: #e3e1e9;
+  --sidebar-primary: #ffd700;
+  --sidebar-primary-foreground: #3a3000;
+  --sidebar-accent: #292a2f;
+  --sidebar-accent-foreground: #fff6df;
+  --sidebar-border: #4d4732;
+  --sidebar-ring: #00e3fd;
+}
+
+/* Tailwind v4 ramp remap: legacy cyan/fuchsia/emerald utilities across the app
+   now resolve to the warm Sun spectrum (gold / ember / sand). No per-file edits
+   needed for accent recolor. NO blue, purple, or green anywhere. */
+@theme {
+  --color-cyan-50: #fafafa;
+  --color-cyan-100: #f5f5f5;
+  --color-cyan-200: #e5e5e5;
+  --color-cyan-300: #d4d4d4;
+  --color-cyan-400: #a3a3a3;
+  --color-cyan-500: #737373;
+  --color-cyan-600: #525252;
+  --color-cyan-700: #404040;
+  --color-cyan-800: #262626;
+  --color-cyan-900: #171717;
+  --color-cyan-950: #0a0a0a;
+
+  --color-fuchsia-50: #fafafa;
+  --color-fuchsia-100: #f5f5f5;
+  --color-fuchsia-200: #e5e5e5;
+  --color-fuchsia-300: #d4d4d4;
+  --color-fuchsia-400: #a3a3a3;
+  --color-fuchsia-500: #737373;
+  --color-fuchsia-600: #525252;
+  --color-fuchsia-700: #404040;
+  --color-fuchsia-800: #262626;
+  --color-fuchsia-900: #171717;
+  --color-fuchsia-950: #0a0a0a;
+
+  --color-emerald-50: #fafafa;
+  --color-emerald-100: #f5f5f5;
+  --color-emerald-200: #e5e5e5;
+  --color-emerald-300: #d4d4d4;
+  --color-emerald-400: #a3a3a3;
+  --color-emerald-500: #737373;
+  --color-emerald-600: #525252;
+  --color-emerald-700: #404040;
+  --color-emerald-800: #262626;
+  --color-emerald-900: #171717;
+  --color-emerald-950: #0a0a0a;
+
+  /* teal occasionally appears as a cousin of cyan — fold it into gold too */
+  --color-teal-50: #fafafa;
+  --color-teal-100: #f5f5f5;
+  --color-teal-200: #e5e5e5;
+  --color-teal-300: #d4d4d4;
+  --color-teal-400: #a3a3a3;
+  --color-teal-500: #737373;
+  --color-teal-600: #525252;
+  --color-teal-700: #404040;
+
+  /* Cool "slop" families (blue / sky / indigo / violet / purple) → warm Sun.
+     blue & sky → gold; indigo/violet/purple → ember. Keeps NO-blue / NO-purple. */
+  --color-blue-50: #fafafa;
+  --color-blue-100: #f5f5f5;
+  --color-blue-200: #e5e5e5;
+  --color-blue-300: #d4d4d4;
+  --color-blue-400: #a3a3a3;
+  --color-blue-500: #737373;
+  --color-blue-600: #525252;
+  --color-blue-700: #404040;
+  --color-blue-800: #262626;
+  --color-blue-900: #171717;
+  --color-blue-950: #0a0a0a;
+
+  --color-sky-50: #fafafa;
+  --color-sky-100: #f5f5f5;
+  --color-sky-200: #e5e5e5;
+  --color-sky-300: #d4d4d4;
+  --color-sky-400: #a3a3a3;
+  --color-sky-500: #737373;
+  --color-sky-600: #525252;
+  --color-sky-700: #404040;
+
+  --color-indigo-300: #d4d4d4;
+  --color-indigo-400: #a3a3a3;
+  --color-indigo-500: #737373;
+  --color-indigo-600: #525252;
+  --color-indigo-700: #404040;
+
+  --color-violet-200: #e5e5e5;
+  --color-violet-300: #d4d4d4;
+  --color-violet-400: #a3a3a3;
+  --color-violet-500: #737373;
+  --color-violet-600: #525252;
+  --color-violet-700: #404040;
+
+  --color-purple-200: #e5e5e5;
+  --color-purple-300: #d4d4d4;
+  --color-purple-400: #a3a3a3;
+  --color-purple-500: #737373;
+  --color-purple-600: #525252;
+  --color-purple-700: #404040;
+
+  /* Warm families (amber / orange / yellow) → same greyscale ramp so nothing
+     stays saturated. (red stays functional via --destructive.) */
+  --color-amber-50: #fafafa;
+  --color-amber-100: #f5f5f5;
+  --color-amber-200: #e5e5e5;
+  --color-amber-300: #d4d4d4;
+  --color-amber-400: #a3a3a3;
+  --color-amber-500: #737373;
+  --color-amber-600: #525252;
+  --color-amber-700: #404040;
+  --color-amber-800: #262626;
+  --color-orange-300: #d4d4d4;
+  --color-orange-400: #a3a3a3;
+  --color-orange-500: #737373;
+  --color-orange-600: #525252;
+  --color-orange-700: #404040;
+  --color-yellow-200: #e5e5e5;
+  --color-yellow-300: #d4d4d4;
+  --color-yellow-400: #a3a3a3;
+  --color-yellow-500: #737373;
+  --color-yellow-600: #525252;
+  --color-yellow-700: #404040;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100vh;
+  }
+
+  /* Background washes removed — keep it simple (flat bg-background). */
+}
+
+.foundry-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+/* .foundry-shell background image removed — flat, simple. */
+
+.foundry-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgb(10 10 10 / 0.24) 0%, rgb(10 10 10 / 0.58) 100%);
+}
+
+.foundry-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  padding-block: 2rem 4rem;
+}
+
+@media (min-width: 640px) {
+  .foundry-container {
+    padding-inline: 1.5rem;
+    padding-block-start: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .foundry-container {
+    padding-inline: 2rem;
+  }
+}
+
+.foundry-panel {
+  border: 1px solid rgb(212 212 212 / 0.16);
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.078), rgb(255 255 255 / 0.032));
+  box-shadow:
+    0 24px 80px rgb(0 0 0 / 0.28),
+    inset 0 0 64px rgb(255 255 255 / 0.035);
+  backdrop-filter: blur(22px);
+}
+
+.foundry-card {
+  border: 1px solid rgb(212 212 212 / 0.14);
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.028));
+  box-shadow:
+    0 18px 54px rgb(0 0 0 / 0.22),
+    inset 0 0 40px rgb(255 255 255 / 0.025);
+  backdrop-filter: blur(18px);
+}
+
+.foundry-card:hover {
+  border-color: rgb(212 212 212 / 0.34);
+  box-shadow:
+    0 24px 70px rgb(212 212 212 / 0.12),
+    inset 0 0 48px rgb(255 255 255 / 0.045);
+}
+
+.foundry-kicker {
+  color: rgb(229 229 229 / 0.78);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.builder-command-strip {
+  box-shadow:
+    0 18px 54px rgb(0 0 0 / 0.24),
+    inset 0 0 36px rgb(212 212 212 / 0.035);
+}
+
+.builder-command-cell {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  border: 1px solid rgb(212 212 212 / 0.12);
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.072), rgb(255 255 255 / 0.025));
+  padding: 0.55rem 0.65rem;
+  color: rgb(245 245 245 / 0.78);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.builder-command-cell:hover {
+  transform: translateY(-1px);
+  border-color: rgb(212 212 212 / 0.32);
+  background: rgb(212 212 212 / 0.08);
+}
+
+.builder-command-cell strong {
+  color: rgb(229 229 229 / 0.94);
+  font-size: 0.62rem;
+}
+
+.builder-led {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: rgb(212 212 212);
+  box-shadow: 0 0 14px rgb(212 212 212 / 0.86);
+  animation: led-pulse 2.4s ease-in-out infinite;
+}
+
+.builder-mini-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 0.7rem;
+  background: rgb(0 0 0 / 0.18);
+  padding: 0.55rem 0.65rem;
+  color: rgb(245 245 245 / 0.72);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.builder-mini-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.builder-mini-row strong {
+  color: rgb(229 229 229);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.builder-stat-tile {
+  min-width: 0;
+  border: 1px solid rgb(255 255 255 / 0.11);
+  border-radius: 0.9rem;
+  background: rgb(0 0 0 / 0.18);
+  padding: 0.65rem;
+}
+
+.builder-stat-tile span {
+  display: block;
+  overflow: hidden;
+  color: rgb(245 245 245 / 0.58);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1rem;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.builder-stat-tile strong {
+  display: block;
+  margin-top: 0.15rem;
+  color: white;
+  font-size: 1.12rem;
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3rem;
+}
+
+.builder-stat-tile[data-tone="cyan"] {
+  box-shadow: inset 0 0 24px rgb(212 212 212 / 0.08);
+}
+
+.builder-stat-tile[data-tone="fuchsia"] {
+  box-shadow: inset 0 0 24px rgb(163 163 163 / 0.08);
+}
+
+.builder-stat-tile[data-tone="emerald"] {
+  box-shadow: inset 0 0 24px rgb(212 212 212 / 0.08);
+}
+
+.builder-stat-tile[data-tone="amber"] {
+  box-shadow: inset 0 0 24px rgb(212 212 212 / 0.08);
+}
+
+.neural-rain {
+  background-image:
+    linear-gradient(180deg, transparent 0%, rgb(212 212 212 / 0.18) 48%, transparent 100%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 34px,
+      rgb(212 212 212 / 0.08) 34px 35px,
+      transparent 35px 96px
+    );
+  mask-image: linear-gradient(180deg, black 0%, transparent 80%);
+  transform: skewX(-10deg) translateX(-12%);
+  animation: neural-rain 14s linear infinite;
+}
+
+.neural-topography {
+  background:
+    radial-gradient(
+      ellipse at 70% 34%,
+      transparent 0 22%,
+      rgb(212 212 212 / 0.08) 22.4% 22.8%,
+      transparent 23.2% 30%,
+      rgb(163 163 163 / 0.07) 30.4% 30.8%,
+      transparent 31.2%
+    ),
+    radial-gradient(
+      ellipse at 28% 72%,
+      transparent 0 18%,
+      rgb(212 212 212 / 0.08) 18.3% 18.7%,
+      transparent 19.1% 27%,
+      rgb(212 212 212 / 0.07) 27.4% 27.8%,
+      transparent 28.2%
+    );
+  animation: topology-breathe 9s ease-in-out infinite;
+}
+
+.neural-cockpit {
+  position: absolute;
+  inset: 1rem 0 0 0;
+  overflow: hidden;
+  border: 1px solid rgb(212 212 212 / 0.18);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 50% 38%, rgb(212 212 212 / 0.16), transparent 28%),
+    radial-gradient(circle at 76% 16%, rgb(163 163 163 / 0.14), transparent 30%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.078), rgb(255 255 255 / 0.028));
+  box-shadow:
+    0 0 90px rgb(212 212 212 / 0.16),
+    0 34px 120px rgb(0 0 0 / 0.34),
+    inset 0 0 90px rgb(255 255 255 / 0.045);
+  padding: 1.1rem;
+  backdrop-filter: blur(26px);
+  animation: cockpit-float 8s ease-in-out infinite;
+}
+
+.neural-cockpit::before,
+.neural-cockpit::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.neural-cockpit::before {
+  background:
+    linear-gradient(90deg, transparent, rgb(212 212 212 / 0.15), transparent),
+    repeating-linear-gradient(180deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 10px);
+  opacity: 0.38;
+  transform: translateY(-70%);
+  animation: cockpit-scan 6.5s ease-in-out infinite;
+}
+
+.neural-cockpit::after {
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.04);
+}
+
+.neural-cockpit__matrix {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(212 212 212 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(212 212 212 / 0.045) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.58;
+  transform: perspective(520px) rotateX(62deg) translateY(13%);
+  transform-origin: bottom;
+}
+
+.neural-cockpit__header,
+.neural-cockpit__body,
+.neural-log-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.neural-cockpit__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.neural-cockpit__header p,
+.neural-cockpit__header h2 {
+  margin: 0;
+}
+
+.neural-cockpit__header p {
+  color: rgb(229 229 229 / 0.66);
+  font-size: 0.66rem;
+  font-weight: 950;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.neural-cockpit__header h2 {
+  margin-top: 0.25rem;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 950;
+}
+
+.neural-cockpit__header span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgb(212 212 212 / 0.22);
+  border-radius: 999px;
+  background: rgb(212 212 212 / 0.11);
+  padding: 0.35rem 0.65rem;
+  color: rgb(229 229 229);
+  font-size: 0.68rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  box-shadow: 0 0 24px rgb(212 212 212 / 0.14);
+}
+
+.neural-cockpit__body {
+  display: grid;
+  grid-template-columns: minmax(19rem, 0.95fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.neural-orbital {
+  position: relative;
+  display: grid;
+  min-height: 25rem;
+  place-items: center;
+}
+
+.neural-orbital__ring,
+.neural-orbital__beam,
+.neural-orbital__node {
+  position: absolute;
+  pointer-events: none;
+}
+
+.neural-orbital__ring {
+  border: 1px solid rgb(212 212 212 / 0.22);
+  border-radius: 999px;
+  box-shadow:
+    0 0 44px rgb(212 212 212 / 0.12),
+    inset 0 0 34px rgb(255 255 255 / 0.025);
+}
+
+.neural-orbital__ring--one {
+  width: 23rem;
+  height: 23rem;
+  animation: neural-spin 24s linear infinite;
+}
+
+.neural-orbital__ring--two {
+  width: 18rem;
+  height: 18rem;
+  border-color: rgb(163 163 163 / 0.25);
+  transform: rotate(58deg) scaleY(0.64);
+  animation: neural-spin-tilt 18s linear infinite reverse;
+}
+
+.neural-orbital__ring--three {
+  width: 12rem;
+  height: 12rem;
+  border-color: rgb(212 212 212 / 0.23);
+  transform: rotate(-24deg) scaleY(0.72);
+  animation: neural-spin-tilt-small 12s linear infinite;
+}
+
+.neural-orbital__beam {
+  width: 21rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(212 212 212 / 0.55), transparent);
+  box-shadow: 0 0 20px rgb(212 212 212 / 0.28);
+}
+
+.neural-orbital__beam--a {
+  transform: rotate(18deg);
+}
+
+.neural-orbital__beam--b {
+  transform: rotate(122deg);
+  background: linear-gradient(90deg, transparent, rgb(163 163 163 / 0.45), transparent);
+}
+
+.neural-orbital__node {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: rgb(212 212 212);
+  box-shadow: 0 0 22px rgb(212 212 212 / 0.85);
+  animation: node-pulse 2.8s ease-in-out infinite;
+}
+
+.neural-orbital__node--a {
+  top: 16%;
+  right: 24%;
+}
+
+.neural-orbital__node--b {
+  bottom: 20%;
+  left: 18%;
+  background: rgb(163 163 163);
+  box-shadow: 0 0 22px rgb(163 163 163 / 0.78);
+  animation-delay: -0.9s;
+}
+
+.neural-orbital__node--c {
+  right: 16%;
+  bottom: 26%;
+  background: rgb(212 212 212);
+  box-shadow: 0 0 22px rgb(212 212 212 / 0.72);
+  animation-delay: -1.6s;
+}
+
+.neural-orbital__core {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 8.8rem;
+  height: 8.8rem;
+  place-items: center;
+  border: 1px solid rgb(212 212 212 / 0.32);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgb(212 212 212 / 0.24), rgb(10 10 10 / 0.72) 64%), rgb(10 10 10 / 0.5);
+  color: rgb(245 245 245);
+  box-shadow:
+    0 0 60px rgb(212 212 212 / 0.22),
+    inset 0 0 42px rgb(255 255 255 / 0.06);
+}
+
+.neural-orbital__core strong,
+.neural-orbital__core small {
+  line-height: 1;
+}
+
+.neural-orbital__core strong {
+  margin-top: -1rem;
+  font-size: 2rem;
+  font-weight: 950;
+}
+
+.neural-orbital__core small {
+  margin-top: -1.6rem;
+  color: rgb(229 229 229 / 0.62);
+  font-size: 0.62rem;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.neural-console {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.neural-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.neural-stat,
+.neural-signal-row,
+.neural-log-row {
+  border: 1px solid rgb(255 255 255 / 0.105);
+  background: rgb(10 10 10 / 0.46);
+  box-shadow: inset 0 0 28px rgb(255 255 255 / 0.028);
+  backdrop-filter: blur(14px);
+}
+
+.neural-stat {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  border-radius: 1rem;
+  padding: 0.75rem;
+}
+
+.neural-stat svg {
+  color: rgb(229 229 229);
+}
+
+.neural-stat span {
+  color: rgb(245 245 245 / 0.58);
+  font-size: 0.62rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.neural-stat strong {
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+}
+
+.neural-signal-stack {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.neural-signal-row {
+  display: grid;
+  grid-template-columns: minmax(0, 6.8rem) minmax(0, 1fr) 2rem;
+  align-items: center;
+  gap: 0.65rem;
+  border-radius: 0.9rem;
+  padding: 0.58rem 0.68rem;
+}
+
+.neural-signal-row span {
+  overflow: hidden;
+  color: rgb(245 245 245 / 0.68);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.neural-signal-row div {
+  height: 0.36rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.neural-signal-row i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgb(212 212 212), rgb(163 163 163), rgb(212 212 212));
+  box-shadow: 0 0 18px rgb(212 212 212 / 0.34);
+  animation: signal-pulse 4.8s ease-in-out infinite;
+}
+
+.neural-signal-row strong {
+  color: rgb(229 229 229);
+  font-size: 0.7rem;
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+}
+
+.neural-log-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.neural-log-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.85rem;
+  padding: 0.58rem 0.65rem;
+  color: rgb(245 245 245 / 0.72);
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+.neural-log-row svg {
+  color: rgb(212 212 212);
+}
+
+.neural-log-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.neural-log-row strong {
+  color: rgb(229 229 229 / 0.9);
+  font-size: 0.64rem;
+}
+
+.ai-command-ribbon {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.65fr) auto;
+  align-items: center;
+  gap: 1rem;
+  overflow: hidden;
+  border: 1px solid rgb(212 212 212 / 0.18);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 14% 22%, rgb(212 212 212 / 0.18), transparent 28%),
+    radial-gradient(circle at 86% 20%, rgb(163 163 163 / 0.16), transparent 30%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.035));
+  box-shadow:
+    0 28px 90px rgb(0 0 0 / 0.3),
+    0 0 72px rgb(212 212 212 / 0.08),
+    inset 0 0 70px rgb(255 255 255 / 0.045);
+  padding: 1rem;
+  backdrop-filter: blur(24px);
+}
+
+.ai-command-ribbon::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent, rgb(212 212 212 / 0.16), transparent),
+    repeating-linear-gradient(90deg, rgb(212 212 212 / 0.06) 0 1px, transparent 1px 18px);
+  opacity: 0.42;
+  transform: translateX(-58%);
+  animation: ribbon-sweep 7s ease-in-out infinite;
+}
+
+.ai-command-ribbon > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ai-command-ribbon-compact {
+  margin-bottom: 2rem;
+}
+
+.ai-ribbon-orbit {
+  pointer-events: none;
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  width: 13rem;
+  height: 13rem;
+  transform: translateY(-50%);
+  opacity: 0.38;
+}
+
+.ai-ribbon-orbit span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(212 212 212 / 0.28);
+  border-radius: 999px;
+  transform: rotate(var(--orbit-rotate, 0deg)) scale(var(--orbit-scale, 1));
+  animation: orbit-spin 18s linear infinite;
+}
+
+.ai-ribbon-orbit span:nth-child(2) {
+  --orbit-rotate: 56deg;
+  --orbit-scale: 0.72;
+  border-color: rgb(163 163 163 / 0.26);
+  animation-duration: 13s;
+  animation-direction: reverse;
+}
+
+.ai-ribbon-orbit span:nth-child(3) {
+  --orbit-rotate: -28deg;
+  --orbit-scale: 0.46;
+  border-color: rgb(212 212 212 / 0.24);
+  animation-duration: 9s;
+}
+
+.ai-density-meter {
+  overflow: hidden;
+  height: 0.45rem;
+  border: 1px solid rgb(212 212 212 / 0.16);
+  border-radius: 999px;
+  background: rgb(10 10 10 / 0.62);
+  padding: 1px;
+}
+
+.ai-density-meter div {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgb(212 212 212), rgb(163 163 163), rgb(212 212 212));
+  box-shadow: 0 0 22px rgb(212 212 212 / 0.4);
+  animation: density-breathe 4.5s ease-in-out infinite;
+}
+
+.ai-signal-tile {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 0.95rem;
+  background: rgb(10 10 10 / 0.42);
+  padding: 0.7rem;
+  box-shadow: inset 0 0 26px rgb(255 255 255 / 0.03);
+}
+
+.ai-signal-tile span {
+  overflow: hidden;
+  color: rgb(245 245 245 / 0.68);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ai-signal-tile strong {
+  color: white;
+  font-size: 0.74rem;
+  font-weight: 950;
+}
+
+.ai-ribbon-action {
+  display: grid;
+  gap: 0.2rem;
+  justify-items: center;
+  min-width: 6rem;
+  border: 1px solid rgb(212 212 212 / 0.18);
+  border-radius: 1rem;
+  background: rgb(0 0 0 / 0.2);
+  padding: 0.75rem;
+  color: rgb(245 245 245);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ai-tool-card {
+  position: relative;
+}
+
+.ai-tool-card::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgb(212 212 212 / 0.32),
+    transparent 28%,
+    rgb(163 163 163 / 0.24) 72%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.ai-tool-card:hover::before {
+  opacity: 0.72;
+}
+
+.ai-card-scan {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 0%, rgb(212 212 212 / 0.18) 48%, transparent 100%),
+    repeating-linear-gradient(180deg, rgb(255 255 255 / 0.055) 0 1px, transparent 1px 9px);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 220ms ease;
+}
+
+.ai-tool-card:hover .ai-card-scan {
+  opacity: 0.56;
+  animation: card-scan 1.65s ease-in-out;
+}
+
+.ai-card-rail {
+  position: absolute;
+  top: 1rem;
+  right: 0.85rem;
+  bottom: 1rem;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(212 212 212 / 0.72),
+    rgb(163 163 163 / 0.7),
+    transparent
+  );
+  opacity: 0.34;
+  box-shadow: 0 0 16px rgb(212 212 212 / 0.28);
+}
+
+/* Styles personnalisés pour iScaleBuilders */
+.yt-card {
+  @apply bg-card border-border overflow-hidden rounded-lg border transition-all duration-200 hover:shadow-md;
+}
+
+.yt-card:hover {
+  @apply -translate-y-1 transform;
+}
+
+.yt-button {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 rounded-md font-medium;
+}
+
+.yt-tag {
+  @apply bg-secondary text-secondary-foreground inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+}
+
+.yt-upvote {
+  @apply hover:bg-secondary inline-flex items-center gap-1 rounded-md px-2 py-1 text-sm transition-colors;
+}
+
+.yt-upvote.active {
+  @apply text-primary;
+}
+
+@keyframes foundry-drift {
+  0%,
+  100% {
+    transform: scale(1.03) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate3d(-1.2%, -1%, 0);
+  }
+}
+
+@keyframes signal-scan {
+  0% {
+    transform: translateY(-18%);
+    opacity: 0;
+  }
+  12%,
+  74% {
+    opacity: 0.58;
+  }
+  100% {
+    transform: translateY(118%);
+    opacity: 0;
+  }
+}
+
+@keyframes glass-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    filter: saturate(1);
+    opacity: 0.78;
+    transform: scaleX(0.78);
+    transform-origin: left;
+  }
+  50% {
+    filter: saturate(1.45);
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes card-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 18px 48px rgb(0 0 0 / 0.24),
+      inset 0 0 36px rgb(255 255 255 / 0.03);
+  }
+  50% {
+    box-shadow:
+      0 22px 58px rgb(212 212 212 / 0.13),
+      inset 0 0 46px rgb(255 255 255 / 0.07);
+  }
+}
+
+@keyframes led-pulse {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes neural-rain {
+  from {
+    background-position:
+      0 -220px,
+      0 0;
+  }
+  to {
+    background-position:
+      0 220px,
+      160px 0;
+  }
+}
+
+@keyframes topology-breathe {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.84;
+    transform: scale(1.025);
+  }
+}
+
+@keyframes cockpit-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes cockpit-scan {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(-72%);
+  }
+  16%,
+  70% {
+    opacity: 0.38;
+  }
+  100% {
+    transform: translateY(72%);
+  }
+}
+
+@keyframes neural-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes neural-spin-tilt {
+  to {
+    transform: rotate(418deg) scaleY(0.64);
+  }
+}
+
+@keyframes neural-spin-tilt-small {
+  to {
+    transform: rotate(336deg) scaleY(0.72);
+  }
+}
+
+@keyframes node-pulse {
+  0%,
+  100% {
+    opacity: 0.56;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes ribbon-sweep {
+  0%,
+  100% {
+    transform: translateX(-64%);
+    opacity: 0;
+  }
+  18%,
+  72% {
+    opacity: 0.42;
+  }
+  100% {
+    transform: translateX(64%);
+  }
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(calc(var(--orbit-rotate, 0deg) + 360deg)) scale(var(--orbit-scale, 1));
+  }
+}
+
+@keyframes density-breathe {
+  0%,
+  100% {
+    filter: saturate(0.94);
+    opacity: 0.76;
+  }
+  50% {
+    filter: saturate(1.45);
+    opacity: 1;
+  }
+}
+
+@keyframes card-scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes scroll-live {
+  from {
+    opacity: 0.42;
+    transform: translateY(36px) scale(0.985);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.foundry-field {
+  background-image:
+    linear-gradient(rgb(212 212 212 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(212 212 212 / 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, transparent 0%, black 10%, black 86%, transparent 100%);
+}
+
+.scroll-live {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  .scroll-live {
+    animation: scroll-live both cubic-bezier(0.16, 1, 0.3, 1);
+    animation-timeline: view();
+    animation-range: entry 0% cover 34%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-live {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .builder-led {
+    animation: none !important;
+  }
+
+  .ai-command-ribbon::before,
+  .ai-ribbon-orbit span,
+  .ai-density-meter div,
+  .ai-tool-card:hover .ai-card-scan,
+  .neural-rain,
+  .neural-topography,
+  .neural-cockpit,
+  .neural-cockpit::before,
+  .neural-orbital__ring,
+  .neural-orbital__node,
+  .neural-signal-row i {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ai-command-ribbon {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-ribbon-action {
+    grid-template-columns: auto auto auto;
+    justify-content: start;
+    justify-items: start;
+  }
+
+  .neural-cockpit {
+    position: relative;
+    inset: auto;
+    min-height: 36rem;
+  }
+
+  .neural-cockpit__body {
+    grid-template-columns: 1fr;
+  }
+
+  .neural-orbital {
+    min-height: 19rem;
+  }
+
+  .neural-orbital__ring--one {
+    width: 18rem;
+    height: 18rem;
+  }
+
+  .neural-orbital__ring--two {
+    width: 14rem;
+    height: 14rem;
+  }
+
+  .neural-orbital__ring--three {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .neural-orbital__beam {
+    width: 17rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .ai-command-ribbon {
+    border-radius: 1.1rem;
+    padding: 0.85rem;
+  }
+
+  .ai-ribbon-orbit {
+    right: -5rem;
+  }
+
+  .neural-cockpit {
+    min-height: auto;
+    border-radius: 1.35rem;
+    padding: 0.85rem;
+  }
+
+  .neural-cockpit__header,
+  .neural-stat-grid,
+  .neural-log-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .neural-cockpit__header {
+    display: grid;
+  }
+
+  .neural-orbital {
+    min-height: 16rem;
+  }
+
+  .neural-orbital__ring--one {
+    width: 15rem;
+    height: 15rem;
+  }
+
+  .neural-orbital__ring--two {
+    width: 11rem;
+    height: 11rem;
+  }
+
+  .neural-orbital__beam {
+    width: 13.5rem;
+  }
+
+  .neural-orbital__core {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .neural-signal-row {
+    grid-template-columns: minmax(0, 1fr) 4rem 1.8rem;
+  }
+}
