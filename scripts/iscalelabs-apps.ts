@@ -40,8 +40,8 @@ export const iscaleLabsApps: IScaleLabsAppSeed[] = [
     description:
       "PinTwist is the Pinterest research and automation app for print-on-demand sellers: scan Pinterest surfaces, collect pin signals, organize trend data, and turn visual research into product ideas and content direction.",
     websiteUrl: listingUrl("pintwist"),
-    productImage: realAsset("pintwist-screenshot.png"),
-    logoUrl: realAsset("pintwist-logo-icon.png"),
+    productImage: "/images/apps/pintwist-1.webp",
+    logoUrl: "/images/apps/pintwist-3.webp",
     githubUrl: "https://github.com/qminati/pintwist",
     techStack: ["Chrome Extension", "JavaScript", "Local Storage"],
     pricing: "freemium",
