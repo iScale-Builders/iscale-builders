@@ -23,12 +23,19 @@ export default async function Home() {
   const { userId } = await auth()
   const isAuthenticated = !!userId
 
+  const availableToolSlugs = ["pintwist", "iscale-images"]
   const top3 = projects.slice(0, 3)
   const top3Ids = new Set(top3.map((p) => p.id))
-  const discussed = projects
-    .filter((p) => !top3Ids.has(p.id))
-    .sort((a, b) => b.commentCount - a.commentCount)
-    .slice(0, 10)
+  const pinnedAvailableTools = availableToolSlugs
+    .map((slug) => projects.find((p) => p.slug === slug))
+    .filter((p): p is ExploreProject => Boolean(p))
+  const pinnedAvailableToolIds = new Set(pinnedAvailableTools.map((p) => p.id))
+  const discussed = [
+    ...pinnedAvailableTools,
+    ...projects
+      .filter((p) => !top3Ids.has(p.id) && !pinnedAvailableToolIds.has(p.id))
+      .sort((a, b) => b.commentCount - a.commentCount),
+  ].slice(0, 10)
 
   const heroProps = (p: ExploreProject) => ({
     slug: p.slug,
