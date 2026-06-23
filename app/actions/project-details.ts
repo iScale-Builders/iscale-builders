@@ -125,14 +125,6 @@ export async function updateProject(
       }
     }
 
-    // Check if project is in scheduled status
-    if (projectData.launchStatus !== "scheduled") {
-      return {
-        success: false,
-        error: "You can only edit projects that are scheduled for launch",
-      }
-    }
-
     if (!data.name.trim() || !data.websiteUrl.trim() || !data.description.trim()) {
       return { success: false, error: "Name, website URL, and description are required" }
     }

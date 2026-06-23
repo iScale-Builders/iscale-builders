@@ -1,7 +1,7 @@
 "use client"
 
 /* eslint-disable @next/next/no-img-element */
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { RiCloseLine, RiImageAddLine, RiLoader4Line } from "@remixicon/react"
 
@@ -84,6 +84,11 @@ export function ImageUploadInput({
   const inputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | null>(null)
   const [isReading, setIsReading] = useState(false)
+  const [previewFailed, setPreviewFailed] = useState(false)
+
+  useEffect(() => {
+    setPreviewFailed(false)
+  }, [value])
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -163,9 +168,21 @@ export function ImageUploadInput({
       </div>
       <p className="text-muted-foreground text-xs">{helperText}</p>
       {error && <p className="text-destructive text-xs">{error}</p>}
-      {value && (
+      {value && !previewFailed && (
         <div className={`bg-muted relative overflow-hidden rounded-lg border ${previewClassName}`}>
-          <img src={value} alt={`${label} preview`} className="h-full w-full object-cover" />
+          <img
+            src={value}
+            alt={`${label} preview`}
+            className="h-full w-full object-cover"
+            onError={() => setPreviewFailed(true)}
+          />
+        </div>
+      )}
+      {value && previewFailed && (
+        <div
+          className={`bg-muted text-muted-foreground flex items-center justify-center rounded-lg border px-3 text-center text-xs ${previewClassName}`}
+        >
+          Preview unavailable
         </div>
       )}
     </div>
