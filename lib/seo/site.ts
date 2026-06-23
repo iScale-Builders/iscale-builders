@@ -27,9 +27,6 @@ export const DEFAULT_TITLE = `${SITE_NAME} — ${SITE_TAGLINE}`
 /** Public social / authority profiles for Organization `sameAs`. */
 export const SOCIAL_PROFILES: string[] = ["https://github.com/iScale-Builders"]
 
-/** Default Open Graph image (lives in /public). */
-export const DEFAULT_OG_IMAGE = "/og.png"
-
 /** Build an absolute URL from a site-relative path. */
 export function absoluteUrl(path = ""): string {
   if (!path) return SITE_URL

@@ -8,8 +8,6 @@
 iScaleBuilders is a public directory for AI builder tools, workflows, and launch
 experiments. The live site is [iscalebuilders.com](https://iscalebuilders.com).
 
-![iScaleBuilders preview](https://iscalebuilders.com/og.png)
-
 > Built on [Open-Launch](https://open-launch.com) and distributed under the
 > Open-Launch License. iScaleBuilders retains the required visible
 > "Powered by Open-Launch" attribution.
