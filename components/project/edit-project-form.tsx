@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-import { RiCheckLine, RiCloseLine, RiHashtag, RiLoader4Line } from "@remixicon/react"
+import { RiAddLine, RiCheckLine, RiCloseLine, RiHashtag, RiLoader4Line } from "@remixicon/react"
 import { toast } from "sonner"
 
 import { Badge } from "@/components/ui/badge"
@@ -23,12 +23,30 @@ import { getAllCategories } from "@/app/actions/projects"
 
 import { ImageUploadInput } from "./image-upload-input"
 
+const MAX_GALLERY_IMAGES = 10
+
+function normalizeGalleryImages(values: Array<string | null | undefined>) {
+  const seen = new Set<string>()
+
+  return values
+    .map((value) => value?.trim())
+    .filter((value): value is string => Boolean(value))
+    .filter((value) => {
+      if (seen.has(value)) return false
+      seen.add(value)
+      return true
+    })
+    .slice(0, MAX_GALLERY_IMAGES)
+}
+
 interface EditProjectFormProps {
   projectId: string
   initialName: string
   initialWebsiteUrl: string
   initialLogoUrl: string
   initialProductImage: string | null
+  initialCoverImage: string | null
+  initialGalleryImages: string[] | null
   initialDescription: string
   initialCategories: { id: string; name: string }[]
   onUpdate: () => void
@@ -41,6 +59,8 @@ export function EditProjectForm({
   initialWebsiteUrl,
   initialLogoUrl,
   initialProductImage,
+  initialCoverImage,
+  initialGalleryImages,
   initialDescription,
   initialCategories,
   onUpdate,
@@ -49,7 +69,14 @@ export function EditProjectForm({
   const [name, setName] = useState(initialName)
   const [websiteUrl, setWebsiteUrl] = useState(initialWebsiteUrl)
   const [logoUrl, setLogoUrl] = useState<string | null>(initialLogoUrl)
-  const [productImage, setProductImage] = useState<string | null>(initialProductImage)
+  const [galleryImages, setGalleryImages] = useState<Array<string | null>>(() => {
+    const initialImages = normalizeGalleryImages([
+      ...(initialGalleryImages ?? []),
+      initialProductImage,
+      initialCoverImage,
+    ])
+    return initialImages.length > 0 ? initialImages : [null]
+  })
   const [description, setDescription] = useState(initialDescription)
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     initialCategories.map((cat) => cat.id),
@@ -88,11 +115,14 @@ export function EditProjectForm({
     setIsSaving(true)
 
     try {
+      const cleanedGalleryImages = normalizeGalleryImages(galleryImages)
       const result = await updateProject(projectId, {
         name,
         websiteUrl,
         logoUrl: logoUrl ?? "",
-        productImage,
+        productImage: cleanedGalleryImages[0] ?? null,
+        coverImage: cleanedGalleryImages[1] ?? null,
+        galleryImages: cleanedGalleryImages,
         description,
         categories: selectedCategories,
       })
@@ -127,6 +157,16 @@ export function EditProjectForm({
     setSelectedCategories(selectedCategories.filter((id) => id !== categoryId))
   }
 
+  const handleGalleryImageChange = (index: number, value: string | null) => {
+    setGalleryImages((current) => current.map((image, i) => (i === index ? value : image)))
+  }
+
+  const handleAddGalleryImage = () => {
+    setGalleryImages((current) =>
+      current.length >= MAX_GALLERY_IMAGES ? current : [...current, null],
+    )
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
@@ -146,7 +186,7 @@ export function EditProjectForm({
 
       <ImageUploadInput
         id="edit-logo"
-        label="Logo"
+        label="Logo / avatar"
         value={logoUrl}
         onChange={setLogoUrl}
         helperText="Paste an image URL or upload a square logo."
@@ -154,13 +194,31 @@ export function EditProjectForm({
         maxDimension={512}
       />
 
-      <ImageUploadInput
-        id="edit-product-image"
-        label="Product image"
-        value={productImage}
-        onChange={setProductImage}
-        helperText="Paste an image URL or upload a screenshot/cover image. Recommended: 16:9."
-      />
+      <div className="space-y-3">
+        <div className="space-y-1">
+          <Label>Listing images</Label>
+          <p className="text-muted-foreground text-xs">
+            Add up to {MAX_GALLERY_IMAGES} screenshots or cover images. The first image is the main
+            thumbnail.
+          </p>
+        </div>
+        {galleryImages.map((image, index) => (
+          <ImageUploadInput
+            key={index}
+            id={`edit-gallery-image-${index}`}
+            label={`Image ${index + 1}`}
+            value={image}
+            onChange={(value) => handleGalleryImageChange(index, value)}
+            helperText="Paste an image URL or upload a screenshot/cover image. Recommended: 16:9."
+          />
+        ))}
+        {galleryImages.length < MAX_GALLERY_IMAGES && (
+          <Button type="button" variant="outline" onClick={handleAddGalleryImage}>
+            <RiAddLine className="mr-1 h-4 w-4" />
+            Add image
+          </Button>
+        )}
+      </div>
 
       <div className="space-y-2">
         <label className="text-sm font-medium">Description</label>

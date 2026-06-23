@@ -90,8 +90,8 @@ export async function hasUserUpvoted(projectId: string) {
   return userUpvotes.length > 0
 }
 
-// Update project details and categories
-// Only allowed for project owners and only if project is in "scheduled" status
+// Update project details and categories.
+// Only project owners can edit their listing.
 export async function updateProject(
   projectId: string,
   data: {
@@ -99,6 +99,8 @@ export async function updateProject(
     websiteUrl: string
     logoUrl: string
     productImage: string | null
+    coverImage?: string | null
+    galleryImages?: string[]
     description: string
     categories: string[]
   },
@@ -138,11 +140,31 @@ export async function updateProject(
     // (e.g. "/images/apps/foo.png"). Only reject clearly malformed values.
     const isValidImageRef = (v: string) =>
       v.startsWith("/") || v.startsWith("data:") || /^https?:\/\//i.test(v)
+    const normalizeImageList = (values: Array<string | null | undefined>) => {
+      const seen = new Set<string>()
+
+      return values
+        .map((value) => value?.trim())
+        .filter((value): value is string => Boolean(value))
+        .filter((value) => {
+          if (seen.has(value)) return false
+          seen.add(value)
+          return true
+        })
+        .slice(0, 10)
+    }
+    const galleryImages = normalizeImageList(data.galleryImages ?? [])
     if (data.logoUrl.trim() && !isValidImageRef(data.logoUrl.trim())) {
       return { success: false, error: "Please enter a valid logo image URL or path" }
     }
     if (data.productImage?.trim() && !isValidImageRef(data.productImage.trim())) {
       return { success: false, error: "Please enter a valid product image URL or path" }
+    }
+    if (data.coverImage?.trim() && !isValidImageRef(data.coverImage.trim())) {
+      return { success: false, error: "Please enter a valid cover image URL or path" }
+    }
+    if (galleryImages.some((image) => !isValidImageRef(image))) {
+      return { success: false, error: "Please enter valid listing image URLs or paths" }
     }
 
     if (data.categories.length === 0 || data.categories.length > 3) {
@@ -150,6 +172,8 @@ export async function updateProject(
     }
 
     const fallbackLogoUrl = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(data.name)}`
+    const primaryImage = galleryImages[0] ?? data.productImage?.trim() ?? null
+    const coverImage = galleryImages[1] ?? data.coverImage?.trim() ?? primaryImage
 
     // Update project details
     await db
@@ -158,8 +182,9 @@ export async function updateProject(
         name: data.name.trim(),
         websiteUrl: data.websiteUrl.trim(),
         logoUrl: data.logoUrl.trim() || fallbackLogoUrl,
-        productImage: data.productImage?.trim() || null,
-        coverImageUrl: data.productImage?.trim() || null,
+        productImage: primaryImage,
+        coverImageUrl: coverImage,
+        galleryImages: galleryImages.length > 0 ? galleryImages : null,
         description: data.description,
         updatedAt: new Date(),
       })

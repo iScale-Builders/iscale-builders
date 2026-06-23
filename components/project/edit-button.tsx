@@ -15,6 +15,8 @@ interface EditButtonProps {
   initialWebsiteUrl: string
   initialLogoUrl: string
   initialProductImage: string | null
+  initialCoverImage: string | null
+  initialGalleryImages: string[] | null
   initialDescription: string
   initialCategories: { id: string; name: string }[]
   isOwner: boolean
@@ -26,6 +28,8 @@ export function EditButton({
   initialWebsiteUrl,
   initialLogoUrl,
   initialProductImage,
+  initialCoverImage,
+  initialGalleryImages,
   initialDescription,
   initialCategories,
   isOwner,
@@ -61,6 +65,8 @@ export function EditButton({
             initialWebsiteUrl={initialWebsiteUrl}
             initialLogoUrl={initialLogoUrl}
             initialProductImage={initialProductImage}
+            initialCoverImage={initialCoverImage}
+            initialGalleryImages={initialGalleryImages}
             initialDescription={initialDescription}
             initialCategories={initialCategories}
             onUpdate={handleUpdate}

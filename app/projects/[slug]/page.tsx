@@ -13,7 +13,7 @@ import { breadcrumbSchema, softwareApplicationSchema } from "@/lib/seo/schema"
 import { slugify } from "@/lib/seo/slug"
 import { Button } from "@/components/ui/button"
 import { RichTextDisplay } from "@/components/ui/rich-text-editor"
-import { thumbnailFor } from "@/components/explore/explore-view"
+import { galleryFor, thumbnailFor } from "@/components/explore/explore-view"
 import { EditButton } from "@/components/project/edit-button"
 import { ProjectComments } from "@/components/project/project-comments"
 import { ProjectImageWithLoader } from "@/components/project/project-image-with-loader"
@@ -52,9 +52,16 @@ export async function generateMetadata(
   }
 
   const previousImages = (await parent).openGraph?.images || []
-  const socialImages = [
-    projectData.productImage || projectData.coverImageUrl || projectData.logoUrl,
-  ].filter(Boolean) as string[]
+  const socialImages = Array.from(
+    new Set(
+      [
+        ...(projectData.galleryImages ?? []),
+        projectData.productImage,
+        projectData.coverImageUrl,
+        projectData.logoUrl,
+      ].filter(Boolean) as string[],
+    ),
+  ).slice(0, 4)
 
   return {
     title: projectData.name,
@@ -101,7 +108,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const isOwner = userId === projectData.createdBy
 
-  const projectThumbnail = thumbnailFor(projectData.productImage, projectData.coverImageUrl)
+  const projectGallery = galleryFor(projectData)
+  const projectThumbnail =
+    projectGallery[0] || thumbnailFor(projectData.productImage, projectData.coverImageUrl)
   const logoIsUploadedDataImage = projectData.logoUrl.startsWith("data:image/")
 
   // Structured data: SoftwareApplication (with upvotes as a rating signal) + breadcrumb.
@@ -336,6 +345,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   />
                 </div>
               )}
+              {projectGallery.length > 1 && (
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                  {projectGallery.slice(0, 10).map((image, index) => (
+                    <div
+                      key={`${image}-${index}`}
+                      className="bg-muted aspect-video overflow-hidden rounded-lg border"
+                    >
+                      <img
+                        src={image}
+                        alt={`${projectData.name} image ${index + 1}`}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
               {/* Description */}
               <div className="w-full">
                 <RichTextDisplay content={projectData.description} />
@@ -350,6 +375,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     initialWebsiteUrl={projectData.websiteUrl}
                     initialLogoUrl={projectData.logoUrl}
                     initialProductImage={projectData.productImage}
+                    initialCoverImage={projectData.coverImageUrl}
+                    initialGalleryImages={projectGallery}
                     initialDescription={projectData.description}
                     initialCategories={projectData.categories}
                     isOwner={isOwner}
