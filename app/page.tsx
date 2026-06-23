@@ -36,6 +36,10 @@ export default async function Home() {
     description: p.description,
     images: galleryFor(p),
     category: p.categories[0]?.name,
+    creatorName: p.creatorName,
+    creatorImage: p.creatorImage,
+    upvoteCount: p.upvoteCount,
+    commentCount: p.commentCount,
   })
 
   return (
