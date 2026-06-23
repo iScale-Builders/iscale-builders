@@ -22,6 +22,8 @@ import { JsonLd } from "@/components/seo/json-ld"
 import { ToolThumbnail } from "@/components/shared/tool-thumbnail"
 import { getProjectBySlug, hasUserUpvoted } from "@/app/actions/project-details"
 
+export const dynamic = "force-dynamic"
+
 // Types
 interface ProjectPageProps {
   params: Promise<{
