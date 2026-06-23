@@ -148,20 +148,6 @@ export const iscaleLabsApps: IScaleLabsAppSeed[] = [
     popularity: 88,
   },
   {
-    name: "iScale Niches",
-    slug: "iscale-niches",
-    description:
-      "iScale Niches is the niche discovery system for POD sellers: trend surfaces, audience angles, product clusters, and the research structure behind new design ideas.",
-    websiteUrl: listingUrl("iscale-niches"),
-    productImage: realAsset("iscale-niches-promo-tile.png"),
-    logoUrl: realAsset("iscale-niches-promo-tile.png"),
-    techStack: ["Niche Research", "Trend Analysis", "Data"],
-    pricing: "freemium",
-    platforms: ["web"],
-    categories: ["Research", "Niches", "Trends"],
-    popularity: 87,
-  },
-  {
     name: "Data Research",
     slug: "data-research",
     description:
