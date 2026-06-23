@@ -83,15 +83,15 @@ export function UpvoteButton({
         onClick={handleUpvote}
         disabled={isPending}
         className={cn(
-          "hover:border-primary dark:hover:border-primary flex h-12 min-w-12 cursor-pointer items-center justify-center gap-1.5 rounded-xl border-2 px-3 transition-all duration-300",
+          "hover:border-primary dark:hover:border-primary flex h-8 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-lg border px-2.5 transition-all duration-300",
           optimisticState.upvoted && "border-primary",
           className,
         )}
       >
         {optimisticState.upvoted ? (
-          <RiThumbUpFill className="text-primary h-3.5 w-3.5" />
+          <RiThumbUpFill className="text-primary h-4 w-4" />
         ) : (
-          <RiThumbUpLine className="h-3.5 w-3.5 text-gray-700 dark:text-gray-300" />
+          <RiThumbUpLine className="h-4 w-4 text-gray-700 dark:text-gray-300" />
         )}
         <span
           className={cn(

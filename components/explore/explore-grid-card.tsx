@@ -81,7 +81,7 @@ export function ExploreGridCard({
           upvoteCount={upvoteCount}
           isAuthenticated={isAuthenticated}
           variant="compact"
-          className="bg-background/85 border-border absolute top-2 right-2 h-11 w-11 backdrop-blur"
+          className="bg-background/85 border-border absolute top-2 right-2 backdrop-blur"
         />
         <div className="border-border bg-muted text-foreground absolute top-2 left-2 rounded-full border px-2 py-1 text-xs font-black backdrop-blur-xl">
           Coming soon

@@ -59,7 +59,7 @@ export function ExploreTrendingCard({
           upvoteCount={upvoteCount}
           isAuthenticated={isAuthenticated}
           variant="compact"
-          className="bg-background/85 border-border absolute top-2 right-2 h-11 w-11 backdrop-blur"
+          className="bg-background/85 border-border absolute top-2 right-2 backdrop-blur"
         />
       </div>
       <div className="flex flex-1 flex-col gap-1.5 p-3">
