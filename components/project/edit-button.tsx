@@ -18,7 +18,6 @@ interface EditButtonProps {
   initialDescription: string
   initialCategories: { id: string; name: string }[]
   isOwner: boolean
-  isScheduled: boolean
 }
 
 export function EditButton({
@@ -30,12 +29,10 @@ export function EditButton({
   initialDescription,
   initialCategories,
   isOwner,
-  isScheduled,
 }: EditButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  // Ne pas afficher le bouton si l'utilisateur n'est pas propriétaire ou si la chaîne n'est pas scheduled
-  if (!isOwner || !isScheduled) {
+  if (!isOwner) {
     return null
   }
 
