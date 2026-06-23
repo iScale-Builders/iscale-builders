@@ -1213,11 +1213,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
                     <p className="text-muted-foreground text-xs">
                       Please review all information carefully. Once submitted, your project will be
                       scheduled for launch.
-                      {formData.launchType !== LAUNCH_TYPES.FREE && (
-                        <span className="mt-1 block">
-                          You will be redirected to the payment page after submission.
-                        </span>
-                      )}
                     </p>
                   </div>
                 </div>

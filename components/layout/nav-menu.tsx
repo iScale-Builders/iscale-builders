@@ -139,9 +139,7 @@ export function NavMenu({ showDashboard = true }: NavMenuProps) {
           </NavigationMenuLink>
         </NavigationMenuItem>
 
-        {/* DECISION 4: payments/premium are OFF (free). The /pricing page sells
-            paid launches via Stripe, so the nav link is hidden to avoid a soft
-            dead-end. */}
+        {/* Payments are off, so paid launch links stay hidden. */}
 
         {/* Sponsors tab hidden for now (2026-06-17) — bringing it back later.
             Page + components kept intact; only the nav entry is hidden. */}
