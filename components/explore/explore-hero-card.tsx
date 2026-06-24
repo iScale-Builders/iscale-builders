@@ -62,7 +62,7 @@ export function ExploreHeroCard({
   return (
     <article
       onClick={() => router.push(url)}
-      className={`group relative block w-full cursor-pointer overflow-hidden rounded-2xl bg-neutral-900 ${heightClassName}`}
+      className={`group relative block w-full cursor-pointer overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-900 ${heightClassName}`}
     >
       {images.length > 0 ? (
         <>
@@ -84,7 +84,7 @@ export function ExploreHeroCard({
                   fetchPriority="low"
                   className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-2xl"
                 />
-                <div className="absolute inset-4 overflow-hidden rounded-xl border border-white/15 bg-black/25 shadow-2xl sm:inset-6">
+                <div className="absolute inset-4 overflow-hidden rounded-xl border border-black/10 bg-black/5 shadow-2xl sm:inset-6 dark:border-white/15 dark:bg-black/25">
                   <img
                     src={src}
                     alt={active ? name : ""}
