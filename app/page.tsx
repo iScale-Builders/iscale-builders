@@ -55,63 +55,27 @@ export default async function Home() {
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Hero — headline + the problem/solution split, all condensed at the top */}
         <section className="mx-auto mb-12 max-w-3xl text-center">
-          <p className="text-muted-foreground text-xs font-bold tracking-[0.22em] uppercase">
-            iScaleXchange
-          </p>
-          <h1 className="text-foreground mt-3 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
+          <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
             Post the problem. Exchange the solution.
           </h1>
           <p className="text-muted-foreground mx-auto mt-4 max-w-xl text-base leading-7">
-            A living exchange where people surface what they cannot solve, vote on what matters, and
-            connect the tools, workflows, and guides that fix it.
+            Surface what you can&apos;t solve, vote on what matters, and connect the tools that fix it.
           </p>
-
-          {/* The two sides of the exchange, side by side */}
-          <div className="mx-auto mt-7 grid max-w-2xl gap-3 sm:grid-cols-2">
-            <Link
-              href="/problems"
-              prefetch={false}
-              className="foundry-panel group rounded-2xl p-4 text-left transition-all hover:-translate-y-0.5"
-            >
-              <div className="flex items-center justify-between">
-                <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-2.5 py-0.5 text-[11px] font-black tracking-[0.14em] uppercase">
-                  Problems
-                </span>
-                <RiArrowRightLine className="text-muted-foreground h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </div>
-              <p className="text-foreground mt-3 text-base font-black">What needs solving?</p>
-              <p className="text-muted-foreground mt-1 text-xs leading-5">
-                Pain points and blockers people vote up.
-              </p>
-            </Link>
-
-            <Link
-              href="/solutions"
-              prefetch={false}
-              className="foundry-panel group rounded-2xl p-4 text-left transition-all hover:-translate-y-0.5"
-            >
-              <div className="flex items-center justify-between">
-                <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-2.5 py-0.5 text-[11px] font-black tracking-[0.14em] uppercase">
-                  Solutions
-                </span>
-                <RiArrowRightLine className="text-muted-foreground h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </div>
-              <p className="text-foreground mt-3 text-base font-black">What solves it?</p>
-              <p className="text-muted-foreground mt-1 text-xs leading-5">
-                Tools, workflows, and guides mapped to problems.
-              </p>
-            </Link>
-          </div>
-
-          <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button asChild className="h-11 rounded-full px-6 font-semibold">
-              <Link href="/projects/submit">
-                Post a problem or solution
+              <Link href="/problems">
+                Problems
                 <RiArrowRightLine className="h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild variant="ghost" className="h-11 rounded-full px-6 font-semibold">
-              <Link href="/explore">Explore everything</Link>
+            <Button asChild className="h-11 rounded-full px-6 font-semibold">
+              <Link href="/solutions">
+                Solutions
+                <RiArrowRightLine className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="h-11 rounded-full px-6 font-semibold">
+              <Link href="/projects/submit">Post a problem or solution</Link>
             </Button>
           </div>
         </section>
