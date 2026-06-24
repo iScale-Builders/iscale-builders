@@ -79,8 +79,8 @@ export default async function SubmitProject({
                 I have something that solves it
               </h2>
               <p className="text-muted-foreground mt-2 text-sm leading-6">
-                Post a tool, workflow, guide, template, or service and connect it to the problem it
-                solves.
+                Post a tool, workflow, guide, template, or service and describe the problem it
+                solves — even if no one has posted that problem yet.
               </p>
               <span className="text-foreground mt-4 inline-flex items-center gap-1 text-sm font-black">
                 Post a solution
