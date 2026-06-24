@@ -157,7 +157,7 @@ export function NavMenu({ showDashboard = true }: NavMenuProps) {
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link
-              href="https://www.skool.com/iScaleBuildersgroup"
+              href="https://www.skool.com/iScaleXchangegroup"
               target="_blank"
               rel="noreferrer"
               className={`${navigationMenuTriggerStyle()} h-9 px-3 text-sm`}

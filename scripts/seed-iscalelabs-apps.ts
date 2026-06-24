@@ -15,7 +15,7 @@ import { eq, inArray, like } from "drizzle-orm"
 
 import { iscaleLabsApps } from "./iscalelabs-apps"
 
-const DEMO_EMAIL_SUFFIXES = ["@demo.iscalebuilders.com"]
+const DEMO_EMAIL_SUFFIXES = ["@demo.iscalexchange.com"]
 const PUBLISHER_ID = "iscalelabs-jose"
 const PUBLISHER_EMAIL = "contact@iscalelabs.com"
 const PUBLISHER_NAME = "Jose / iScaleLabs"

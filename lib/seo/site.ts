@@ -6,7 +6,7 @@
  * or hardcoding the brand name in each route.
  */
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com").replace(
+export const SITE_URL = (process.env.NEXT_PUBLIC_URL || "https://iscalexchange.com").replace(
   /\/$/,
   "",
 )

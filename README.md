@@ -1,15 +1,15 @@
-# iScaleBuilders
+# iScaleXchange
 
 [![License: Open Launch](https://img.shields.io/badge/License-Open_Launch-yellow.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://reactjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript)](https://www.typescriptlang.org)
 
-iScaleBuilders is a public directory for AI builder tools, workflows, and launch
-experiments. The live site is [iscalebuilders.com](https://iscalebuilders.com).
+iScaleXchange is a public directory for AI builder tools, workflows, and launch
+experiments. The live site is [iscalexchange.com](https://iscalexchange.com).
 
 > Built on [Open-Launch](https://open-launch.com) and distributed under the
-> Open-Launch License. iScaleBuilders retains the required visible
+> Open-Launch License. iScaleXchange retains the required visible
 > "Powered by Open-Launch" attribution.
 
 ## Features
@@ -65,7 +65,7 @@ node node_modules/typescript/bin/tsc --noEmit
 
 ## Deployment
 
-Production is intended to run at [iscalebuilders.com](https://iscalebuilders.com).
+Production is intended to run at [iscalexchange.com](https://iscalexchange.com).
 Set `NEXT_PUBLIC_URL` and any public app URL variables to that domain for
 production.
 
@@ -87,7 +87,7 @@ for details. The license requires visible dofollow attribution to
 [Open-Launch](https://open-launch.com).
 
 Additional notices and brand-use rules are documented in [NOTICE.md](NOTICE.md)
-and [TRADEMARKS.md](TRADEMARKS.md). The iScaleLabs and iScaleBuilders names,
+and [TRADEMARKS.md](TRADEMARKS.md). The iScaleLabs and iScaleXchange names,
 logos, domains, and brand assets are not licensed for unrestricted reuse.
 
 Security reports should follow [SECURITY.md](SECURITY.md). Community behavior is

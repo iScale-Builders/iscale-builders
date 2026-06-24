@@ -294,7 +294,7 @@ const articles: SeoBlogPlan[] = [
       "Publish an owned launch article.",
       "Track backlinks and referral traffic.",
     ],
-    relatedTools: ["PromoteFlow", "iScaleBuilders"],
+    relatedTools: ["PromoteFlow", "iScaleXchange"],
   },
   {
     slug: "ai-listing-generator-for-etsy",
@@ -588,7 +588,7 @@ const articles: SeoBlogPlan[] = [
       "Allow comments or feedback.",
       "Create launch posts from the build story.",
     ],
-    relatedTools: ["iScaleBuilders", "PromoteFlow"],
+    relatedTools: ["iScaleXchange", "PromoteFlow"],
   },
   {
     slug: "best-tools-for-print-on-demand-beginners",
@@ -684,7 +684,7 @@ const articles: SeoBlogPlan[] = [
       "Create short demo clips.",
       "Turn user questions into content.",
     ],
-    relatedTools: ["PromoteFlow", "iScaleBuilders"],
+    relatedTools: ["PromoteFlow", "iScaleXchange"],
   },
 ]
 
@@ -713,15 +713,15 @@ ${section.body.join("\n\n")}`,
 
 ${article.checklist.map((item) => `- ${item}`).join("\n")}
 
-## Where iScaleBuilders fits
+## Where iScaleXchange fits
 
-iScaleBuilders is a directory for builders, seller tools, automation projects, and product experiments. Use it to discover tools, follow coming-soon projects, leave comments, and watch how real builder workflows turn into products.
+iScaleXchange is a directory for builders, seller tools, automation projects, and product experiments. Use it to discover tools, follow coming-soon projects, leave comments, and watch how real builder workflows turn into products.
 
 Related iScaleLabs tools and projects to watch: ${article.relatedTools.join(", ")}.
 
 ## Next step
 
-Explore current and coming-soon tools on [iScaleBuilders](/explore), or submit a tool if you are building something useful for sellers, creators, AI builders, or ecommerce operators.`
+Explore current and coming-soon tools on [iScaleXchange](/explore), or submit a tool if you are building something useful for sellers, creators, AI builders, or ecommerce operators.`
 }
 
 async function seed() {
@@ -740,7 +740,7 @@ async function seed() {
         content: contentFor(article),
         image: imageFor(article.slug),
         tags: article.tags,
-        author: "iScaleBuilders Team",
+        author: "iScaleXchange Team",
         metaTitle: article.metaTitle,
         metaDescription: article.metaDescription,
         publishedAt,
@@ -755,7 +755,7 @@ async function seed() {
           content: contentFor(article),
           image: imageFor(article.slug),
           tags: article.tags,
-          author: "iScaleBuilders Team",
+          author: "iScaleXchange Team",
           metaTitle: article.metaTitle,
           metaDescription: article.metaDescription,
           publishedAt,

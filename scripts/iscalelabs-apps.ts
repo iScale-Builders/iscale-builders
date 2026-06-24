@@ -19,7 +19,7 @@ export interface IScaleLabsAppSeed {
 
 const thumbnail = (slug: string) => `/images/apps/${slug}.png`
 const realAsset = (filename: string) => `/images/apps/real/${filename}`
-const listingUrl = (slug: string) => `https://iscalebuilders.com/projects/${slug}`
+const listingUrl = (slug: string) => `https://iscalexchange.com/projects/${slug}`
 
 export const iscaleLabsApps: IScaleLabsAppSeed[] = [
   {
@@ -173,11 +173,11 @@ export const iscaleLabsApps: IScaleLabsAppSeed[] = [
     popularity: 80,
   },
   {
-    name: "iScale Builders",
+    name: "iScaleXchange",
     slug: "iscale-builders",
     description:
-      "iScale Builders is the public app showcase and community-facing builder directory for the iScaleLabs ecosystem: a place to surface the tools, workflows, and products being built.",
-    websiteUrl: "https://iscalebuilders.com",
+      "iScaleXchange is the public app showcase and community-facing builder directory for the iScaleLabs ecosystem: a place to surface the tools, workflows, and products being built.",
+    websiteUrl: "https://iscalexchange.com",
     productImage: thumbnail("iscale-builders"),
     logoUrl: thumbnail("iscale-builders"),
     githubUrl: "https://github.com/iScale-Builders/iscale-builders",

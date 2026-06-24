@@ -1,14 +1,14 @@
 # Trademark And Brand Policy
 
-The source code is public, but the iScaleLabs and iScaleBuilders brands are not
+The source code is public, but the iScaleLabs and iScaleXchange brands are not
 open for unrestricted reuse.
 
 You may fork and modify the code under the repository license, but you may not:
 
-- present your fork as the official iScaleBuilders site;
-- use the `iScaleLabs` or `iScaleBuilders` names for your own project without
+- present your fork as the official iScaleXchange site;
+- use the `iScaleLabs` or `iScaleXchange` names for your own project without
   written permission;
-- use iScaleLabs or iScaleBuilders logos, marks, domains, or brand assets
+- use iScaleLabs or iScaleXchange logos, marks, domains, or brand assets
   without written permission;
 - imply endorsement, partnership, certification, or sponsorship by iScaleLabs;
 - reuse screenshots or assets that identify private iScaleLabs business
@@ -20,6 +20,6 @@ deployment accounts.
 
 Descriptive references are allowed when they are accurate, for example:
 
-> "Forked from iScaleBuilders."
+> "Forked from iScaleXchange."
 
 Questions about brand use can be sent to contact@iscalelabs.com.

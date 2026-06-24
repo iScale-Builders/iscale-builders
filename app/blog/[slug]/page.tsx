@@ -32,7 +32,7 @@ import {
 import { TableOfContents } from "@/components/blog/table-of-contents"
 import { JsonLd } from "@/components/seo/json-ld"
 
-const siteUrl = process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com"
+const siteUrl = process.env.NEXT_PUBLIC_URL || "https://iscalexchange.com"
 
 export async function generateMetadata({
   params,

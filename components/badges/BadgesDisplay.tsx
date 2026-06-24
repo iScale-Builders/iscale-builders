@@ -15,7 +15,7 @@ interface BadgesDisplayProps {
 }
 
 export function BadgesDisplay({ dailyRanking, slug }: BadgesDisplayProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com"
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://iscalexchange.com"
   const lightBadgeCode = `<a href=\"${baseUrl}/projects/${slug}\" target=\"_blank\" title=\"iScaleXchange Top ${dailyRanking} Daily Winner\">
   <img
     src=\"${baseUrl}/images/badges/top${dailyRanking}-light.svg\"

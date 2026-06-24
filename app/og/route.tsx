@@ -80,7 +80,7 @@ export async function GET(request: Request) {
           ) : null}
         </div>
 
-        <div style={{ color: "#64748b", fontSize: "26px" }}>iscalebuilders.com</div>
+        <div style={{ color: "#64748b", fontSize: "26px" }}>iscalexchange.com</div>
       </div>
     ),
     { width: 1200, height: 630 },

@@ -1,6 +1,6 @@
 # Notices And Attribution
 
-iScaleBuilders is maintained by iScaleLabs.
+iScaleXchange is maintained by iScaleLabs.
 
 The project is derived from Open-Launch and is distributed under the
 Open-Launch License. The Open-Launch attribution requirement remains in force.

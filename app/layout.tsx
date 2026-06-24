@@ -29,7 +29,7 @@ const fontHeading = FontHeading({
   variable: "--font-heading",
 })
 
-const appUrl = process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com"
+const appUrl = process.env.NEXT_PUBLIC_URL || "https://iscalexchange.com"
 
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),

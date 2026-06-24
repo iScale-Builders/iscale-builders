@@ -1,6 +1,6 @@
-# Contributing to iScaleBuilders
+# Contributing to iScaleXchange
 
-Thank you for considering a contribution. iScaleBuilders is open source, but it
+Thank you for considering a contribution. iScaleXchange is open source, but it
 is maintainer-led: contributions are welcome when they fit the product direction,
 quality bar, license obligations, and public-repo safety rules.
 
@@ -84,7 +84,7 @@ Do not commit:
 This project is currently distributed under the Open-Launch License. The
 required Open-Launch attribution must remain intact.
 
-iScaleLabs and iScaleBuilders names, logos, domains, and brand assets are not
+iScaleLabs and iScaleXchange names, logos, domains, and brand assets are not
 licensed for reuse just because the code is public. See `NOTICE.md` and
 `TRADEMARKS.md`.
 

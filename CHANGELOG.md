@@ -160,8 +160,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Rebranded the app to iScaleBuilders.
-- Updated public metadata, navigation, footer, badges, share text, notifications, and email copy for `iscalebuilders.com`.
+- Rebranded the app to iScaleXchange.
+- Updated public metadata, navigation, footer, badges, share text, notifications, and email copy for `iscalexchange.com`.
 - Added a visible app version in the footer.
 
 ## [0.1.0] - 2024-05-02

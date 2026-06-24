@@ -6,7 +6,7 @@ interface BasicUser {
 }
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com"
+  process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_URL || "https://iscalexchange.com"
 
 function getBadgeName(ranking: number): string {
   switch (ranking) {

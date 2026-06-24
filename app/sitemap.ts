@@ -6,7 +6,7 @@ import { blogArticle, category, project, seoArticle } from "@/drizzle/db/schema"
 import { slugify } from "@/lib/seo/slug"
 import { getComparePairs } from "@/app/actions/projects"
 
-const siteUrl = process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com"
+const siteUrl = process.env.NEXT_PUBLIC_URL || "https://iscalexchange.com"
 
 // Resolve a usable absolute image URL for the image sitemap. Skips uploaded
 // data: URIs (not crawlable) and makes site-relative paths absolute.

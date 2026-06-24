@@ -16,7 +16,7 @@ Set these environment variables for the deployed app:
 
 ```
 CRON_API_KEY=your_secret_key_here
-APP_URL=https://iscalebuilders.com
+APP_URL=https://iscalexchange.com
 ```
 
 - `CRON_API_KEY`: secret used to protect the cron endpoint.
@@ -43,7 +43,7 @@ chmod +x /app/scripts/update-launches.sh
 
 To test manually, send a GET request to:
 
-`https://iscalebuilders.com/api/cron/update-launches`
+`https://iscalexchange.com/api/cron/update-launches`
 
 Include the cron authorization header using the deployed `CRON_API_KEY` value.
 Do not paste a real key into source-controlled docs, tickets, or screenshots.

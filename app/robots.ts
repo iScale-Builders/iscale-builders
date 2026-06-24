@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-const siteUrl = process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com"
+const siteUrl = process.env.NEXT_PUBLIC_URL || "https://iscalexchange.com"
 
 export default function robots(): MetadataRoute.Robots {
   return {

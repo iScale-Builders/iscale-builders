@@ -1,6 +1,6 @@
 # Governance
 
-iScaleBuilders is a maintainer-led open-source project.
+iScaleXchange is a maintainer-led open-source project.
 
 ## Maintainers
 

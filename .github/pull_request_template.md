@@ -24,7 +24,7 @@
 - [ ] No private workspace/agent bridge files
 - [ ] No mock data presented as live product truth
 - [ ] Open-Launch attribution remains intact
-- [ ] iScaleLabs/iScaleBuilders brand rules are respected
+- [ ] iScaleLabs/iScaleXchange brand rules are respected
 
 ## Notes For Maintainers
 
