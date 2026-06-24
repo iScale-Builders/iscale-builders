@@ -311,8 +311,8 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
         return
       }
 
-      if (formData.categories.length > 3) {
-        setError("You can select a maximum of 3 categories.")
+      if (formData.categories.length > 5) {
+        setError("You can select a maximum of 5 categories.")
         return
       }
 
@@ -388,8 +388,8 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
       return
     }
 
-    if (formData.categories.length > 3) {
-      setError("You can select a maximum of 3 categories.")
+    if (formData.categories.length > 5) {
+      setError("You can select a maximum of 5 categories.")
       setIsPending(false)
       return
     }
@@ -693,7 +693,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
               <Label className="mb-2 block">
                 Categories <span className="text-red-500">*</span>
                 <span className="text-muted-foreground ml-2 text-xs">
-                  ({formData.categories.length}/3 selected)
+                  ({formData.categories.length}/5 selected)
                 </span>
               </Label>
               {isLoadingCategories ? (
@@ -708,8 +708,8 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
                         id={`cat-${cat.id}`}
                         checked={formData.categories.includes(cat.id)}
                         onCheckedChange={(checked) => {
-                          if (checked && formData.categories.length >= 3) {
-                            setError("You can select a maximum of 3 categories.")
+                          if (checked && formData.categories.length >= 5) {
+                            setError("You can select a maximum of 5 categories.")
                             return
                           }
                           handleCheckboxChange("categories", cat.id, !!checked)
@@ -725,7 +725,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
                 <p className="text-muted-foreground text-sm">No categories available.</p>
               )}
               <p className="text-muted-foreground mt-1 text-xs">
-                Select up to 3 relevant categories.
+                Select up to 5 relevant categories.
               </p>
             </div>
 

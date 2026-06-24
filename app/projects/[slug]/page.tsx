@@ -15,6 +15,7 @@ import { toolStatusLabel } from "@/lib/tool-status"
 import { Button } from "@/components/ui/button"
 import { RichTextDisplay } from "@/components/ui/rich-text-editor"
 import { galleryFor, thumbnailFor } from "@/components/explore/explore-view"
+import { DeleteProjectButton } from "@/components/project/delete-project-button"
 import { EditButton } from "@/components/project/edit-button"
 import { ProjectComments } from "@/components/project/project-comments"
 import { ListingImages } from "@/components/project/listing-images"
@@ -367,7 +368,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
               {/* Edit button pour owners */}
               {isOwner && (
-                <div>
+                <div className="flex flex-wrap items-center gap-3">
                   <EditButton
                     projectId={projectData.id}
                     initialName={projectData.name}
@@ -380,6 +381,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     initialCategories={projectData.categories}
                     isOwner={isOwner}
                   />
+                  <DeleteProjectButton projectId={projectData.id} />
                 </div>
               )}
 

@@ -62,8 +62,8 @@ export async function submitProblem(data: ProblemSubmission) {
   if (!title || !description) {
     return { success: false, error: "Please add a title and describe the problem." }
   }
-  if (categories.length > 3) {
-    return { success: false, error: "You can select a maximum of 3 categories." }
+  if (categories.length > 5) {
+    return { success: false, error: "You can select a maximum of 5 categories." }
   }
 
   try {

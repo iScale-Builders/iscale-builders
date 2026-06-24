@@ -45,8 +45,8 @@ export function SubmitProblemForm() {
   const toggleCategory = (id: string, checked: boolean) => {
     setCategories((prev) => {
       if (checked) {
-        if (prev.length >= 3) {
-          setError("You can select a maximum of 3 categories.")
+        if (prev.length >= 5) {
+          setError("You can select a maximum of 5 categories.")
           return prev
         }
         return [...prev, id]
@@ -173,7 +173,7 @@ export function SubmitProblemForm() {
       <div>
         <Label className="mb-2 block">
           Categories
-          <span className="text-muted-foreground ml-2 text-xs">({categories.length}/3)</span>
+          <span className="text-muted-foreground ml-2 text-xs">({categories.length}/5)</span>
         </Label>
         {allCategories.length > 0 ? (
           <div className="grid max-h-52 grid-cols-1 gap-2 overflow-y-auto rounded-md border p-4 sm:grid-cols-2">

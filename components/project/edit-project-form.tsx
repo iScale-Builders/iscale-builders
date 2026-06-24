@@ -145,8 +145,8 @@ export function EditProjectForm({
   const handleCategoryChange = (categoryId: string) => {
     if (!selectedCategories.includes(categoryId)) {
       // Limiter à 3 catégories maximum
-      if (selectedCategories.length >= 3) {
-        toast.error("Maximum 3 categories allowed")
+      if (selectedCategories.length >= 5) {
+        toast.error("Maximum 5 categories allowed")
         return
       }
       setSelectedCategories([...selectedCategories, categoryId])
@@ -286,15 +286,15 @@ export function EditProjectForm({
         {/* Category selector */}
         <Select
           onValueChange={handleCategoryChange}
-          disabled={isLoading || selectedCategories.length >= 3}
+          disabled={isLoading || selectedCategories.length >= 5}
         >
           <SelectTrigger className="w-full">
             <SelectValue
               placeholder={
                 isLoading
                   ? "Loading categories..."
-                  : selectedCategories.length >= 3
-                    ? "Maximum 3 categories reached"
+                  : selectedCategories.length >= 5
+                    ? "Maximum 5 categories reached"
                     : "Add a category"
               }
             />

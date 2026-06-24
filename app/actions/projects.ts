@@ -520,3 +520,38 @@ export async function getAllProjectSlugs() {
     return []
   }
 }
+
+// Delete a post (problem or solution) the current user owns. FK onDelete cascade
+// removes its category links and upvotes; comments are not FK-linked so they are
+// cleaned up best-effort.
+export async function deleteOwnProject(projectId: string) {
+  const { userId } = await auth()
+  if (!userId) return { success: false, error: "You must be signed in." }
+
+  const existing = await db.query.project.findFirst({
+    where: eq(projectTable.id, projectId),
+    columns: { id: true, createdBy: true },
+  })
+  if (!existing) return { success: false, error: "Post not found." }
+  if (existing.createdBy !== userId) {
+    return { success: false, error: "You can only delete your own posts." }
+  }
+
+  try {
+    try {
+      await db.delete(fumaComments).where(sql`${fumaComments.page}::text = ${projectId}`)
+    } catch (commentError) {
+      console.error("deleteOwnProject: comment cleanup failed", commentError)
+    }
+    await db.delete(projectTable).where(eq(projectTable.id, projectId))
+
+    revalidatePath("/")
+    revalidatePath("/explore")
+    revalidatePath("/problems")
+    revalidatePath("/dashboard")
+    return { success: true }
+  } catch (error) {
+    console.error("deleteOwnProject error", error)
+    return { success: false, error: "Could not delete this post. Try again." }
+  }
+}
