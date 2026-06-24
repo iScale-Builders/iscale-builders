@@ -141,6 +141,7 @@ export const project = pgTable(
     launchType: text("launch_type").default(launchType.FREE),
     submissionType: text("submission_type").notNull().default("solution"),
     problemStatus: text("problem_status"),
+    problemSolved: text("problem_solved"),
     featuredOnHomepage: boolean("featured_on_homepage").default(false),
     dailyRanking: integer("daily_ranking"),
     createdAt: timestamp("created_at").notNull().defaultNow(),

@@ -357,6 +357,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   ))}
                 </div>
               )}
+              {/* What problem does this solve? — shown on every solution listing */}
+              {projectData.submissionType !== "problem" && (
+                <div className="border-border/60 bg-muted/20 mb-6 rounded-xl border p-5">
+                  <h3 className="text-muted-foreground mb-2 text-xs font-bold tracking-wider uppercase">
+                    What problem does this solve?
+                  </h3>
+                  {projectData.problemSolved?.trim() ? (
+                    <p className="text-foreground text-sm leading-7 whitespace-pre-line">
+                      {projectData.problemSolved}
+                    </p>
+                  ) : (
+                    <p className="text-muted-foreground text-sm leading-6">
+                      The maker hasn&apos;t described the problem this solves yet.
+                    </p>
+                  )}
+                </div>
+              )}
+
               {/* Description */}
               <div className="w-full">
                 <RichTextDisplay content={projectData.description} />

@@ -29,6 +29,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Textarea } from "@/components/ui/textarea"
 import { RichTextDisplay, RichTextEditor } from "@/components/ui/rich-text-editor"
 import {
   Select,
@@ -54,6 +55,7 @@ interface ProjectFormData {
   name: string
   websiteUrl: string
   description: string
+  problemSolved: string
   categories: string[]
   techStack: string[]
   platforms: string[]
@@ -82,6 +84,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
     name: "",
     websiteUrl: "",
     description: "",
+    problemSolved: "",
     categories: [],
     techStack: [],
     platforms: [],
@@ -278,7 +281,12 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
     setError(null)
     setLaunchDateLimitError(null)
     if (currentStep === 1) {
-      if (!formData.name || !formData.websiteUrl || !formData.description) {
+      if (
+        !formData.name ||
+        !formData.websiteUrl ||
+        !formData.description ||
+        !formData.problemSolved
+      ) {
         setError("Please fill in all required project information.")
         return
       }
@@ -400,6 +408,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
       const projectData = {
         name: formData.name,
         description: formData.description,
+        problemSolved: formData.problemSolved,
         websiteUrl: formData.websiteUrl,
         logoUrl: finalLogoUrl,
         productImage: formData.productImage,
@@ -627,6 +636,20 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
                 onChange={(content) => setFormData((prev) => ({ ...prev, description: content }))}
                 placeholder="Describe your project"
                 className="max-h-[300px] overflow-y-auto"
+              />
+            </div>
+            <div>
+              <Label htmlFor="problemSolved">
+                What problem does this solve? <span className="text-red-500">*</span>
+              </Label>
+              <Textarea
+                id="problemSolved"
+                name="problemSolved"
+                value={formData.problemSolved}
+                onChange={handleInputChange}
+                placeholder="The specific problem your tool, workflow, or service solves."
+                className="mt-1.5 min-h-[90px]"
+                required
               />
             </div>
             <ImageUploadInput

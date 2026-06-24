@@ -210,6 +210,7 @@ export async function toggleUpvote(projectId: string) {
 interface ProjectSubmissionData {
   name: string
   description: string
+  problemSolved?: string | null
   websiteUrl: string
   logoUrl: string
   productImage: string | null
@@ -235,6 +236,7 @@ export async function submitProject(projectData: ProjectSubmissionData) {
     const {
       name,
       description,
+      problemSolved,
       websiteUrl,
       logoUrl,
       productImage,
@@ -272,6 +274,7 @@ export async function submitProject(projectData: ProjectSubmissionData) {
         name,
         slug,
         description,
+        problemSolved: problemSolved ?? undefined,
         websiteUrl,
         logoUrl,
         productImage: productImage ?? undefined,
