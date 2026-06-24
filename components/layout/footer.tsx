@@ -44,7 +44,7 @@ export default function FooterSection() {
           <div className="flex flex-col items-start text-left md:col-span-4 lg:col-span-4">
             <Link href="/" prefetch={false} className="font-heading mb-3 flex items-center">
               <span className="font-heading flex items-center text-xl font-black tracking-tight">
-                <img src="/logo.svg" alt="iScaleXchange logo" className="mr-2 h-9 w-9" />
+                <img src="/logo.png" alt="iScaleXchange logo" className="mr-2 h-9 w-9 rounded-md" />
                 <span className="text-foreground">iScaleXchange</span>
               </span>
             </Link>

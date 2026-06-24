@@ -26,7 +26,7 @@ export function organizationSchema(sameAs: string[] = []): JsonLdObject {
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
-      url: absoluteUrl("/logo.svg"),
+      url: absoluteUrl("/logo.png"),
     },
     ...(sameAs.length > 0 ? { sameAs } : {}),
   }
