@@ -368,7 +368,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <EditButton
                     projectId={projectData.id}
                     initialName={projectData.name}
-                    initialWebsiteUrl={projectData.websiteUrl}
+                    initialWebsiteUrl={projectData.websiteUrl ?? ""}
                     initialLogoUrl={projectData.logoUrl}
                     initialProductImage={projectData.productImage}
                     initialCoverImage={projectData.coverImageUrl}

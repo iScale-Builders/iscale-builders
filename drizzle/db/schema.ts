@@ -31,6 +31,24 @@ export const launchType = {
 
 export type LaunchType = (typeof launchType)[keyof typeof launchType]
 
+// Submission lane: every post is either a problem (demand) or a solution (supply)
+export const submissionType = {
+  PROBLEM: "problem",
+  SOLUTION: "solution",
+} as const
+
+export type SubmissionType = (typeof submissionType)[keyof typeof submissionType]
+
+// Lifecycle status for a problem post
+export const problemStatus = {
+  OPEN: "open",
+  RESEARCHING: "researching",
+  PARTIALLY_SOLVED: "partially_solved",
+  SOLVED: "solved",
+} as const
+
+export type ProblemStatus = (typeof problemStatus)[keyof typeof problemStatus]
+
 // Ajouter de nouveaux enums pour les projets tech
 export const pricingType = {
   FREE: "free",
@@ -108,7 +126,7 @@ export const project = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull().unique(),
     description: text("description").notNull(),
-    websiteUrl: text("website_url").notNull(),
+    websiteUrl: text("website_url"),
     logoUrl: text("logo_url").notNull(),
     coverImageUrl: text("cover_image_url"),
     productImage: text("product_image"),
@@ -121,6 +139,8 @@ export const project = pgTable(
     launchStatus: text("launch_status").notNull().default(launchStatus.SCHEDULED),
     scheduledLaunchDate: timestamp("scheduled_launch_date"),
     launchType: text("launch_type").default(launchType.FREE),
+    submissionType: text("submission_type").notNull().default("solution"),
+    problemStatus: text("problem_status"),
     featuredOnHomepage: boolean("featured_on_homepage").default(false),
     dailyRanking: integer("daily_ranking"),
     createdAt: timestamp("created_at").notNull().defaultNow(),

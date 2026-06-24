@@ -55,7 +55,7 @@ type PendingProject = {
   name: string
   slug: string
   logoUrl: string | null
-  websiteUrl: string
+  websiteUrl: string | null
   launchStatus: string
   launchType: string | null
   featuredOnHomepage: boolean | null

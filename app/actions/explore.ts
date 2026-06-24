@@ -7,6 +7,7 @@ import {
   launchStatus,
   project as projectTable,
   projectToCategory,
+  submissionType,
   upvote,
   user as userTable,
 } from "@/drizzle/db/schema"
@@ -23,7 +24,7 @@ export interface ExploreProject {
   coverImageUrl: string | null
   productImage: string | null
   galleryImages: string[] | null
-  websiteUrl: string
+  websiteUrl: string | null
   launchStatus: string
   launchType: string | null
   dailyRanking: number | null
@@ -69,7 +70,12 @@ export async function getExploreProjects(limit = 60): Promise<ExploreProject[]> 
     .leftJoin(upvote, eq(upvote.projectId, projectTable.id))
     .leftJoin(fumaComments, sql`"fuma_comments"."page"::text = ${projectTable.id}`)
     .leftJoin(userTable, eq(userTable.id, projectTable.createdBy))
-    .where(ne(projectTable.launchStatus, launchStatus.PAYMENT_PENDING))
+    .where(
+      and(
+        ne(projectTable.launchStatus, launchStatus.PAYMENT_PENDING),
+        eq(projectTable.submissionType, submissionType.SOLUTION),
+      ),
+    )
     .groupBy(projectTable.id, userTable.id)
     .orderBy(desc(sql`count(distinct ${upvote.id})`), desc(projectTable.createdAt))
     .limit(limit)
