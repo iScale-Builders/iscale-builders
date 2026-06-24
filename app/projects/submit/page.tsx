@@ -54,8 +54,12 @@ export default async function SubmitProject({
               href="/projects/submit?type=problem"
               className="foundry-panel group rounded-2xl p-5 transition-all hover:-translate-y-0.5"
             >
-              <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
-                Problem
+              <span
+                className="border-border bg-muted inline-flex h-9 w-9 items-center justify-center rounded-full border text-xl leading-none"
+                aria-label="Problem"
+                title="Problem"
+              >
+                🙁
               </span>
               <h2 className="text-foreground mt-4 text-lg font-black">I need this solved</h2>
               <p className="text-muted-foreground mt-2 text-sm leading-6">
@@ -72,8 +76,12 @@ export default async function SubmitProject({
               href="/projects/submit?type=solution"
               className="foundry-panel group rounded-2xl p-5 transition-all hover:-translate-y-0.5"
             >
-              <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
-                Solution
+              <span
+                className="border-border bg-muted inline-flex h-9 w-9 items-center justify-center rounded-full border text-xl leading-none"
+                aria-label="Solution"
+                title="Solution"
+              >
+                🙂
               </span>
               <h2 className="text-foreground mt-4 text-lg font-black">
                 I&apos;m solving a problem
