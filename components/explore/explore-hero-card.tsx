@@ -110,8 +110,8 @@ export function ExploreHeroCard({
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
       {/* overlaid title + description */}
-      <div className="absolute right-0 bottom-0 left-0 flex flex-col gap-3 p-6 sm:p-8">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="absolute right-0 bottom-0 left-0 flex flex-col items-center gap-3 p-6 text-center sm:p-8">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
             <RiFireLine className="h-3 w-3" />
             Top tool
@@ -125,17 +125,17 @@ export function ExploreHeroCard({
             </span>
           )}
         </div>
-        <h2 className="font-heading max-w-3xl text-2xl font-black tracking-tight text-white sm:text-4xl">
+        <h2 className="font-heading mx-auto max-w-3xl text-2xl font-black tracking-tight text-white sm:text-4xl">
           <span className="rounded-md bg-black/60 box-decoration-clone [box-decoration-break:clone] px-2 py-0.5 leading-[1.25] shadow-black/30">
             {name}
           </span>
         </h2>
-        <p className="line-clamp-2 max-w-2xl text-sm leading-7 text-white/90 sm:text-base">
+        <p className="mx-auto line-clamp-2 max-w-2xl text-sm leading-7 text-white/90 sm:text-base">
           <span className="rounded-sm bg-black/60 box-decoration-clone [box-decoration-break:clone] px-1.5 py-0.5">
             {stripHtml(description)}
           </span>
         </p>
-        <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col items-center gap-3 pt-1 sm:flex-row sm:items-center sm:justify-center">
           <div className="flex min-w-0 flex-wrap items-center gap-2 text-xs font-semibold text-white/90 sm:text-sm">
             <div className="flex min-w-0 items-center gap-2">
               {creatorImage ? (
