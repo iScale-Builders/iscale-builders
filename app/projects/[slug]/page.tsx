@@ -388,7 +388,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <h2 className="mb-4 text-lg font-semibold" id="comments">
                   Comments
                 </h2>
-                <ProjectComments projectId={projectData.id} isAuthenticated={Boolean(userId)} />
+                <ProjectComments
+                  projectId={projectData.id}
+                  isAuthenticated={Boolean(userId)}
+                  currentUserId={userId}
+                />
               </div>
             </div>
           </div>

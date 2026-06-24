@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea"
 interface ProjectCommentsProps {
   projectId: string
   isAuthenticated: boolean
+  currentUserId?: string | null
   className?: string
 }
 
@@ -55,13 +56,21 @@ function formatCommentTime(timestamp: string) {
   return formatDistanceToNow(date, { addSuffix: true })
 }
 
-export function ProjectComments({ projectId, isAuthenticated, className }: ProjectCommentsProps) {
+export function ProjectComments({
+  projectId,
+  isAuthenticated,
+  currentUserId,
+  className,
+}: ProjectCommentsProps) {
   const [isClient, setIsClient] = useState(false)
   const [comments, setComments] = useState<ProjectComment[]>([])
   const [commentText, setCommentText] = useState("")
   const [isLoadingComments, setIsLoadingComments] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editText, setEditText] = useState("")
+  const [isSavingEdit, setIsSavingEdit] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -140,6 +149,51 @@ export function ProjectComments({ projectId, isAuthenticated, className }: Proje
       setErrorMessage("Your comment could not be posted. Try again in a moment.")
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  const startEdit = (comment: ProjectComment) => {
+    setEditingId(comment.id)
+    setEditText(extractTextFromContent(comment.content))
+    setErrorMessage(null)
+  }
+
+  const cancelEdit = () => {
+    setEditingId(null)
+    setEditText("")
+  }
+
+  const saveEdit = async (comment: ProjectComment) => {
+    const text = editText.trim()
+    if (!text || isSavingEdit) return
+
+    setIsSavingEdit(true)
+    setErrorMessage(null)
+
+    try {
+      const response = await fetch(`/api/comments/${projectId}/${comment.id}`, {
+        method: "PATCH",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: buildCommentContent(text) }),
+      })
+
+      if (!response.ok) {
+        const message = await response.text()
+        throw new Error(message || "Unable to update comment.")
+      }
+
+      setComments((current) =>
+        current.map((c) =>
+          c.id === comment.id ? { ...c, content: buildCommentContent(text) } : c,
+        ),
+      )
+      cancelEdit()
+    } catch (error) {
+      console.error("[ProjectComments] failed to edit comment", error)
+      setErrorMessage("Your comment could not be updated. Try again in a moment.")
+    } finally {
+      setIsSavingEdit(false)
     }
   }
 
@@ -226,9 +280,49 @@ export function ProjectComments({ projectId, isAuthenticated, className }: Proje
                   {formatCommentTime(comment.timestamp)}
                 </time>
               </div>
-              <p className="text-foreground mt-3 text-sm leading-6 whitespace-pre-wrap">
-                {text || "[Comment]"}
-              </p>
+              {editingId === comment.id ? (
+                <div className="mt-3 space-y-2">
+                  <Textarea
+                    value={editText}
+                    onChange={(event) => setEditText(event.target.value)}
+                    maxLength={1500}
+                    className="bg-background min-h-20 resize-y"
+                  />
+                  <div className="flex items-center justify-end gap-2">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={cancelEdit}
+                      className="rounded-full px-4 text-xs"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => saveEdit(comment)}
+                      disabled={!editText.trim() || isSavingEdit}
+                      className="rounded-full px-4 text-xs"
+                    >
+                      {isSavingEdit ? "Saving..." : "Save"}
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <p className="text-foreground mt-3 text-sm leading-6 whitespace-pre-wrap">
+                    {text || "[Comment]"}
+                  </p>
+                  {currentUserId && comment.author?.id === currentUserId ? (
+                    <button
+                      type="button"
+                      onClick={() => startEdit(comment)}
+                      className="text-muted-foreground hover:text-foreground mt-2 text-xs font-medium"
+                    >
+                      Edit
+                    </button>
+                  ) : null}
+                </>
+              )}
             </article>
           )
         })}
