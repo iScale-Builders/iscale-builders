@@ -54,7 +54,7 @@ export default async function Home() {
     <main className="bg-background text-foreground min-h-screen">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Hero — headline + the problem/solution split, all condensed at the top */}
-        <section className="mx-auto mb-12 max-w-3xl text-center">
+        <section className="mx-auto mb-12 max-w-5xl text-center">
           <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
             Post the problem. Exchange the solution.
           </h1>
