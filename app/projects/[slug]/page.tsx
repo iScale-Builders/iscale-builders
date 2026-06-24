@@ -17,7 +17,7 @@ import { RichTextDisplay } from "@/components/ui/rich-text-editor"
 import { galleryFor, thumbnailFor } from "@/components/explore/explore-view"
 import { EditButton } from "@/components/project/edit-button"
 import { ProjectComments } from "@/components/project/project-comments"
-import { ProjectImageWithLoader } from "@/components/project/project-image-with-loader"
+import { ListingImages } from "@/components/project/listing-images"
 import { ShareButton } from "@/components/project/share-button"
 import { UpvoteButton } from "@/components/project/upvote-button"
 import { JsonLd } from "@/components/seo/json-ld"
@@ -326,11 +326,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
               )}
 
-              {/* Product Image / Banner */}
+              {/* Product image + gallery — click any image to view full size */}
               {projectThumbnail ? (
-                <ProjectImageWithLoader
-                  src={projectThumbnail}
-                  alt={`${projectData.name} - Product Image`}
+                <ListingImages
+                  banner={projectThumbnail}
+                  images={projectGallery}
+                  name={projectData.name}
                 />
               ) : (
                 <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border">
@@ -339,22 +340,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     category={projectData.categories[0]?.name}
                     slug={projectData.slug}
                   />
-                </div>
-              )}
-              {projectGallery.length > 1 && (
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-                  {projectGallery.slice(0, 10).map((image, index) => (
-                    <div
-                      key={`${image}-${index}`}
-                      className="bg-muted aspect-video overflow-hidden rounded-lg border"
-                    >
-                      <img
-                        src={image}
-                        alt={`${projectData.name} image ${index + 1}`}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  ))}
                 </div>
               )}
               {/* What problem does this solve? — shown on every solution listing */}
