@@ -7,9 +7,11 @@ import { ReadyPixlSponsorLink } from "@/components/sponsor/readypixl-sponsor-lin
 
 // Link groups for a columnar layout
 const discoverLinks = [
+  { title: "Problems", href: "/problems" },
+  { title: "Solutions", href: "/solutions" },
   { title: "Trending", href: "/trending" },
   { title: "Categories", href: "/categories" },
-  { title: "Submit Project", href: "/projects/submit" },
+  { title: "Submit", href: "/projects/submit" },
 ]
 
 const resourcesLinks = [
@@ -42,16 +44,16 @@ export default function FooterSection() {
           <div className="flex flex-col items-start text-left md:col-span-4 lg:col-span-4">
             <Link href="/" prefetch={false} className="font-heading mb-3 flex items-center">
               <span className="font-heading flex items-center text-xl font-black tracking-tight">
-                <img src="/logo.svg" alt="iScaleBuilders logo" className="mr-2 h-9 w-9" />
-                <span className="text-foreground">iScaleBuilders</span>
+                <img src="/logo.svg" alt="iScaleXchange logo" className="mr-2 h-9 w-9" />
+                <span className="text-foreground">iScaleXchange</span>
               </span>
             </Link>
             <p className="text-muted-foreground text-sm">
-              © {new Date().getFullYear()} iScaleBuilders. All rights reserved.
-              <span className="ml-2">v0.4.4</span>
+              © {new Date().getFullYear()} iScaleXchange. All rights reserved.
+              <span className="ml-2">v0.5.0</span>
             </p>
             <p className="text-muted-foreground text-sm">
-              Built by the{" "}
+              Problems, solutions, and tools from the{" "}
               <Link
                 href="https://github.com/iScale-Builders"
                 target="_blank"

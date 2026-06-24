@@ -25,7 +25,7 @@ export async function sendEmail(payload: EmailPayload) {
   try {
     const resend = getResendClient()
     const data = await resend.emails.send({
-      from: "iScaleBuilders <noreply@iscalebuilders.com>",
+      from: "iScaleXchange <noreply@iscalebuilders.com>",
       to,
       subject,
       html,

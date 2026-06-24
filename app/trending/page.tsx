@@ -28,7 +28,7 @@ interface ProjectSummary {
 
 export const metadata = {
   title: "Trending",
-  description: "Discover trending builder tools, workflows, and resources on iScaleBuilders",
+  description: "Discover trending solutions, workflows, and resources on iScaleXchange",
   alternates: { canonical: "/trending" },
 }
 

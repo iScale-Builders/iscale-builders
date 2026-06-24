@@ -16,18 +16,18 @@ interface BadgesDisplayProps {
 
 export function BadgesDisplay({ dailyRanking, slug }: BadgesDisplayProps) {
   const baseUrl = process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.com"
-  const lightBadgeCode = `<a href=\"${baseUrl}/projects/${slug}\" target=\"_blank\" title=\"iScaleBuilders Top ${dailyRanking} Daily Winner\">
+  const lightBadgeCode = `<a href=\"${baseUrl}/projects/${slug}\" target=\"_blank\" title=\"iScaleXchange Top ${dailyRanking} Daily Winner\">
   <img
     src=\"${baseUrl}/images/badges/top${dailyRanking}-light.svg\"
-    alt=\"iScaleBuilders Top ${dailyRanking} Daily Winner\"
+    alt=\"iScaleXchange Top ${dailyRanking} Daily Winner\"
     style=\"width: 195px; height: auto;\"
   />
 </a>`
 
-  const darkBadgeCode = `<a href=\"${baseUrl}/projects/${slug}\" target=\"_blank\" title=\"iScaleBuilders Top ${dailyRanking} Daily Winner\">
+  const darkBadgeCode = `<a href=\"${baseUrl}/projects/${slug}\" target=\"_blank\" title=\"iScaleXchange Top ${dailyRanking} Daily Winner\">
   <img
     src=\"${baseUrl}/images/badges/top${dailyRanking}-dark.svg\"
-    alt=\"iScaleBuilders Top ${dailyRanking} Daily Winner\"
+    alt=\"iScaleXchange Top ${dailyRanking} Daily Winner\"
     style=\"width: 195px; height: auto;\"
   />
 </a>`
@@ -49,7 +49,7 @@ export function BadgesDisplay({ dailyRanking, slug }: BadgesDisplayProps) {
         <div className="flex w-full justify-center">
           <img
             src={`/images/badges/top${dailyRanking}-light.svg`}
-            alt={`iScaleBuilders Top ${dailyRanking} Daily Winner`}
+            alt={`iScaleXchange Top ${dailyRanking} Daily Winner`}
             className="h-auto w-[195px]"
           />
         </div>
@@ -74,7 +74,7 @@ export function BadgesDisplay({ dailyRanking, slug }: BadgesDisplayProps) {
         <div className="flex w-full justify-center">
           <img
             src={`/images/badges/top${dailyRanking}-dark.svg`}
-            alt={`iScaleBuilders Top ${dailyRanking} Daily Winner`}
+            alt={`iScaleXchange Top ${dailyRanking} Daily Winner`}
             className="h-auto w-[195px]"
           />
         </div>

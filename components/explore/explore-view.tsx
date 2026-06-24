@@ -59,12 +59,12 @@ export function ExploreView({ projects, isAuthenticated = false }: ExploreViewPr
     return (
       <div className="foundry-panel flex flex-col items-center justify-center gap-3 rounded-2xl border-dashed py-20 text-center">
         <RiFireLine className="text-muted-foreground h-8 w-8" />
-        <h2 className="font-heading text-foreground text-lg font-black">No launched tools yet</h2>
+        <h2 className="font-heading text-foreground text-lg font-black">No solutions yet</h2>
         <p className="text-muted-foreground max-w-md text-sm">
-          Once projects finish their launch they&apos;ll appear here. Be the first to ship.
+          Once solutions are connected to the exchange, they&apos;ll appear here.
         </p>
         <Button asChild className="mt-2">
-          <Link href="/projects/submit">Submit a project</Link>
+          <Link href="/projects/submit">Post a solution</Link>
         </Button>
       </div>
     )
@@ -108,7 +108,7 @@ export function ExploreView({ projects, isAuthenticated = false }: ExploreViewPr
               <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                 <span className="border-border bg-muted text-foreground inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-black shadow-[0_0_24px_rgb(0_229_255_/_0.22)] backdrop-blur-xl">
                   <RiFireLine className="h-3.5 w-3.5" />
-                  Top tool
+                  Featured solution
                 </span>
                 <span className="border-border bg-muted text-foreground rounded-full border px-3 py-1 text-xs font-black shadow-[0_0_24px_rgb(0_229_255_/_0.22)] backdrop-blur-xl">
                   {toolStatusLabel(featured.launchStatus)}
@@ -167,14 +167,14 @@ export function ExploreView({ projects, isAuthenticated = false }: ExploreViewPr
                     </div>
                   )}
                   <div className="flex flex-col leading-tight">
-                    <span className="text-muted-foreground text-xs">Built by</span>
+                    <span className="text-muted-foreground text-xs">Solved by</span>
                     <span className="text-sm font-medium">
                       {featured.creatorName ?? "Unknown maker"}
                     </span>
                   </div>
                 </div>
                 <span className="text-foreground inline-flex items-center gap-1 text-sm font-black">
-                  View tool
+                  View solution
                   <RiArrowRightLine className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </div>
@@ -189,7 +189,7 @@ export function ExploreView({ projects, isAuthenticated = false }: ExploreViewPr
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-heading text-foreground flex items-center gap-2 text-xl font-black">
               <RiFireLine className="text-primary h-5 w-5" />
-              Trending now
+              Trending solutions
             </h2>
             <Button variant="ghost" size="sm" asChild>
               <Link href="/trending" className="flex items-center gap-1">
@@ -223,7 +223,7 @@ export function ExploreView({ projects, isAuthenticated = false }: ExploreViewPr
       {/* 3. THUMBNAIL GRID */}
       {grid.length > 0 && (
         <section>
-          <h2 className="font-heading text-foreground mb-4 text-xl font-black">All tools</h2>
+          <h2 className="font-heading text-foreground mb-4 text-xl font-black">All solutions</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
             {grid.map((p) => (
               <ExploreGridCard

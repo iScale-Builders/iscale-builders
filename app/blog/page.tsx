@@ -12,18 +12,18 @@ export const metadata: Metadata = {
   description:
     "Discover insights, tutorials, and resources to help you build and launch successful products.",
   keywords: "blog, insights, tutorials, product launch, entrepreneurship, technology, startup",
-  authors: [{ name: "iScaleBuilders Team" }],
+  authors: [{ name: "iScaleXchange Team" }],
   openGraph: {
-    title: "Blog | iScaleBuilders - Insights & Resources",
+    title: "Blog | iScaleXchange - Insights & Resources",
     description:
       "Discover insights, tutorials, and resources to help you build and launch successful products.",
     type: "website",
     url: "/blog",
-    siteName: "iScaleBuilders",
+    siteName: "iScaleXchange",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | iScaleBuilders - Insights & Resources",
+    title: "Blog | iScaleXchange - Insights & Resources",
     description:
       "Discover insights, tutorials, and resources to help you build and launch successful products.",
   },

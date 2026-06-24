@@ -100,7 +100,7 @@ function buildFaqs(lowerPhrase: string, totalCount: number): FaqItem[] {
   return [
     {
       question: `What are the best ${lowerPhrase}?`,
-      answer: `This page ranks ${totalCount} ${lowerPhrase} submitted to iScaleBuilders by community upvotes. The top entries are the ones builders use and recommend most. Each links to a full page with details, pricing, and discussion.`,
+      answer: `This page ranks ${totalCount} ${lowerPhrase} submitted to iScaleXchange by community upvotes. The top entries are the ones builders use and recommend most. Each links to a full page with details, pricing, and discussion.`,
     },
     {
       question: `Are these ${lowerPhrase} free?`,

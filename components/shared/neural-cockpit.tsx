@@ -36,7 +36,7 @@ export function NeuralCockpit({
   const graphStrength = Math.max(62, Math.min(99, toolsCount * 5 + categoriesCount * 4))
 
   return (
-    <div className="neural-cockpit" aria-label="iScaleBuilders AI command cockpit">
+    <div className="neural-cockpit" aria-label="iScaleXchange AI command cockpit">
       <div className="neural-cockpit__matrix" aria-hidden="true" />
       <div className="neural-cockpit__header">
         <div>

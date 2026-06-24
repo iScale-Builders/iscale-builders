@@ -54,19 +54,19 @@ export async function generateMetadata({
     title: metaTitle || title,
     description: metaDescription || description,
     keywords: "review, product review, analysis, evaluation",
-    authors: [{ name: "iScaleBuilders Team" }],
+    authors: [{ name: "iScaleXchange Team" }],
     category: "Technology",
     openGraph: {
-      title: metaTitle || `${title} | iScaleBuilders`,
+      title: metaTitle || `${title} | iScaleXchange`,
       description: metaDescription || description,
       type: "article",
       publishedTime: article[0].publishedAt.toISOString(),
-      siteName: "iScaleBuilders",
+      siteName: "iScaleXchange",
       locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
-      title: metaTitle || `${title} | iScaleBuilders`,
+      title: metaTitle || `${title} | iScaleXchange`,
       description: metaDescription || description,
     },
     alternates: {

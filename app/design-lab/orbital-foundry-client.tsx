@@ -93,7 +93,7 @@ export function OrbitalFoundryClient() {
             </span>
             <span>
               <span className="text-foreground block text-sm font-black tracking-[0.22em] uppercase">
-                iScaleBuilders
+                iScaleXchange
               </span>
               <span className="text-muted-foreground block text-xs">Orbital AI Foundry</span>
             </span>
@@ -148,7 +148,7 @@ export function OrbitalFoundryClient() {
               Build from the future.
             </h1>
             <p className="text-muted-foreground mt-6 max-w-xl text-lg leading-8">
-              iScaleBuilders becomes a living command system for AI tools: orbiting categories,
+              iScaleXchange becomes a living command system for AI tools: orbiting categories,
               workflow telemetry, launch gates, and a front page that feels impossible to confuse
               with another product directory.
             </p>

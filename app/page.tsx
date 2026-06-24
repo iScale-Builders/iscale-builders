@@ -13,8 +13,9 @@ import { getExploreProjects } from "@/app/actions/explore"
 import type { ExploreProject } from "@/app/actions/explore"
 
 export const metadata: Metadata = {
-  title: { absolute: "iScaleBuilders — AI tools and workflows for builders" },
-  description: "Discover AI tools, workflows, and resources from the iScaleBuilders community.",
+  title: { absolute: "iScaleXchange — Post the problem. Exchange the solution." },
+  description:
+    "Post problems, discover solutions, and connect tools to the real online business problems they solve.",
   alternates: { canonical: "/" },
 }
 
@@ -59,32 +60,83 @@ export default async function Home() {
         {/* Headline */}
         <section className="mb-8 text-center">
           <p className="text-muted-foreground text-xs font-bold tracking-[0.22em] uppercase">
-            iScaleBuilders
+            iScaleXchange
           </p>
           <h1 className="text-foreground mt-3 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
-            Tools built by the people, for the people.
+            Post the problem. Exchange the solution.
           </h1>
           <p className="text-muted-foreground mx-auto mt-4 max-w-xl text-base leading-7">
-            AI tools, builder workflows, and community-made systems — curated by the iScale
-            community.
+            A living exchange where people surface what they cannot solve, vote on what matters, and
+            connect tools, workflows, and guides to the problems they fix.
           </p>
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+            <span className="border-border bg-muted text-foreground rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
+              Problem
+            </span>
+            <span className="border-border bg-muted text-foreground rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
+              Solution
+            </span>
+            <span className="border-border bg-muted text-foreground rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
+              Tool
+            </span>
+          </div>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <Button asChild className="h-11 rounded-full px-6 font-semibold">
               <Link href="/explore">
-                Explore tools
+                Explore solutions
                 <RiSearchEyeLine className="h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" className="h-11 rounded-full px-6 font-semibold">
               <Link href="/projects/submit">
-                Submit a tool
+                Post problem or solution
                 <RiArrowRightLine className="h-4 w-4" />
               </Link>
             </Button>
           </div>
         </section>
 
-        {/* Top tools — full-width banner carousel, one at a time */}
+        <section className="mb-12 grid gap-4 md:grid-cols-2">
+          <Link
+            href="/problems"
+            prefetch={false}
+            className="foundry-panel group rounded-2xl p-5 transition-all hover:-translate-y-0.5"
+          >
+            <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
+              Problems
+            </span>
+            <h2 className="text-foreground mt-4 text-xl font-black">What needs solving?</h2>
+            <p className="text-muted-foreground mt-2 text-sm leading-6">
+              The demand side of the exchange: pain points, blockers, workflows, and unsolved
+              questions people can vote up.
+            </p>
+            <span className="text-foreground mt-4 inline-flex items-center gap-1 text-sm font-black">
+              View problems
+              <RiArrowRightLine className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+
+          <Link
+            href="/solutions"
+            prefetch={false}
+            className="foundry-panel group rounded-2xl p-5 transition-all hover:-translate-y-0.5"
+          >
+            <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
+              Solutions
+            </span>
+            <h2 className="text-foreground mt-4 text-xl font-black">What solves it?</h2>
+            <p className="text-muted-foreground mt-2 text-sm leading-6">
+              The supply side of the exchange: tools, workflows, guides, services, and answers
+              mapped back to real problems.
+            </p>
+            <span className="text-foreground mt-4 inline-flex items-center gap-1 text-sm font-black">
+              View solutions
+              <RiArrowRightLine className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+        </section>
+
+        {/* Top solutions — full-width banner carousel, one at a time */}
         {top3.length > 0 && (
           <section className="mb-12">
             <ToolCarousel slideClassName="min-w-0 flex-[0_0_100%]" autoplayMs={7500} loop>
@@ -95,11 +147,11 @@ export default async function Home() {
           </section>
         )}
 
-        {/* Most discussed — two banners side by side, auto-advancing */}
+        {/* Most discussed solutions — two banners side by side, auto-advancing */}
         {discussed.length > 0 && (
           <section className="mb-14">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-foreground text-lg font-bold">Most discussed</h2>
+              <h2 className="text-foreground text-lg font-bold">Most discussed solutions</h2>
               <Button
                 variant="ghost"
                 size="sm"
@@ -131,7 +183,7 @@ export default async function Home() {
         {/* Browse all */}
         {projects.length > 0 && (
           <section>
-            <h2 className="text-foreground mb-5 text-lg font-bold">Browse all tools</h2>
+            <h2 className="text-foreground mb-5 text-lg font-bold">Browse solution tools</h2>
             <ExploreBrowser projects={projects} isAuthenticated={isAuthenticated} />
           </section>
         )}

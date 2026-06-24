@@ -823,7 +823,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
 
             <div>
               <h4 className="mb-4 text-sm font-medium">Launch Type</h4>
-              {/* DECISION 4: iScaleBuilders is free. Premium/Stripe is neutralized — only
+              {/* DECISION 4: iScaleXchange is free. Premium/Stripe is neutralized — only
                   the Free launch type is offered. */}
               <div className="grid grid-cols-1 gap-4">
                 <div
@@ -1275,7 +1275,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
             ) : (
               <RiRocketLine className="mr-2 h-4 w-4" />
             )}
-            Submit Project
+            Submit solution
           </Button>
         )}
       </div>

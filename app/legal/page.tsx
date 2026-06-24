@@ -4,7 +4,7 @@ import { RiFilePaper2Line, RiMedalLine, RiShieldUserLine } from "@remixicon/reac
 
 export const metadata = {
   title: "Legal Information",
-  description: "Legal information and policies for the iScaleBuilders platform",
+  description: "Legal information and policies for the iScaleXchange platform",
   alternates: { canonical: "/legal" },
 }
 
@@ -18,7 +18,7 @@ export default function LegalPage() {
             Legal Information
           </h1>
           <p className="text-muted-foreground mb-8">
-            At iScaleBuilders, we are committed to transparency and protecting your rights. As an
+            At iScaleXchange, we are committed to transparency and protecting your rights. As an
             open source project, we believe in openness and community collaboration. Please review
             our legal documents to understand how we operate and protect your information.
           </p>

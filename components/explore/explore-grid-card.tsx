@@ -87,6 +87,9 @@ export function ExploreGridCard({
         <div className="border-border bg-muted text-foreground absolute top-2 left-2 rounded-full border px-2 py-1 text-xs font-black backdrop-blur-xl">
           {toolStatusLabel(launchStatus)}
         </div>
+        <div className="border-border bg-background/85 text-foreground absolute top-10 left-2 rounded-full border px-2 py-1 text-[10px] font-black tracking-[0.12em] uppercase backdrop-blur-xl">
+          Solution
+        </div>
       </div>
 
       {/* Body */}
@@ -102,6 +105,9 @@ export function ExploreGridCard({
         </Link>
 
         <p className="text-muted-foreground line-clamp-2 text-sm">{stripHtml(description)}</p>
+        <div className="text-muted-foreground text-xs font-semibold">
+          Tool mapped to real problems
+        </div>
 
         {categories.length > 0 && (
           <div className="mt-1 flex flex-wrap gap-1.5">

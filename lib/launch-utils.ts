@@ -1,7 +1,7 @@
 import { launchStatus } from "@/drizzle/db/schema"
 
 /**
- * iScaleBuilders is a permanent community showcase, not a time-boxed launch
+ * iScaleXchange is a permanent community showcase, not a time-boxed launch
  * platform. Upstream Open-Launch closes upvoting once a tool's launch day
  * ends (only `ongoing` accepts votes), which left every showcased tool
  * (`launched`) with no upvote button at all.

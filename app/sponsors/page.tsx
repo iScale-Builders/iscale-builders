@@ -14,7 +14,7 @@ import { getLast30DaysPageviews, getLast30DaysVisitors } from "@/app/actions/pla
 
 export const metadata = {
   title: "Sponsors",
-  description: "Support iScaleBuilders and gain visibility for your product or service.",
+  description: "Support iScaleXchange and gain visibility for your product or service.",
   alternates: { canonical: "/sponsors" },
 }
 
@@ -61,7 +61,7 @@ export default async function SponsorsPage() {
       <div className="mb-8 text-center">
         <h1 className="mb-3 text-2xl font-bold sm:text-3xl">Become a Sponsor</h1>
         <p className="text-muted-foreground mx-auto max-w-xl text-sm">
-          Support iScaleBuilders and gain visibility. Limited sponsorship slots for maximum impact.
+          Support iScaleXchange and gain visibility. Limited sponsorship slots for maximum impact.
         </p>
         <p className="text-primary text-center text-sm font-medium">
           Currently, <span className="font-bold">{remainingSlots}</span> slot

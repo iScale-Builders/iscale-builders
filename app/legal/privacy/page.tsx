@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export const metadata = {
   title: "Privacy Policy",
-  description: "Privacy Policy for the iScaleBuilders platform",
+  description: "Privacy Policy for the iScaleXchange platform",
   alternates: { canonical: "/legal/privacy" },
 }
 
@@ -28,9 +28,9 @@ export default function PrivacyPolicyPage() {
             <section>
               <h2 className="mb-3 text-xl font-semibold">1. Introduction</h2>
               <p className="mb-3">
-                At iScaleBuilders, we highly value the protection of your personal data. This
-                privacy policy explains how we collect, use, and protect your information when you
-                use our platform.
+                At iScaleXchange, we highly value the protection of your personal data. This privacy
+                policy explains how we collect, use, and protect your information when you use our
+                platform.
               </p>
             </section>
 
@@ -164,7 +164,7 @@ export default function PrivacyPolicyPage() {
             <section>
               <h2 className="mb-3 text-xl font-semibold">11. Open Source Transparency</h2>
               <p className="mb-3">
-                As an open source project, iScaleBuilders is committed to transparency in how we
+                As an open source project, iScaleXchange is committed to transparency in how we
                 handle data. Our source code is publicly available on{" "}
                 <a
                   href="https://github.com/iScale-Builders/iscale-builders"

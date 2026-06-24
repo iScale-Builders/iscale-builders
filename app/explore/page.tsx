@@ -7,9 +7,9 @@ import { AICommandRibbon } from "@/components/shared/ai-command-ribbon"
 import { getExploreProjects } from "@/app/actions/explore"
 
 export const metadata: Metadata = {
-  title: "Explore",
+  title: "Explore Solutions",
   description:
-    "Browse tools, workflows, and builder resources from the iScale community. A visual, magazine-style discovery of launched projects.",
+    "Browse solution tools, workflows, and resources mapped to real ecommerce, print-on-demand, and AI workflow problems.",
   alternates: { canonical: "/explore" },
 }
 
@@ -26,13 +26,12 @@ export default async function ExplorePage() {
       <div className="foundry-container">
         {/* Page heading */}
         <div className="scroll-live mb-8 flex flex-col gap-2">
-          <p className="foundry-kicker">Tool radar</p>
+          <p className="foundry-kicker">Solution radar</p>
           <h1 className="font-heading text-foreground text-4xl font-black tracking-tight sm:text-5xl">
-            Explore the builder system
+            Explore the exchange
           </h1>
           <p className="text-muted-foreground max-w-2xl text-sm sm:text-base">
-            A visual tour of the tools, workflows, and builder resources from the iScale community
-            ranked by upvotes.
+            A visual tour of solution tools, workflows, and resources connected to real problems.
           </p>
         </div>
 

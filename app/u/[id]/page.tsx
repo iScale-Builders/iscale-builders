@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: MakerProfilePageProps): Promi
 
   return {
     title: profile.user.name,
-    description: `Tools built by ${profile.user.name} on iScaleBuilders.`,
+    description: `Solutions shared by ${profile.user.name} on iScaleXchange.`,
     alternates: { canonical: `/u/${id}` },
   }
 }
@@ -122,7 +122,7 @@ export default async function MakerProfilePage({ params }: MakerProfilePageProps
           ) : (
             <div className="foundry-panel flex flex-col items-center justify-center rounded-2xl px-6 py-16 text-center">
               <RiAppsLine className="text-muted-foreground/60 mb-3 h-10 w-10" />
-              <p className="text-foreground font-medium">No tools yet</p>
+              <p className="text-foreground font-medium">No solutions yet</p>
               <p className="text-muted-foreground mt-1 text-sm">
                 {user.name} hasn&apos;t published any tools yet.
               </p>

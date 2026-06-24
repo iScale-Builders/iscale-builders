@@ -69,13 +69,13 @@ export async function generateMetadata(
     description: stripHtml(projectData.description),
     alternates: { canonical: `/projects/${slug}` },
     openGraph: {
-      title: `${projectData.name} on iScaleBuilders`,
+      title: `${projectData.name} on iScaleXchange`,
       description: stripHtml(projectData.description),
       images: [...socialImages, ...previousImages],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${projectData.name} on iScaleBuilders`,
+      title: `${projectData.name} on iScaleXchange`,
       description: stripHtml(projectData.description),
       images: socialImages,
     },
@@ -405,12 +405,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <div className="flex">
                       <img
                         src={`/images/badges/top${projectData.dailyRanking}-light.svg`}
-                        alt={`iScaleBuilders Top ${projectData.dailyRanking} Daily Winner`}
+                        alt={`iScaleXchange Top ${projectData.dailyRanking} Daily Winner`}
                         className="h-12 w-auto dark:hidden"
                       />
                       <img
                         src={`/images/badges/top${projectData.dailyRanking}-dark.svg`}
-                        alt={`iScaleBuilders Top ${projectData.dailyRanking} Daily Winner`}
+                        alt={`iScaleXchange Top ${projectData.dailyRanking} Daily Winner`}
                         className="hidden h-12 w-auto dark:block"
                       />
                     </div>

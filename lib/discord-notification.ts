@@ -105,7 +105,7 @@ export async function sendDiscordCommentNotification(
             },
           ],
           footer: {
-            text: "iScaleBuilders Comment Notification",
+            text: "iScaleXchange Comment Notification",
           },
           timestamp: new Date().toISOString(),
         },
@@ -139,7 +139,7 @@ export async function sendDiscordCommentNotification(
  * @param launchDate Date of the launch
  * @param launchType Type of launch (free, premium, premium plus)
  * @param websiteUrl URL of the project website
- * @param projectUrl URL of the project page on iScaleBuilders
+ * @param projectUrl URL of the project page on iScaleXchange
  * @param userId ID of the user who submitted the launch notification
  */
 export async function notifyDiscordLaunch(
@@ -234,7 +234,7 @@ export async function notifyDiscordLaunch(
             submittedByField,
           ],
           footer: {
-            text: "iScaleBuilders Launch Notification",
+            text: "iScaleXchange Launch Notification",
           },
           timestamp: new Date().toISOString(),
         },

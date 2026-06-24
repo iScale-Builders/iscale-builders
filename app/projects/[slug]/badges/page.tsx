@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: BadgesPageProps): Promise<Met
   }
 
   return {
-    title: `${projectData.name} - Badges | iScaleBuilders`,
-    description: "Get your iScaleBuilders achievement badges",
+    title: `${projectData.name} - Badges | iScaleXchange`,
+    description: "Get your iScaleXchange achievement badges",
   }
 }
 

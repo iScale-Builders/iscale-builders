@@ -35,7 +35,35 @@ export function NavMenu({ showDashboard = true }: NavMenuProps) {
                   >
                     <div className="mb-1 font-medium">Explore</div>
                     <p className="text-muted-foreground text-xs leading-tight">
-                      Browse all tools, magazine-style
+                      Browse tools, workflows, and exchanges
+                    </p>
+                  </Link>
+                </NavigationMenuLink>
+              </li>
+              <li>
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/problems"
+                    prefetch={false}
+                    className="block rounded-md px-2 py-2 text-sm no-underline transition-colors outline-none select-none"
+                  >
+                    <div className="mb-1 font-medium">Problems</div>
+                    <p className="text-muted-foreground text-xs leading-tight">
+                      See what people need solved
+                    </p>
+                  </Link>
+                </NavigationMenuLink>
+              </li>
+              <li>
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/solutions"
+                    prefetch={false}
+                    className="block rounded-md px-2 py-2 text-sm no-underline transition-colors outline-none select-none"
+                  >
+                    <div className="mb-1 font-medium">Solutions</div>
+                    <p className="text-muted-foreground text-xs leading-tight">
+                      Tools and workflows mapped to problems
                     </p>
                   </Link>
                 </NavigationMenuLink>
@@ -121,7 +149,7 @@ export function NavMenu({ showDashboard = true }: NavMenuProps) {
               prefetch={false}
               className={`${navigationMenuTriggerStyle()} h-9 px-3 text-sm`}
             >
-              Submit Project
+              Submit
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
@@ -129,7 +157,7 @@ export function NavMenu({ showDashboard = true }: NavMenuProps) {
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link
-              href="https://www.skool.com/iscalebuildersgroup"
+              href="https://www.skool.com/iScaleBuildersgroup"
               target="_blank"
               rel="noreferrer"
               className={`${navigationMenuTriggerStyle()} h-9 px-3 text-sm`}

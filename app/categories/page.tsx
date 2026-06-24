@@ -35,7 +35,7 @@ export async function generateMetadata({
     if (selected) {
       return {
         title: "Categories",
-        description: "Browse builder tools, workflows, and resources by category on iScaleBuilders",
+        description: "Browse solution tools, workflows, and resources by category on iScaleXchange",
         robots: { index: false, follow: true },
         alternates: { canonical: `/categories/${slugify(selected.name)}` },
       }
@@ -44,7 +44,7 @@ export async function generateMetadata({
 
   return {
     title: "Categories",
-    description: "Browse builder tools, workflows, and resources by category on iScaleBuilders",
+    description: "Browse solution tools, workflows, and resources by category on iScaleXchange",
     alternates: { canonical: "/categories" },
   }
 }

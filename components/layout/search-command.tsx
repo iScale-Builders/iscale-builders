@@ -10,8 +10,10 @@ import {
   RiAppsLine,
   RiDashboardLine,
   RiErrorWarningLine,
+  RiExchangeLine,
   RiFireLine,
   RiLoader4Line,
+  RiQuestionLine,
   RiRocketLine,
   RiSearchLine,
 } from "@remixicon/react"
@@ -62,7 +64,7 @@ export function SearchCommand() {
       }
       // Compter les suggestions si pas de recherche
       else if (query.length === 0) {
-        totalItems = 5 // 3 suggestions + 2 navigation
+        totalItems = 7
       }
 
       if (totalItems === 0) return
@@ -214,7 +216,7 @@ export function SearchCommand() {
       <CommandDialog open={open} onOpenChange={handleOpenChange}>
         <DialogTitle className="sr-only">Search</DialogTitle>
         <CommandInput
-          placeholder="Search projects, categories..."
+          placeholder="Search solutions, problems, categories..."
           value={query}
           onValueChange={setQuery}
           className="border-none focus:ring-0"
@@ -265,12 +267,32 @@ export function SearchCommand() {
                     onClick={() => runCommand(() => router.push("/trending"))}
                   >
                     <RiFireLine className="mr-2 h-4 w-4 text-orange-500" />
-                    <span>Trending projects</span>
+                    <span>Trending solutions</span>
                   </div>
                   <div
                     data-index="1"
                     className={`flex cursor-pointer items-center rounded-md p-2 transition-colors ${
                       activeIndex === 1 ? "bg-muted text-foreground" : "hover:bg-muted/50"
+                    }`}
+                    onClick={() => runCommand(() => router.push("/problems"))}
+                  >
+                    <RiQuestionLine className="mr-2 h-4 w-4 text-amber-500" />
+                    <span>Problems</span>
+                  </div>
+                  <div
+                    data-index="2"
+                    className={`flex cursor-pointer items-center rounded-md p-2 transition-colors ${
+                      activeIndex === 2 ? "bg-muted text-foreground" : "hover:bg-muted/50"
+                    }`}
+                    onClick={() => runCommand(() => router.push("/solutions"))}
+                  >
+                    <RiExchangeLine className="mr-2 h-4 w-4 text-cyan-500" />
+                    <span>Solutions</span>
+                  </div>
+                  <div
+                    data-index="3"
+                    className={`flex cursor-pointer items-center rounded-md p-2 transition-colors ${
+                      activeIndex === 3 ? "bg-muted text-foreground" : "hover:bg-muted/50"
                     }`}
                     onClick={() => runCommand(() => router.push("/categories"))}
                   >
@@ -287,21 +309,21 @@ export function SearchCommand() {
                   {/* pour explore launches */}
 
                   <div
-                    data-index="2"
+                    data-index="4"
                     className={`flex cursor-pointer items-center rounded-md p-2 transition-colors ${
-                      activeIndex === 2 ? "bg-muted text-foreground" : "hover:bg-muted/50"
+                      activeIndex === 4 ? "bg-muted text-foreground" : "hover:bg-muted/50"
                     }`}
                     onClick={() => runCommand(() => router.push("/"))}
                   >
                     <RiRocketLine className="text-primary mr-2 h-4 w-4" />
-                    <span>Explore launches</span>
+                    <span>Explore exchange</span>
                   </div>
 
                   {/* pour dashboard */}
                   <div
-                    data-index="3"
+                    data-index="5"
                     className={`flex cursor-pointer items-center rounded-md p-2 transition-colors ${
-                      activeIndex === 3 ? "bg-muted text-foreground" : "hover:bg-muted/50"
+                      activeIndex === 5 ? "bg-muted text-foreground" : "hover:bg-muted/50"
                     }`}
                     onClick={() => runCommand(() => router.push("/dashboard"))}
                   >
@@ -309,14 +331,14 @@ export function SearchCommand() {
                     <span>Dashboard</span>
                   </div>
                   <div
-                    data-index="4"
+                    data-index="6"
                     className={`flex cursor-pointer items-center rounded-md p-2 transition-colors ${
-                      activeIndex === 4 ? "bg-muted text-foreground" : "hover:bg-muted/50"
+                      activeIndex === 6 ? "bg-muted text-foreground" : "hover:bg-muted/50"
                     }`}
                     onClick={() => runCommand(() => router.push("/projects/submit"))}
                   >
                     <RiAddCircleLine className="mr-2 h-4 w-4 text-sky-500" />
-                    <span>Submit Project</span>
+                    <span>Submit problem or solution</span>
                   </div>
                 </div>
               </div>

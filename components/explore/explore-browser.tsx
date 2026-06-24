@@ -58,8 +58,8 @@ export function ExploreBrowser({ projects, isAuthenticated = false }: ExploreBro
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search tools by name, tagline, or category…"
-          aria-label="Search tools"
+          placeholder="Search solutions by name, problem, or category..."
+          aria-label="Search solutions"
           className="bg-card text-foreground placeholder:text-muted-foreground h-12 rounded-xl border-cyan-100/18 pl-11 text-base shadow-[0_0_32px_rgb(0_229_255_/_0.08)]"
         />
       </div>
@@ -85,14 +85,14 @@ export function ExploreBrowser({ projects, isAuthenticated = false }: ExploreBro
 
       {/* Count */}
       <p className="text-muted-foreground text-sm">
-        {filtered.length} {filtered.length === 1 ? "tool" : "tools"}
+        {filtered.length} {filtered.length === 1 ? "solution" : "solutions"}
       </p>
 
       {/* Grid / empty state */}
       {filtered.length === 0 ? (
         <div className="foundry-panel flex flex-col items-center justify-center gap-2 rounded-xl border-dashed py-16 text-center">
           <RiSearchLine className="text-muted-foreground h-7 w-7" />
-          <h3 className="font-heading text-base font-semibold">No tools match your search</h3>
+          <h3 className="font-heading text-base font-semibold">No solutions match your search</h3>
           <p className="text-muted-foreground max-w-sm text-sm">
             Try a different keyword or clear the filters to see everything.
           </p>

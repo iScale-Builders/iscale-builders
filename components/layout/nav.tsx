@@ -4,6 +4,7 @@ import Link from "next/link"
 import { auth } from "@clerk/nextjs/server"
 import {
   RiDashboardLine,
+  RiExchangeLine,
   RiFlashlightLine,
   // RiHandCoinLine, // hidden with the Sponsors tab (2026-06-17)
   RiHomeLine,
@@ -66,8 +67,8 @@ export default async function Nav() {
         <div className="flex items-center gap-8">
           <Link href="/" prefetch={false} className="font-heading flex items-center">
             <span className="font-heading flex items-center text-xl font-black tracking-tight">
-              <img src="/logo.svg" alt="iScaleBuilders logo" className="mr-2 h-10 w-10" />
-              <span className="text-foreground">iScaleBuilders</span>
+              <img src="/logo.svg" alt="iScaleXchange logo" className="mr-2 h-10 w-10" />
+              <span className="text-foreground">iScaleXchange</span>
             </span>
           </Link>
 
@@ -159,6 +160,26 @@ export default async function Nav() {
                       </SheetClose>
                       <SheetClose asChild>
                         <Link
+                          href="/problems"
+                          prefetch={false}
+                          className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"
+                        >
+                          <RiExchangeLine className="text-muted-foreground h-4 w-4" />
+                          <span>Problems</span>
+                        </Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link
+                          href="/solutions"
+                          prefetch={false}
+                          className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"
+                        >
+                          <RiFlashlightLine className="text-muted-foreground h-4 w-4" />
+                          <span>Solutions</span>
+                        </Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link
                           href="/trending"
                           prefetch={false}
                           className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"
@@ -189,7 +210,7 @@ export default async function Nav() {
                       </SheetClose>
                       <SheetClose asChild>
                         <Link
-                          href="https://www.skool.com/iscalebuildersgroup"
+                          href="https://www.skool.com/iScaleBuildersgroup"
                           target="_blank"
                           rel="noreferrer"
                           className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"

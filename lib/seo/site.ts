@@ -11,12 +11,12 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_URL || "https://iscalebuilders.
   "",
 )
 
-export const SITE_NAME = "iScaleBuilders"
+export const SITE_NAME = "iScaleXchange"
 
-export const SITE_TAGLINE = "Tools, Workflows, and Builder Resources"
+export const SITE_TAGLINE = "Post the problem. Exchange the solution."
 
 export const SITE_DESCRIPTION =
-  "Discover tools, workflows, and resources for builders growing online businesses with the iScale community."
+  "A problem and solution exchange for online business operators, print-on-demand sellers, ecommerce workflows, and the tools that solve real problems."
 
 /** Title template applied across routes for consistent SERP branding. */
 export const TITLE_TEMPLATE = `%s | ${SITE_NAME}`

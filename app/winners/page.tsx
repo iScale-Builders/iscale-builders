@@ -12,7 +12,7 @@ import { getTopCategories } from "@/app/actions/projects"
 
 export const metadata = {
   title: "Daily Winners",
-  description: "Check out the daily winners on iScaleBuilders",
+  description: "Check out the daily winners on iScaleXchange",
   alternates: { canonical: "/winners" },
 }
 
@@ -131,7 +131,7 @@ export default async function WinnersPage({
               <h3 className="flex items-center gap-2 font-semibold">About Daily Winners</h3>
               <div className="border-border rounded-xl border bg-white/[0.045] p-4">
                 <p className="text-muted-foreground text-sm">
-                  Each day, iScaleBuilders automatically ranks the top 3 most upvoted projects that
+                  Each day, iScaleXchange automatically ranks the top 3 most upvoted projects that
                   were launched.
                 </p>
               </div>

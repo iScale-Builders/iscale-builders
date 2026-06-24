@@ -11,18 +11,18 @@ export const metadata: Metadata = {
   description:
     "Discover comprehensive product reviews and in-depth analysis of the latest tools and platforms to help you make informed decisions.",
   keywords: "product reviews, analysis, evaluation, tools, platforms, technology",
-  authors: [{ name: "iScaleBuilders Team" }],
+  authors: [{ name: "iScaleXchange Team" }],
   openGraph: {
-    title: "Product Reviews | iScaleBuilders - In-Depth Product Analysis",
+    title: "Product Reviews | iScaleXchange - In-Depth Product Analysis",
     description:
       "Discover comprehensive product reviews and in-depth analysis of the latest tools and platforms to help you make informed decisions.",
     type: "website",
     url: "/reviews",
-    siteName: "iScaleBuilders",
+    siteName: "iScaleXchange",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Product Reviews | iScaleBuilders - In-Depth Product Analysis",
+    title: "Product Reviews | iScaleXchange - In-Depth Product Analysis",
     description:
       "Discover comprehensive product reviews and in-depth analysis of the latest tools and platforms to help you make informed decisions.",
   },

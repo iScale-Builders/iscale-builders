@@ -4,7 +4,7 @@ import { OrbitalFoundryClient } from "./orbital-foundry-client"
 
 export const metadata: Metadata = {
   title: "Orbital AI Foundry",
-  description: "A future-facing interface direction for iScaleBuilders.",
+  description: "A future-facing interface direction for iScaleXchange.",
   alternates: { canonical: "/design-lab" },
 }
 

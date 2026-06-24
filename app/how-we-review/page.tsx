@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/seo/json-ld"
 
 const TITLE = "How We Evaluate Builder Tools"
 const DESCRIPTION =
-  "Our methodology for ranking and reviewing the tools listed on iScaleBuilders — what we look at, how community signals factor in, and how we keep rankings honest."
+  "Our methodology for ranking and reviewing the tools listed on iScaleXchange — what we look at, how community signals factor in, and how we keep rankings honest."
 
 export const metadata: Metadata = {
   title: TITLE,

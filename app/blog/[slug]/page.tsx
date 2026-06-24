@@ -56,19 +56,19 @@ export async function generateMetadata({
     title: metaTitle || title,
     description: metaDescription || description,
     keywords: "blog, insights, tutorials, product launch, entrepreneurship, technology, startup",
-    authors: [{ name: article[0].author || "iScaleBuilders Team" }],
+    authors: [{ name: article[0].author || "iScaleXchange Team" }],
     category: "Technology",
     openGraph: {
-      title: metaTitle || `${title} | iScaleBuilders`,
+      title: metaTitle || `${title} | iScaleXchange`,
       description: metaDescription || description,
       type: "article",
       publishedTime: article[0].publishedAt.toISOString(),
-      siteName: "iScaleBuilders",
+      siteName: "iScaleXchange",
       locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
-      title: metaTitle || `${title} | iScaleBuilders`,
+      title: metaTitle || `${title} | iScaleXchange`,
       description: metaDescription || description,
     },
     alternates: {
@@ -110,11 +110,11 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
     description,
     author: {
       "@type": "Organization",
-      name: article[0].author || "iScaleBuilders Team",
+      name: article[0].author || "iScaleXchange Team",
     },
     publisher: {
       "@type": "Organization",
-      name: "iScaleBuilders",
+      name: "iScaleXchange",
       url: siteUrl,
     },
     datePublished: publishedAt.toISOString(),

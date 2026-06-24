@@ -8,7 +8,7 @@ export const runtime = "edge"
 // No DB access here (keeps it edge-fast); callers pass the text they already have.
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const title = (searchParams.get("title") || "iScaleBuilders").slice(0, 120)
+  const title = (searchParams.get("title") || "iScaleXchange").slice(0, 120)
   const subtitle = (searchParams.get("subtitle") || "").slice(0, 160)
   const badge = (searchParams.get("badge") || "").slice(0, 40)
 
@@ -41,9 +41,9 @@ export async function GET(request: Request) {
               fontWeight: 800,
             }}
           >
-            iS
+            iX
           </div>
-          <div style={{ color: "#e2e8f0", fontSize: "30px", fontWeight: 700 }}>iScaleBuilders</div>
+          <div style={{ color: "#e2e8f0", fontSize: "30px", fontWeight: 700 }}>iScaleXchange</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>

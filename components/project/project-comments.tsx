@@ -220,7 +220,7 @@ export function ProjectComments({ projectId, isAuthenticated, className }: Proje
             <article key={comment.id} className="border-border rounded-lg border p-4">
               <div className="flex items-center justify-between gap-3">
                 <p className="text-foreground text-sm font-semibold">
-                  {comment.author?.name || "iScaleBuilders member"}
+                  {comment.author?.name || "iScaleXchange member"}
                 </p>
                 <time className="text-muted-foreground text-xs">
                   {formatCommentTime(comment.timestamp)}
