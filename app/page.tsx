@@ -58,8 +58,8 @@ export default async function Home() {
           <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
             Post the problem. Exchange the solution.
           </h1>
-          <p className="text-muted-foreground mx-auto mt-4 max-w-xl text-base leading-7">
-            Surface what you can&apos;t solve, vote on what matters, and connect the tools that fix it.
+          <p className="text-muted-foreground mx-auto mt-4 text-base leading-7 lg:whitespace-nowrap">
+            Post problems, vote on what matters, and connect the tools that solve them.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button asChild className="h-11 rounded-full px-6 font-semibold">
