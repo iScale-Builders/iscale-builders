@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/solutions" },
 }
 
-const solutionTypes = ["Tool", "Workflow", "Guide", "Template", "Service", "Sponsored Solution"]
+const solutionTypes = ["Tool", "Workflow", "Guide", "Template", "Service"]
 
 export default function SolutionsPage() {
   return (
@@ -40,7 +40,7 @@ export default function SolutionsPage() {
           </div>
         </section>
 
-        <section className="grid gap-4 md:grid-cols-2">
+        <section>
           <div className="foundry-panel rounded-2xl p-5">
             <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
               Solution lane
@@ -58,19 +58,6 @@ export default function SolutionsPage() {
                 <RiArrowRightLine className="h-4 w-4" />
               </Link>
             </Button>
-          </div>
-
-          <div className="foundry-panel rounded-2xl p-5">
-            <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-3 py-1 text-xs font-black tracking-[0.14em] uppercase">
-              Sponsored solution
-            </span>
-            <h2 className="text-foreground mt-4 text-xl font-black">
-              Sponsors should solve something
-            </h2>
-            <p className="text-muted-foreground mt-2 text-sm leading-6">
-              ReadyPixl belongs on image-editing problems because sponsorship should be contextual:
-              the sponsor appears where it genuinely solves the problem.
-            </p>
           </div>
         </section>
 
