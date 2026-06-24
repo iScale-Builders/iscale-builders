@@ -116,12 +116,12 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Featured — single carousel (merges the old top + most-discussed rows) */}
+        {/* Featured — full-width top listing, one at a time */}
         {featured.length > 0 && (
           <section className="mb-12">
-            <ToolCarousel slideClassName="min-w-0 flex-[0_0_100%] sm:flex-[0_0_49%]" autoplayMs={6500} loop>
+            <ToolCarousel slideClassName="min-w-0 flex-[0_0_100%]" autoplayMs={7500} loop>
               {featured.map((p) => (
-                <ExploreHeroCard key={p.id} {...heroProps(p)} heightClassName="h-[280px] sm:h-[340px]" />
+                <ExploreHeroCard key={p.id} {...heroProps(p)} />
               ))}
             </ToolCarousel>
           </section>
