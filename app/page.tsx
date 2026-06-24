@@ -55,13 +55,11 @@ export default async function Home() {
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Hero — headline + the problem/solution split, all condensed at the top */}
         <section className="mx-auto mb-12 max-w-5xl text-center">
-          <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-            Problems find solutions.
-            <br />
-            Solutions find problems.
+          <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
+            Where Problems Meet Solutions
           </h1>
           <p className="text-muted-foreground mx-auto mt-4 text-base leading-7 lg:whitespace-nowrap">
-            Post problems, vote on what matters, and connect the tools that solve them.
+            A two-way marketplace for challenges and the people who solve them.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button asChild className="h-11 rounded-full px-6 font-semibold">
