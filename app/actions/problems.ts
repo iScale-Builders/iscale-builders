@@ -41,6 +41,7 @@ export interface ProblemSubmission {
   audience: string // who has this problem (plain text)
   tried: string // what they have tried (plain text)
   urgency: string // "nice_to_have" | "painful" | "urgent"
+  thumbnail?: string | null // image URL or inline data URL
   categories: string[]
 }
 
@@ -56,7 +57,7 @@ export async function submitProblem(data: ProblemSubmission) {
     return { success: false, error: "Authentication required" }
   }
 
-  const { title, description, audience, tried, urgency, categories } = data
+  const { title, description, audience, tried, urgency, thumbnail, categories } = data
 
   if (!title || !description) {
     return { success: false, error: "Please add a title and describe the problem." }
@@ -77,7 +78,8 @@ export async function submitProblem(data: ProblemSubmission) {
       (tried ? `<p><strong>What they have tried:</strong> ${escapeHtml(tried)}</p>` : "") +
       `<p><strong>Urgency:</strong> ${urgencyLabel}</p>`
 
-    const logoUrl = `https://api.dicebear.com/7.x/shapes/svg?seed=${encodeURIComponent(title)}`
+    const logoUrl =
+      thumbnail?.trim() || `https://api.dicebear.com/7.x/shapes/svg?seed=${encodeURIComponent(title)}`
 
     const [row] = await db
       .insert(projectTable)

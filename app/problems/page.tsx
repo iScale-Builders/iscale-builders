@@ -76,6 +76,14 @@ export default async function ProblemsPage() {
                 href={`/projects/${p.slug}`}
                 className="foundry-panel group flex flex-col rounded-2xl p-5 transition-all hover:-translate-y-0.5"
               >
+                {p.logoUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={p.logoUrl}
+                    alt=""
+                    className="border-border/60 mb-4 aspect-video w-full rounded-lg border object-cover"
+                  />
+                )}
                 <div className="flex items-center gap-2">
                   <span className="border-border bg-muted text-foreground inline-flex rounded-full border px-2.5 py-0.5 text-[11px] font-black tracking-[0.14em] uppercase">
                     {STATUS_LABEL[p.problemStatus || "open"] || "Open"}

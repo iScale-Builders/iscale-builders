@@ -65,6 +65,7 @@ interface ProjectFormData {
   scheduledDate: string | null
   launchType: (typeof LAUNCH_TYPES)[keyof typeof LAUNCH_TYPES]
   productImage: string | null
+  galleryImages: string[]
 }
 
 interface DateGroup {
@@ -94,6 +95,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
     scheduledDate: null,
     launchType: LAUNCH_TYPES.FREE,
     productImage: null,
+    galleryImages: [],
   })
 
   const [uploadedLogoUrl, setUploadedLogoUrl] = useState<string | null>(null)
@@ -412,6 +414,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
         websiteUrl: formData.websiteUrl,
         logoUrl: finalLogoUrl,
         productImage: formData.productImage,
+        galleryImages: formData.galleryImages,
         categories: formData.categories,
         techStack: formData.techStack,
         platforms: formData.platforms,
@@ -654,7 +657,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
             </div>
             <ImageUploadInput
               id="logoUrl"
-              label="Logo"
+              label="Logo (optional)"
               value={uploadedLogoUrl}
               onChange={setUploadedLogoUrl}
               helperText="Paste an image URL or upload a square logo. If left blank, a generated avatar is used automatically."
@@ -662,10 +665,24 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
             />
             <ImageUploadInput
               id="productImage"
-              label="Product image"
+              label="Product images (optional)"
+              multiple
               value={formData.productImage}
-              onChange={(value) => setFormData((prev) => ({ ...prev, productImage: value }))}
-              helperText="Paste an image URL or upload a screenshot/cover image. Recommended: 16:9."
+              onChange={(value) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  productImage: value,
+                  galleryImages: value ? [value] : [],
+                }))
+              }
+              onMultiChange={(values) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  productImage: values[0] ?? null,
+                  galleryImages: values,
+                }))
+              }
+              helperText="Add one or more screenshots — you can select several files at once. Recommended: 16:9."
             />
           </div>
         )

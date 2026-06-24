@@ -15,6 +15,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { getAllCategories } from "@/app/actions/projects"
 import { submitProblem } from "@/app/actions/problems"
 
+import { ImageUploadInput } from "./image-upload-input"
+
 const URGENCY_OPTIONS = [
   { value: "nice_to_have", label: "Nice to have", hint: "Annoying, but I can live with it" },
   { value: "painful", label: "Painful", hint: "Costs me real time or money" },
@@ -28,6 +30,7 @@ export function SubmitProblemForm() {
   const [audience, setAudience] = useState("")
   const [tried, setTried] = useState("")
   const [urgency, setUrgency] = useState("painful")
+  const [thumbnail, setThumbnail] = useState<string | null>(null)
   const [categories, setCategories] = useState<string[]>([])
   const [allCategories, setAllCategories] = useState<{ id: string; name: string }[]>([])
   const [error, setError] = useState<string | null>(null)
@@ -70,6 +73,7 @@ export function SubmitProblemForm() {
         audience: audience.trim(),
         tried: tried.trim(),
         urgency,
+        thumbnail,
         categories,
       })
       if (!result.success || !result.slug) {
@@ -112,6 +116,14 @@ export function SubmitProblemForm() {
           className="max-h-[300px] overflow-y-auto"
         />
       </div>
+
+      <ImageUploadInput
+        id="problem-thumbnail"
+        label="Thumbnail"
+        value={thumbnail}
+        onChange={setThumbnail}
+        helperText="A thumbnail will help people notice your post. Paste an image URL or upload one."
+      />
 
       <div>
         <Label htmlFor="problem-audience">Who else has this problem?</Label>
