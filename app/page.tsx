@@ -24,25 +24,11 @@ export default async function Home() {
   const { userId } = await auth()
   const isAuthenticated = !!userId
 
-  // One condensed featured rail: pinned launches first, then most-discussed.
-  const pinnedSlugs = [
-    "pixel-mock-bulk-product-mockups",
-    "promoteflow",
-    "pintwist",
-    "iscale-images",
-    "iscale-etsy",
-    "iscale-merch",
-  ]
-  const pinned = pinnedSlugs
+  // Featured rail: exactly these three, in this order.
+  const featuredSlugs = ["promoteflow", "pixel-mock-bulk-product-mockups", "pintwist"]
+  const featured = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter((p): p is ExploreProject => Boolean(p))
-  const pinnedIds = new Set(pinned.map((p) => p.id))
-  const featured = [
-    ...pinned,
-    ...projects
-      .filter((p) => !pinnedIds.has(p.id))
-      .sort((a, b) => b.commentCount - a.commentCount),
-  ].slice(0, 5)
 
   const heroProps = (p: ExploreProject) => ({
     slug: p.slug,
