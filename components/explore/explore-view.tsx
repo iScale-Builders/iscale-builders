@@ -20,16 +20,13 @@ export function galleryFor(p: {
   galleryImages?: string[] | null
   productImage?: string | null
   coverImageUrl?: string | null
-  logoUrl?: string | null
 }): string[] {
   const savedGallery = p.galleryImages?.filter((x) => x && x.trim().length > 0).slice(0, 10)
   if (savedGallery?.length) return Array.from(new Set(savedGallery))
 
   return Array.from(
     new Set(
-      [p.productImage, p.coverImageUrl, p.logoUrl].filter(
-        (x): x is string => !!x && x.trim().length > 0,
-      ),
+      [p.productImage, p.coverImageUrl].filter((x): x is string => !!x && x.trim().length > 0),
     ),
   )
 }
