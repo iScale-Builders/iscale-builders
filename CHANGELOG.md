@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.1] - 2026-06-25
+
+### Fixed
+
+- Listed solutions no longer render as "Coming soon / being prepared for launch."
+  Launch scheduling is retired, so the project page now treats every published
+  problem/solution as live, and upvoting is open for all publicly listed posts
+  (only legacy payment-pending states stay closed). Display-layer fix, no DB
+  migration.
+
 ## [0.9.0] - 2026-06-25
 
 ### Changed

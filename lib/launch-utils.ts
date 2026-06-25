@@ -11,5 +11,7 @@ import { launchStatus } from "@/drizzle/db/schema"
  * states (`scheduled`, `payment_*`) are not yet public, so they stay closed.
  */
 export function isUpvotingOpen(status: string): boolean {
-  return status === launchStatus.ONGOING || status === launchStatus.LAUNCHED
+  // iScaleXchange retired launch scheduling — every publicly listed post is live
+  // and upvotable. Only legacy pre-public payment states stay closed.
+  return status !== launchStatus.PAYMENT_PENDING && status !== launchStatus.PAYMENT_FAILED
 }

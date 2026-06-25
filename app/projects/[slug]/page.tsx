@@ -17,8 +17,8 @@ import { RichTextDisplay } from "@/components/ui/rich-text-editor"
 import { galleryFor, thumbnailFor } from "@/components/explore/explore-view"
 import { DeleteProjectButton } from "@/components/project/delete-project-button"
 import { EditButton } from "@/components/project/edit-button"
-import { ProjectComments } from "@/components/project/project-comments"
 import { ListingImages } from "@/components/project/listing-images"
+import { ProjectComments } from "@/components/project/project-comments"
 import { ShareButton } from "@/components/project/share-button"
 import { UpvoteButton } from "@/components/project/upvote-button"
 import { JsonLd } from "@/components/seo/json-ld"
@@ -100,7 +100,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     : null
 
   const canUpvote = isUpvotingOpen(projectData.launchStatus)
-  const isScheduled = projectData.launchStatus === "scheduled"
+  // Launch scheduling is retired — the exchange has no pre-public "coming soon"
+  // state, so every listed post renders as live.
+  const isScheduled = false
   const statusLabel = toolStatusLabel(projectData.launchStatus)
 
   const isOwner = userId === projectData.createdBy
