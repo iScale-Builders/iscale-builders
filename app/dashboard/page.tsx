@@ -2,14 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
-import {
-  RiAddLine,
-  RiCalendarLine,
-  RiFireLine,
-  RiHashtag,
-  RiRocketLine,
-  RiThumbUpLine,
-} from "@remixicon/react"
+import { RiAddLine, RiHashtag, RiRocketLine, RiThumbUpLine } from "@remixicon/react"
 
 import { ensureLocalUser } from "@/lib/ensure-user"
 import { Button } from "@/components/ui/button"
@@ -21,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DashboardProjectCard } from "@/components/dashboard/dashboard-project-card"
 import { getUserCreatedProjects, getUserUpvotedProjects } from "@/app/actions/projects"
 
@@ -61,18 +53,6 @@ export default async function Dashboard() {
   const upvotedProjects = upvotedProjectsData.map((item) => item.project) as BaseProject[]
   const createdProjects = createdProjectsData as BaseProject[]
 
-  // projects with badge (launched + top 3)
-  const badgeProjects = createdProjects.filter(
-    (project) =>
-      project.launchStatus === "launched" && project.dailyRanking && project.dailyRanking <= 3,
-  )
-
-  const upcomingLaunches = createdProjects.filter((project) => project.launchStatus === "scheduled")
-
-  const activeLaunches = createdProjects.filter((project) => project.launchStatus === "ongoing")
-
-  const previousLaunches = createdProjects.filter((project) => project.launchStatus === "launched")
-
   return (
     <div className="min-h-[calc(100vh-64px)] py-6 sm:py-8">
       <div className="mx-auto max-w-6xl px-4">
@@ -85,7 +65,7 @@ export default async function Dashboard() {
             </div>
             <div className="flex gap-2">
               <Button variant="secondary" asChild>
-                <Link href="/">Explore Launches</Link>
+                <Link href="/explore">Explore</Link>
               </Button>
               <Button asChild>
                 <Link
@@ -109,133 +89,31 @@ export default async function Dashboard() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="font-heading text-xl font-semibold">My Projects</CardTitle>
                 </div>
-                <CardDescription>Manage your submitted tech projects</CardDescription>
+                <CardDescription>Your problems and solutions</CardDescription>
               </CardHeader>
               <CardContent className="pb-1">
-                <Tabs defaultValue="active">
-                  <TabsList className="mb-4 grid w-full grid-cols-3">
-                    <TabsTrigger
-                      value="active"
-                      className="cursor-pointer px-1 py-1.5 text-xs sm:px-3 sm:py-1 sm:text-sm"
-                    >
-                      Active ({activeLaunches.length})
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="upcoming"
-                      className="cursor-pointer px-1 py-1.5 text-xs sm:px-3 sm:py-1 sm:text-sm"
-                    >
-                      Upcoming ({upcomingLaunches.length})
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="past"
-                      className="cursor-pointer px-1 py-1.5 text-xs sm:px-3 sm:py-1 sm:text-sm"
-                    >
-                      Past ({previousLaunches.length})
-                    </TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="upcoming" className="mt-0">
-                    {upcomingLaunches.length > 0 ? (
-                      <div className="space-y-3">
-                        {upcomingLaunches.map((project) => (
-                          <DashboardProjectCard key={project.id} {...project} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="py-8 text-center">
-                        <div className="bg-secondary/50 mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-                          <RiCalendarLine className="text-muted-foreground h-6 w-6" />
-                        </div>
-                        <h3 className="mb-1 font-medium">No upcoming launches</h3>
-                        <p className="text-muted-foreground mb-4 text-sm">
-                          You don&apos;t have any scheduled project launches yet
-                        </p>
-                        <Button size="sm" asChild>
-                          <Link href="/projects/submit">Submit a Project</Link>
-                        </Button>
-                      </div>
-                    )}
-                  </TabsContent>
-
-                  <TabsContent value="active" className="mt-0">
-                    {activeLaunches.length > 0 ? (
-                      <div className="space-y-3">
-                        {activeLaunches.map((project) => (
-                          <DashboardProjectCard key={project.id} {...project} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="py-8 text-center">
-                        <div className="bg-secondary/50 mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-                          <RiRocketLine className="text-muted-foreground h-6 w-6" />
-                        </div>
-                        <h3 className="mb-1 font-medium">No active launches</h3>
-                        <p className="text-muted-foreground mb-4 text-sm">
-                          You don&apos;t have any active project launches at the moment
-                        </p>
-                        <Button size="sm" asChild>
-                          <Link href="/projects/submit">Submit a Project</Link>
-                        </Button>
-                      </div>
-                    )}
-                  </TabsContent>
-
-                  <TabsContent value="past" className="mt-0">
-                    {previousLaunches.length > 0 ? (
-                      <div className="space-y-3">
-                        {previousLaunches.map((project) => (
-                          <DashboardProjectCard key={project.id} {...project} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="py-8 text-center">
-                        <div className="bg-secondary/50 mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-                          <RiRocketLine className="text-muted-foreground h-6 w-6" />
-                        </div>
-                        <h3 className="mb-1 font-medium">No past launches</h3>
-                        <p className="text-muted-foreground mb-4 text-sm">
-                          You haven&apos;t launched any projects yet
-                        </p>
-                        <Button size="sm" asChild>
-                          <Link href="/projects/submit">Submit a Project</Link>
-                        </Button>
-                      </div>
-                    )}
-                  </TabsContent>
-                </Tabs>
+                {createdProjects.length > 0 ? (
+                  <div className="space-y-3">
+                    {createdProjects.map((project) => (
+                      <DashboardProjectCard key={project.id} {...project} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="py-8 text-center">
+                    <div className="bg-secondary/50 mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+                      <RiRocketLine className="text-muted-foreground h-6 w-6" />
+                    </div>
+                    <h3 className="mb-1 font-medium">No posts yet</h3>
+                    <p className="text-muted-foreground mb-4 text-sm">
+                      You haven&apos;t posted any problems or solutions yet
+                    </p>
+                    <Button size="sm" asChild>
+                      <Link href="/projects/submit">Post a problem or solution</Link>
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
-
-            {/* Section Badges */}
-            {badgeProjects.length > 0 && (
-              <Card className="border dark:border-zinc-800">
-                <CardHeader className="pb-3">
-                  <CardTitle className="font-heading text-xl font-semibold">Your Badges</CardTitle>
-                  <CardDescription className="text-muted-foreground">
-                    Projects you&apos;ve recently launched and ranked in the top 3
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-3 pt-0">
-                  {badgeProjects.map((project) => (
-                    <DashboardProjectCard
-                      key={project.id}
-                      {...project}
-                      actionButton={
-                        <Button
-                          asChild
-                          variant="default"
-                          size="sm"
-                          className="h-8 w-full px-4 text-sm font-semibold sm:w-auto"
-                          title="Voir le badge"
-                        >
-                          <Link href={`/projects/${project.slug}/badges`}>Badges</Link>
-                        </Button>
-                      }
-                    />
-                  ))}
-                </CardContent>
-              </Card>
-            )}
 
             {/* Recent Upvotes Section */}
             <Card className="border dark:border-zinc-800">
