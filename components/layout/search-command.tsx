@@ -264,10 +264,10 @@ export function SearchCommand() {
                     className={`flex cursor-pointer items-center rounded-md p-2 transition-colors ${
                       activeIndex === 0 ? "bg-muted text-foreground" : "hover:bg-muted/50"
                     }`}
-                    onClick={() => runCommand(() => router.push("/trending"))}
+                    onClick={() => runCommand(() => router.push("/explore"))}
                   >
                     <RiFireLine className="mr-2 h-4 w-4 text-orange-500" />
-                    <span>Trending solutions</span>
+                    <span>Browse solutions</span>
                   </div>
                   <div
                     data-index="1"

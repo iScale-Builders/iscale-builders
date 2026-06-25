@@ -192,7 +192,7 @@ export function ExploreView({ projects, isAuthenticated = false }: ExploreViewPr
               Trending solutions
             </h2>
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/trending" className="flex items-center gap-1">
+              <Link href="/explore" className="flex items-center gap-1">
                 View all
                 <RiArrowRightLine className="h-4 w-4" />
               </Link>

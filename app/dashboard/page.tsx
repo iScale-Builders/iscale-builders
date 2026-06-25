@@ -263,7 +263,7 @@ export default async function Dashboard() {
                         You haven&apos;t upvoted any projects yet
                       </p>
                       <Button size="sm" asChild>
-                        <Link href="/trending">Explore Projects</Link>
+                        <Link href="/explore">Explore Projects</Link>
                       </Button>
                     </div>
                   )}
@@ -325,21 +325,9 @@ export default async function Dashboard() {
                   </Link>
                 </Button>
                 <Button variant="outline" asChild className="justify-start">
-                  <Link href="/" className="flex items-center gap-2">
+                  <Link href="/explore" className="flex items-center gap-2">
                     <RiRocketLine className="h-4 w-4" />
-                    Explore Launches
-                  </Link>
-                </Button>
-                <Button variant="outline" asChild className="justify-start">
-                  <Link href="/winners" className="flex items-center gap-2">
-                    <RiRocketLine className="h-4 w-4" />
-                    Winners
-                  </Link>
-                </Button>
-                <Button variant="outline" asChild className="justify-start">
-                  <Link href="/trending" className="flex items-center gap-2">
-                    <RiFireLine className="h-4 w-4" />
-                    Trending Projects
+                    Explore
                   </Link>
                 </Button>
                 <Button variant="outline" asChild className="justify-start">

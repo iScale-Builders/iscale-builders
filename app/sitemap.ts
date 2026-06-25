@@ -24,12 +24,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/explore",
     "/problems",
     "/solutions",
-    "/trending",
     "/categories",
     "/blog",
     "/reviews",
     "/how-we-review",
-    "/winners",
     "/sponsors",
     "/legal",
   ].map((route) => ({

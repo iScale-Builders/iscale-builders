@@ -9,7 +9,6 @@ import { ReadyPixlSponsorLink } from "@/components/sponsor/readypixl-sponsor-lin
 const discoverLinks = [
   { title: "Problems", href: "/problems" },
   { title: "Solutions", href: "/solutions" },
-  { title: "Trending", href: "/trending" },
   { title: "Categories", href: "/categories" },
   { title: "Submit", href: "/projects/submit" },
 ]
@@ -50,7 +49,7 @@ export default function FooterSection() {
             </Link>
             <p className="text-muted-foreground text-sm">
               © {new Date().getFullYear()} iScaleXchange. All rights reserved.
-              <span className="ml-2">v0.8.0</span>
+              <span className="ml-2">v0.9.0</span>
             </p>
             <p className="text-muted-foreground text-sm">
               Problems, solutions, and tools from the{" "}

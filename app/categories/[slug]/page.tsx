@@ -234,9 +234,9 @@ export default async function CategoryLandingPage({
           <Link href="/categories" className="underline">
             all categories
           </Link>{" "}
-          or see what&apos;s{" "}
-          <Link href="/trending" className="underline">
-            trending now
+          or{" "}
+          <Link href="/explore" className="underline">
+            explore everything
           </Link>
           .
         </div>

@@ -32,9 +32,9 @@ export default function NotFound() {
               </Link>
             </Button>
             <Button asChild className="gap-2">
-              <Link href="/trending" className="flex items-center gap-2">
+              <Link href="/explore" className="flex items-center gap-2">
                 <RiFireLine className="h-4 w-4" />
-                Trending Projects
+                Explore
               </Link>
             </Button>
           </div>

@@ -180,32 +180,12 @@ export default async function Nav() {
                       </SheetClose>
                       <SheetClose asChild>
                         <Link
-                          href="/trending"
-                          prefetch={false}
-                          className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"
-                        >
-                          <RiFlashlightLine className="text-muted-foreground h-4 w-4" />
-                          <span>Trending</span>
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link
                           href="/categories"
                           prefetch={false}
                           className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"
                         >
                           <RiLayoutGridLine className="text-muted-foreground h-4 w-4" />
                           <span>Categories</span>
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link
-                          href="/winners"
-                          prefetch={false}
-                          className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"
-                        >
-                          <RiMedalLine className="text-muted-foreground h-4 w-4" />
-                          <span>Winners</span>
                         </Link>
                       </SheetClose>
                       <SheetClose asChild>

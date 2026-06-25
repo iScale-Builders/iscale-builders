@@ -71,48 +71,6 @@ export function NavMenu({ showDashboard = true }: NavMenuProps) {
               <li>
                 <NavigationMenuLink asChild>
                   <Link
-                    href="/trending"
-                    prefetch={false}
-                    className="block rounded-md px-2 py-2 text-sm no-underline transition-colors outline-none select-none"
-                  >
-                    <div className="mb-1 font-medium">Trending Now</div>
-                    <p className="text-muted-foreground text-xs leading-tight">
-                      Discover the most popular projects
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-              <li>
-                <NavigationMenuLink asChild>
-                  <Link
-                    href="/winners"
-                    prefetch={false}
-                    className="block rounded-md px-2 py-2 text-sm no-underline transition-colors outline-none select-none"
-                  >
-                    <div className="mb-1 font-medium">Daily Winners</div>
-                    <p className="text-muted-foreground text-xs leading-tight">
-                      See the best projects of the day
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-              <li>
-                <NavigationMenuLink asChild>
-                  <Link
-                    href="/trending?filter=month"
-                    prefetch={false}
-                    className="block rounded-md px-2 py-2 text-sm no-underline transition-colors outline-none select-none"
-                  >
-                    <div className="mb-1 font-medium">Best of Month</div>
-                    <p className="text-muted-foreground text-xs leading-tight">
-                      See the best projects of the month
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-              <li>
-                <NavigationMenuLink asChild>
-                  <Link
                     href="/categories"
                     prefetch={false}
                     className="block rounded-md px-2 py-2 text-sm no-underline transition-colors outline-none select-none"

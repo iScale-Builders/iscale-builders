@@ -326,16 +326,10 @@ export default async function CategoriesPage({
               <h3 className="flex items-center gap-2 font-semibold">Quick Access</h3>
               <div className="space-y-2">
                 <Link
-                  href="/trending"
+                  href="/explore"
                   className="-mx-2 flex items-center gap-2 rounded-md p-2 text-sm transition-colors hover:underline"
                 >
-                  Trending Now
-                </Link>
-                <Link
-                  href="/trending?filter=month"
-                  className="-mx-2 flex items-center gap-2 rounded-md p-2 text-sm transition-colors hover:underline"
-                >
-                  Best of Month
+                  Browse all solutions
                 </Link>
               </div>
             </div>
