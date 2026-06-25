@@ -80,24 +80,37 @@ export function ExploreHeroCard({
 
   return (
     <article onClick={() => router.push(url)} className="group block w-full cursor-pointer">
-      {/* the image, shown plainly */}
-      <div className={`relative w-full ${heightClassName}`}>
+      {/* image fit top-to-bottom, centered, with a blurred copy of itself behind */}
+      <div className={`relative w-full overflow-hidden rounded-xl ${heightClassName}`}>
         <SubmissionBadge type={submissionType} className="absolute top-3 left-3 z-10" />
         {images.length > 0 ? (
           images.map((src, index) => {
             const active = index === activeIndex
             return (
-              <img
+              <div
                 key={`${src}-${index}`}
-                src={src}
-                alt={active ? name : ""}
                 aria-hidden={!active}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                className={`absolute inset-0 h-full w-full rounded-xl object-cover transition-opacity duration-[1200ms] ease-in-out ${
+                className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${
                   active ? "opacity-100" : "opacity-0"
                 }`}
-              />
+              >
+                {/* blurred fill behind */}
+                <img
+                  src={src}
+                  alt=""
+                  aria-hidden="true"
+                  fetchPriority="low"
+                  className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-2xl"
+                />
+                {/* the actual image, centered, fit top-to-bottom */}
+                <img
+                  src={src}
+                  alt={active ? name : ""}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  className="absolute inset-0 m-auto h-full w-full object-contain"
+                />
+              </div>
             )
           })
         ) : (
