@@ -47,9 +47,9 @@ export function ExploreTrendingCard({
   return (
     <article
       onClick={() => router.push(projectPageUrl)}
-      className="border-border bg-card hover:border-foreground/30 group flex w-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-xl border transition-colors"
+      className="border-border bg-card hover:border-foreground/30 group flex w-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border p-1.5 transition-colors"
     >
-      <div className="bg-muted relative aspect-[16/9] w-full overflow-hidden">
+      <div className="bg-muted relative aspect-[16/9] w-full overflow-hidden rounded-xl">
         <CardImageCycler images={images} name={name} category={category} slug={slug} compact />
         <div className="border-border bg-background/80 text-muted-foreground absolute top-2 left-2 rounded-full border px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
           {toolStatusLabel(launchStatus)}

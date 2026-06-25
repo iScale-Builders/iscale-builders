@@ -56,10 +56,10 @@ export function ExploreGridCard({
   return (
     <article
       onClick={() => router.push(projectPageUrl)}
-      className="foundry-card ai-tool-card group flex cursor-pointer flex-col overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1"
+      className="foundry-card ai-tool-card group flex cursor-pointer flex-col overflow-hidden rounded-2xl p-1.5 transition-all duration-300 hover:-translate-y-1"
     >
       {/* Thumbnail */}
-      <div className="bg-muted relative aspect-video w-full overflow-hidden">
+      <div className="bg-muted relative aspect-video w-full overflow-hidden rounded-xl">
         <CardImageCycler
           images={images}
           name={name}
