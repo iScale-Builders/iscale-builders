@@ -4,8 +4,8 @@ import { redirect } from "next/navigation"
 import { RiArrowRightLine } from "@remixicon/react"
 
 import { ensureLocalUser } from "@/lib/ensure-user"
-import { SubmitProblemForm } from "@/components/project/submit-problem-form"
 import { SubmitProjectForm } from "@/components/project/submit-form"
+import { SubmitProblemForm } from "@/components/project/submit-problem-form"
 
 export default async function SubmitProject({
   searchParams,
@@ -19,7 +19,6 @@ export default async function SubmitProject({
   if (!localUser) {
     redirect("/sign-in")
   }
-  const userId = localUser.id
 
   const { type } = await searchParams
   const mode = type === "problem" ? "problem" : type === "solution" ? "solution" : "choose"
@@ -108,11 +107,7 @@ export default async function SubmitProject({
             </div>
             <div className="foundry-panel rounded-2xl">
               <div className="p-4 sm:p-6 md:p-8">
-                {mode === "problem" ? (
-                  <SubmitProblemForm />
-                ) : (
-                  <SubmitProjectForm userId={userId} />
-                )}
+                {mode === "problem" ? <SubmitProblemForm /> : <SubmitProjectForm />}
               </div>
             </div>
           </>

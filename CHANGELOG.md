@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.2] - 2026-06-25
+
+### Changed
+
+- Project pages no longer show launch-model leftovers: the "Coming soon" status
+  pill now reads "Available", and the "Launch Date" and "Launch State" (queued)
+  sidebar sections were removed (launch scheduling is retired).
+- Removed the dead launch-scheduling code left in the solution submit form after
+  the submit rework (unused date-availability/launch-type helpers, state, imports,
+  and the now-unused `userId` prop).
+
 ## [0.10.1] - 2026-06-25
 
 ### Changed

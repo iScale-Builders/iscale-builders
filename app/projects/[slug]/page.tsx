@@ -462,21 +462,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
               </div>
 
-              {/* Launch Date */}
-              {scheduledDate && (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
-                      Launch Date
-                    </span>
-                    <div className="border-muted-foreground/30 mx-3 flex-1 border-b border-dotted"></div>
-                    <span className="text-foreground text-sm font-medium">
-                      {format(scheduledDate, "yyyy-MM-dd")}
-                    </span>
-                  </div>
-                </div>
-              )}
-
               {/* Platform */}
               {projectData.platforms && projectData.platforms.length > 0 && (
                 <div className="space-y-3">
@@ -575,15 +560,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 >
                   See alternatives to {projectData.name} →
                 </Link>
-              </div>
-
-              <div className="bg-card border-border rounded-xl border p-4">
-                <p className="text-muted-foreground text-xs font-black tracking-[0.18em] uppercase">
-                  Launch state
-                </p>
-                <p className="text-muted-foreground mt-2 text-sm">
-                  Public access is queued while the iScaleXchange app catalog is prepared.
-                </p>
               </div>
 
               <div className="border-border border-t pt-4">

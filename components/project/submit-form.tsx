@@ -1,15 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
-import { useCallback, useEffect, useId, useState } from "react"
+import { useEffect, useId, useState } from "react"
 import { useRouter } from "next/navigation"
 
 import { platformType, pricingType } from "@/drizzle/db/schema"
 import {
   RiArrowLeftLine,
   RiArrowRightLine,
-  RiCalendarLine,
-  RiCheckboxCircleFill,
   RiCheckLine,
   RiFileCheckLine,
   RiInformation2Line,
@@ -17,12 +15,10 @@ import {
   RiListCheck,
   RiLoader4Line,
   RiRocketLine,
-  RiStarLine,
 } from "@remixicon/react"
-import { addDays, format, parseISO } from "date-fns"
 import { Tag, TagInput } from "emblor"
 
-import { DATE_FORMAT, LAUNCH_LIMITS, LAUNCH_SETTINGS, LAUNCH_TYPES } from "@/lib/constants"
+import { LAUNCH_TYPES } from "@/lib/constants"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -30,23 +26,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { RichTextDisplay, RichTextEditor } from "@/components/ui/rich-text-editor"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { notifyDiscordLaunch } from "@/app/actions/discord"
-import {
-  checkUserLaunchLimit,
-  getLaunchAvailabilityRange,
-  scheduleLaunch,
-} from "@/app/actions/launch"
-import type { LaunchAvailability } from "@/app/actions/launch"
 import { getAllCategories, submitProject } from "@/app/actions/projects"
 
 import { ImageUploadInput } from "./image-upload-input"
@@ -68,17 +48,7 @@ interface ProjectFormData {
   galleryImages: string[]
 }
 
-interface DateGroup {
-  key: string
-  displayName: string
-  dates: LaunchAvailability[]
-}
-
-interface SubmitProjectFormProps {
-  userId: string
-}
-
-export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
+export function SubmitProjectForm() {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState<ProjectFormData>({
@@ -104,14 +74,8 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
 
   const [categories, setCategories] = useState<{ id: string; name: string }[]>([])
   const [isLoadingCategories, setIsLoadingCategories] = useState(false)
-  const [availableDates, setAvailableDates] = useState<LaunchAvailability[]>([])
-  const [isLoadingDates, setIsLoadingDates] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isPending, setIsPending] = useState(false)
-
-  const [isLaunchDateOverLimit, setIsLaunchDateOverLimit] = useState(false)
-  const [launchDateLimitError, setLaunchDateLimitError] = useState<string | null>(null)
-  const [isLoadingDateCheck, setIsLoadingDateCheck] = useState(false)
 
   const tagInputId = useId()
 
@@ -136,30 +100,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
       return false
     }
   }
-
-  const loadAvailableDates = useCallback(async () => {
-    setIsLoadingDates(true)
-    try {
-      let startDate, endDate
-      const today = new Date()
-
-      if (formData.launchType === LAUNCH_TYPES.PREMIUM) {
-        startDate = format(addDays(today, LAUNCH_SETTINGS.PREMIUM_MIN_DAYS_AHEAD), DATE_FORMAT.API)
-        endDate = format(addDays(today, LAUNCH_SETTINGS.PREMIUM_MAX_DAYS_AHEAD), DATE_FORMAT.API)
-      } else {
-        startDate = format(addDays(today, LAUNCH_SETTINGS.MIN_DAYS_AHEAD), DATE_FORMAT.API)
-        endDate = format(addDays(today, LAUNCH_SETTINGS.MAX_DAYS_AHEAD), DATE_FORMAT.API)
-      }
-
-      const availability = await getLaunchAvailabilityRange(startDate, endDate, formData.launchType)
-      setAvailableDates(availability)
-    } catch (err) {
-      console.error("Error loading dates:", err)
-      setError("Failed to load available dates")
-    } finally {
-      setIsLoadingDates(false)
-    }
-  }, [formData.launchType])
 
   useEffect(() => {
     fetchCategories()
@@ -195,87 +135,8 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
     }
   }
 
-  const handleLaunchTypeChange = (type: (typeof LAUNCH_TYPES)[keyof typeof LAUNCH_TYPES]) => {
-    setFormData((prev) => ({
-      ...prev,
-      launchType: type,
-      scheduledDate: null,
-    }))
-  }
-
-  function groupDatesByMonth(dates: LaunchAvailability[]): DateGroup[] {
-    const uniqueDates = Array.from(new Map(dates.map((date) => [date.date, date])).values())
-
-    const groups = new Map<string, DateGroup>()
-
-    const sortedDates = [...uniqueDates].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-    )
-
-    sortedDates.forEach((date) => {
-      const dateObj = new Date(date.date)
-      const year = dateObj.getFullYear()
-      const month = dateObj.getMonth()
-      const groupKey = `${year}-${month}`
-      const displayMonth = format(dateObj, DATE_FORMAT.DISPLAY_MONTH)
-
-      if (!groups.has(groupKey)) {
-        groups.set(groupKey, {
-          key: groupKey,
-          displayName: displayMonth,
-          dates: [],
-        })
-      }
-      groups.get(groupKey)?.dates.push(date)
-    })
-
-    return Array.from(groups.values()).sort((a, b) => {
-      const aDate = new Date(a.dates[0].date)
-      const bDate = new Date(b.dates[0].date)
-      return aDate.getTime() - bDate.getTime()
-    })
-  }
-
-  const validateLaunchDateLimit = useCallback(
-    async (date: string | null) => {
-      if (!date || !userId) {
-        setIsLaunchDateOverLimit(false)
-        setLaunchDateLimitError(null)
-        setIsLoadingDateCheck(false)
-        return
-      }
-      setIsLoadingDateCheck(true)
-      setLaunchDateLimitError(null)
-      try {
-        const result = await checkUserLaunchLimit(userId, date)
-        if (!result.allowed) {
-          setIsLaunchDateOverLimit(true)
-          setLaunchDateLimitError(
-            `You have already scheduled ${result.count}/${result.limit} project(s) for this date. Please select another date.`,
-          )
-        } else {
-          setIsLaunchDateOverLimit(false)
-        }
-      } catch (err) {
-        console.error("Error checking launch date limit:", err)
-        setIsLaunchDateOverLimit(false)
-        setLaunchDateLimitError("Could not verify launch date limit. Please try again.")
-      } finally {
-        setIsLoadingDateCheck(false)
-      }
-    },
-    [userId],
-  )
-
-  useEffect(() => {
-    if (formData.scheduledDate && currentStep === 3) {
-      validateLaunchDateLimit(formData.scheduledDate)
-    }
-  }, [formData.scheduledDate, currentStep, validateLaunchDateLimit])
-
   const nextStep = () => {
     setError(null)
-    setLaunchDateLimitError(null)
     if (currentStep === 1) {
       if (
         !formData.name ||
@@ -325,7 +186,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
 
   const prevStep = () => {
     setError(null)
-    setLaunchDateLimitError(null)
     setCurrentStep((prev) => Math.max(prev - 1, 1))
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" })
@@ -355,7 +215,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
 
     setIsPending(true)
     setError(null)
-    setLaunchDateLimitError(null)
 
     if (formData.techStack.length === 0) {
       setError("Please enter at least one technology in the Tech Stack.")
@@ -404,7 +263,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
         throw new Error(submissionResult.error || "Failed to submit project data.")
       }
 
-      const projectId = submissionResult.projectId
       const projectSlug = submissionResult.slug
 
       // DECISION 4: payments OFF. All submissions are free — always land on the
