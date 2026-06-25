@@ -90,7 +90,7 @@ export function ExploreHeroCard({
                 aria-hidden={!active}
                 loading={index === 0 ? "eager" : "lazy"}
                 fetchPriority={index === 0 ? "high" : "auto"}
-                className={`absolute inset-0 h-full w-full rounded-lg object-contain transition-opacity duration-[1200ms] ease-in-out ${
+                className={`absolute inset-0 h-full w-full rounded-xl object-cover transition-opacity duration-[1200ms] ease-in-out ${
                   active ? "opacity-100" : "opacity-0"
                 }`}
               />

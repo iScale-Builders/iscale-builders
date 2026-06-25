@@ -37,32 +37,32 @@ div[role="dialog"],
   --card-foreground: #151c27;
   --popover: #ffffff;
   --popover-foreground: #151c27;
-  --primary: #855300;
+  --primary: #262626;
   --primary-foreground: #ffffff;
   --secondary: #0058be;
   --secondary-foreground: #ffffff;
   --muted: #f0f3ff;
-  --muted-foreground: #534434;
+  --muted-foreground: #525252;
   --accent: #e7eefe;
   --accent-foreground: #151c27;
   --destructive: #ba1a1a;
   --destructive-foreground: #ffffff;
-  --border: #d8c3ad;
-  --input: #d8c3ad;
-  --ring: #855300;
-  --chart-1: #855300;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #262626;
+  --chart-1: #262626;
   --chart-2: #0058be;
   --chart-3: #00658b;
   --chart-4: #f59e0b;
   --chart-5: #2170e4;
   --sidebar: #f0f3ff;
   --sidebar-foreground: #151c27;
-  --sidebar-primary: #855300;
+  --sidebar-primary: #262626;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #e7eefe;
   --sidebar-accent-foreground: #151c27;
-  --sidebar-border: #d8c3ad;
-  --sidebar-ring: #855300;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #262626;
 }
 
 /* ===== DARK theme — "Dark Orbit / Totality" (gold + cyan on obsidian) ===== */
