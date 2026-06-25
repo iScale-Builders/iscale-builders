@@ -6,6 +6,7 @@ import { db } from "@/drizzle/db"
 import {
   category as categoryTable,
   fumaComments,
+  launchStatus,
   project,
   project as projectTable,
   projectToCategory,
@@ -296,6 +297,8 @@ export async function submitProject(projectData: ProjectSubmissionData) {
       .insert(projectTable)
       .values({
         id: crypto.randomUUID(),
+        // New submissions are live immediately (launch scheduling retired).
+        launchStatus: launchStatus.LAUNCHED,
         // Utiliser les variables déstructurées de projectData
         name,
         slug,

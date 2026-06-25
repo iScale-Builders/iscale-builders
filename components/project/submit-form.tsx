@@ -166,12 +166,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
   }, [])
 
   useEffect(() => {
-    if (currentStep === 3) {
-      loadAvailableDates()
-    }
-  }, [currentStep, loadAvailableDates])
-
-  useEffect(() => {
     const tagsFromFormData = formData.techStack.map((tech, index) => ({
       id: `${index}-${tech}`,
       text: tech,
@@ -322,18 +316,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
       }
     }
 
-    if (currentStep === 3) {
-      if (!formData.scheduledDate) {
-        setError("Please select a launch date.")
-        return
-      }
-      if (isLaunchDateOverLimit) {
-        setError(launchDateLimitError || "This launch date is not available due to daily limit.")
-        return
-      }
-    }
-
-    setCurrentStep((prev) => Math.min(prev + 1, 4))
+    setCurrentStep((prev) => Math.min(prev + 1, 3))
 
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" })
@@ -366,14 +349,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
     const urlExists = await checkWebsiteUrl(formData.websiteUrl)
     if (urlExists) {
       setError("This website URL has already been submitted. Please use a different URL.")
-      setIsPending(false)
-      return
-    }
-
-    if (isLaunchDateOverLimit && formData.scheduledDate) {
-      setError(
-        launchDateLimitError || "Cannot submit: The selected launch date exceeds your daily limit.",
-      )
       setIsPending(false)
       return
     }
@@ -432,41 +407,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
       const projectId = submissionResult.projectId
       const projectSlug = submissionResult.slug
 
-      if (formData.scheduledDate) {
-        try {
-          const formattedDate = format(parseISO(formData.scheduledDate), DATE_FORMAT.API)
-          const launchSuccess = await scheduleLaunch(projectId, formattedDate, formData.launchType)
-
-          if (!launchSuccess) {
-            console.error(
-              `Project ${projectId} created but failed to schedule for ${formattedDate}`,
-            )
-            throw new Error("Project created, but failed to schedule the launch.")
-          }
-
-          try {
-            await notifyDiscordLaunch(
-              formData.name,
-              format(parseISO(formData.scheduledDate), DATE_FORMAT.DISPLAY),
-              formData.launchType,
-              formData.websiteUrl,
-              `${process.env.NEXT_PUBLIC_URL || ""}/projects/${projectSlug}`,
-            )
-          } catch (discordError) {
-            console.error("Failed to send Discord notification:", discordError)
-          }
-        } catch (scheduleError: unknown) {
-          console.error("Error during launch scheduling:", scheduleError)
-          setError(
-            scheduleError instanceof Error
-              ? scheduleError.message
-              : "An error occurred during scheduling.",
-          )
-          setIsPending(false)
-          return
-        }
-      }
-
       // DECISION 4: payments OFF. All submissions are free — always land on the
       // tool page (no Stripe redirect).
       router.push(`/projects/${projectSlug}`)
@@ -498,8 +438,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
               shortLabel: "Details",
               icon: RiInformation2Line,
             },
-            { step: 3, label: "Launch Date", icon: RiCalendarLine },
-            { step: 4, label: "Review", icon: RiFileCheckLine },
+            { step: 3, label: "Review", icon: RiFileCheckLine },
           ].map(({ step, label, shortLabel, icon: Icon }) => (
             <div
               key={`step-${step}`}
@@ -841,235 +780,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
         return (
           <div className="space-y-8">
             <div className="flex items-center gap-2">
-              <RiCalendarLine className="h-5 w-5" />
-              <h3 className="text-lg font-medium">Choose Launch Type & Date</h3>
-            </div>
-
-            <div className="bg-muted/30 border-muted flex items-start gap-2 rounded-lg border p-3 sm:p-4">
-              <RiInformationLine className="mt-0.5 h-5 w-5 flex-shrink-0" />
-              <div className="text-xs sm:text-sm">
-                <p className="font-medium">Select your launch type and date</p>
-                <p className="text-muted-foreground mt-1">
-                  All launches happen at {LAUNCH_SETTINGS.LAUNCH_HOUR_UTC}:00 UTC. We launch a
-                  limited number of projects each day.
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="mb-4 text-sm font-medium">Launch Type</h4>
-              {/* DECISION 4: iScaleXchange is free. Premium/Stripe is neutralized — only
-                  the Free launch type is offered. */}
-              <div className="grid grid-cols-1 gap-4">
-                <div
-                  className={`cursor-pointer rounded-lg border p-4 transition-all duration-150 ${formData.launchType === LAUNCH_TYPES.FREE ? "border-primary ring-primary bg-primary/5 relative shadow-sm ring-1" : "hover:border-foreground/20 hover:bg-muted/50"}`}
-                  onClick={() => handleLaunchTypeChange(LAUNCH_TYPES.FREE)}
-                >
-                  {formData.launchType === LAUNCH_TYPES.FREE && (
-                    <Badge
-                      variant="default"
-                      className="bg-primary text-primary-foreground absolute -top-2 -right-2 text-xs"
-                    >
-                      Selected
-                    </Badge>
-                  )}
-                  <h5 className="mb-2 flex items-center gap-1.5 font-medium">
-                    <RiRocketLine className="h-4 w-4" />
-                    Free Launch
-                  </h5>
-                  <p className="mb-3 text-2xl font-bold">$0</p>
-                  <ul className="text-muted-foreground space-y-1 text-sm">
-                    <li className="flex items-center gap-1.5">
-                      <RiCheckboxCircleFill className="text-foreground/60 h-3.5 w-3.5 flex-shrink-0" />
-                      <span>{LAUNCH_LIMITS.FREE_DAILY_LIMIT} slots/day</span>
-                    </li>
-
-                    <li className="flex items-center gap-1.5">
-                      <RiCheckboxCircleFill className="text-foreground/60 h-3.5 w-3.5 flex-shrink-0" />
-                      <span>Up to {LAUNCH_SETTINGS.MAX_DAYS_AHEAD} days scheduling</span>
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <RiCheckboxCircleFill className="text-foreground/60 h-3.5 w-3.5 flex-shrink-0" />
-                      <span>Dofollow Backlink only if:</span>
-                    </li>
-                    <li className="flex items-start gap-1.5 pl-5">
-                      <span className="text-muted-foreground text-xs">1. Top 3 daily ranking</span>
-                    </li>
-                    <li className="flex items-start gap-1.5 pl-5">
-                      <span className="text-muted-foreground text-xs">
-                        2. Display our badge on your site
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* DECISION 4: Premium launch card removed (payments OFF). */}
-
-                {/* <div
-                  className={`cursor-pointer rounded-lg border p-4 transition-all duration-150 ${
-                    formData.launchType === LAUNCH_TYPES.PREMIUM_PLUS
-                      ? "border-primary ring-primary bg-primary/5 relative shadow-sm ring-1"
-                      : "hover:border-primary hover:bg-primary/5"
-                  }`}
-                  onClick={() => handleLaunchTypeChange(LAUNCH_TYPES.PREMIUM_PLUS)}
-                >
-                  {formData.launchType === LAUNCH_TYPES.PREMIUM_PLUS && (
-                    <Badge
-                      variant="default"
-                      className="bg-primary text-primary-foreground absolute -top-2 -right-2 text-xs"
-                    >
-                      Selected
-                    </Badge>
-                  )}
-                  <h5 className="mb-2 flex items-center gap-1.5 font-medium">
-                    <RiVipCrownLine className="text-primary h-4 w-4" />
-                    Premium Plus
-                  </h5>
-                  <p className="mb-1 text-2xl font-bold">
-                    ${LAUNCH_SETTINGS.PREMIUM_PLUS_PRICE}{" "}
-                    <span className="text-muted-foreground text-xs line-through">$25</span>
-                  </p>
-                  <span className="bg-primary/10 text-primary mb-2 inline-block rounded-full px-2 py-0.5 text-xs">
-                    -50% for early users
-                  </span>
-                  <ul className="text-muted-foreground space-y-1.5 text-xs">
-                    <li className="flex items-center gap-1.5">
-                      <RiCheckboxCircleFill className="text-primary h-3.5 w-3.5 flex-shrink-0" />
-                      <span>Premium Spotlight Placement</span>
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <RiCheckboxCircleFill className="text-primary h-3.5 w-3.5 flex-shrink-0" />
-                      <span>{LAUNCH_LIMITS.PREMIUM_PLUS_DAILY_LIMIT} exclusive slots/day</span>
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <RiCheckboxCircleFill className="text-primary h-3.5 w-3.5 flex-shrink-0" />
-                      <span>Guaranteed Dofollow Backlink</span>
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <RiCheckboxCircleFill className="text-primary h-3.5 w-3.5 flex-shrink-0" />
-                      <span>
-                        Up to {LAUNCH_SETTINGS.PREMIUM_PLUS_MAX_DAYS_AHEAD} days scheduling
-                      </span>
-                    </li>
-                  </ul>
-                </div> */}
-              </div>
-            </div>
-
-            <div>
-              <h4 className="mb-3 text-sm font-medium">
-                Launch Date <span className="text-red-500">*</span>
-              </h4>
-              {isLoadingDates ? (
-                <div className="text-muted-foreground flex items-center justify-center gap-2 py-4">
-                  <RiLoader4Line className="h-5 w-5 animate-spin" /> Loading available dates...
-                </div>
-              ) : availableDates.length === 0 && !isLoadingDates ? (
-                <p className="text-muted-foreground rounded-md border p-4 text-center text-sm">
-                  No available launch dates found for the selected type in the allowed range.
-                </p>
-              ) : (
-                <div>
-                  <Select
-                    onValueChange={(value) =>
-                      setFormData((prev) => ({ ...prev, scheduledDate: value }))
-                    }
-                    value={formData.scheduledDate || ""}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a launch date" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {groupDatesByMonth(availableDates).map((group) => (
-                        <SelectGroup key={group.key}>
-                          <SelectLabel>{group.displayName}</SelectLabel>
-                          {group.dates.map((date) => {
-                            const dateObj = parseISO(date.date)
-                            let slotsAvailable = 0
-                            let isDisabled = true
-                            if (formData.launchType === LAUNCH_TYPES.FREE) {
-                              slotsAvailable = date.freeSlots
-                              isDisabled = date.freeSlots <= 0
-                            } else if (formData.launchType === LAUNCH_TYPES.PREMIUM) {
-                              slotsAvailable = date.premiumSlots
-                              isDisabled = date.premiumSlots <= 0
-                            }
-
-                            if (date.totalSlots <= 0) isDisabled = true
-
-                            const slotsText = `${slotsAvailable} ${formData.launchType === LAUNCH_TYPES.FREE ? "free" : formData.launchType === LAUNCH_TYPES.PREMIUM ? "premium" : "premium+"} slot(s)`
-
-                            return (
-                              <SelectItem
-                                key={date.date}
-                                value={date.date}
-                                disabled={isDisabled}
-                                className="group text-sm"
-                              >
-                                <div className="flex w-full items-center justify-between">
-                                  <span>{format(dateObj, "EEE, MMM d")}</span>
-                                  <span
-                                    className={`ml-2 text-xs ${isDisabled ? "text-muted-foreground/50" : "text-muted-foreground group-hover:text-foreground group-data-[highlighted]:text-foreground"}`}
-                                  >
-                                    {slotsText}
-                                  </span>
-                                </div>
-                              </SelectItem>
-                            )
-                          })}
-                        </SelectGroup>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
-                  {launchDateLimitError && (
-                    <p className="text-destructive mt-2 text-xs sm:text-sm">
-                      {launchDateLimitError}
-                    </p>
-                  )}
-
-                  {formData.scheduledDate && !isLaunchDateOverLimit && (
-                    <div className="bg-primary/5 border-primary/10 mt-3 rounded-md border p-3 text-sm">
-                      <div
-                        className={`flex w-full items-center gap-1.5 ${
-                          formData.launchType === LAUNCH_TYPES.FREE &&
-                          (() => {
-                            const today = new Date()
-                            const selectedDate = parseISO(formData.scheduledDate)
-                            const daysUntilLaunch = Math.ceil(
-                              (selectedDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
-                            )
-                            return daysUntilLaunch > LAUNCH_SETTINGS.PREMIUM_MIN_DAYS_AHEAD
-                          })()
-                            ? "mb-3"
-                            : ""
-                        }`}
-                      >
-                        <RiCalendarLine className="text-primary/80 h-4 w-4 flex-shrink-0" />
-                        <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-1.5">
-                          <div className="flex items-center gap-1">
-                            <span className="text-muted-foreground">Scheduled for</span>
-                            <span className="text-foreground font-medium">
-                              {format(parseISO(formData.scheduledDate), DATE_FORMAT.DISPLAY)}
-                            </span>
-                          </div>
-                          <span className="text-muted-foreground/70 text-xs">
-                            {LAUNCH_SETTINGS.LAUNCH_HOUR_UTC}:00 UTC
-                          </span>
-                        </div>
-                      </div>
-                      {/* DECISION 4: "Upgrade to Premium" CTA removed (payments OFF). */}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        )
-      case 4:
-        return (
-          <div className="space-y-8">
-            <div className="flex items-center gap-2">
               <RiCheckLine className="h-5 w-5" />
               <h3 className="text-lg font-medium">Review and Submit</h3>
             </div>
@@ -1192,51 +902,6 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
                     )}
                   </div>
                 </div>
-
-                <div>
-                  <h4 className="mb-3 border-b pb-2 text-base font-semibold">Launch Plan</h4>
-                  <div className="flex flex-col gap-4 text-sm sm:flex-row">
-                    <div
-                      className={`flex w-fit items-center gap-2 rounded-md border px-3 py-2 ${
-                        formData.launchType === LAUNCH_TYPES.FREE
-                          ? "bg-foreground/5 border-foreground/10"
-                          : formData.launchType === LAUNCH_TYPES.PREMIUM
-                            ? "bg-primary/5 border-primary/20"
-                            : "bg-primary/5 border-primary/20"
-                      }`}
-                    >
-                      {formData.launchType === LAUNCH_TYPES.FREE && (
-                        <>
-                          <RiRocketLine className="text-foreground/70 h-4 w-4" />{" "}
-                          <span className="text-foreground/70 font-medium">Free Launch</span>
-                        </>
-                      )}
-                      {formData.launchType === LAUNCH_TYPES.PREMIUM && (
-                        <>
-                          <RiStarLine className="text-primary h-4 w-4" />{" "}
-                          <span className="text-primary font-medium">
-                            Premium Launch (${LAUNCH_SETTINGS.PREMIUM_PRICE})
-                          </span>
-                        </>
-                      )}
-                    </div>
-                    <div className="bg-muted/30 flex h-full min-h-[60px] w-fit flex-col justify-center rounded-md border px-3 py-2">
-                      <div className="flex items-center gap-2">
-                        <RiCalendarLine className="text-muted-foreground h-4 w-4" />
-                        <span>
-                          {formData.scheduledDate
-                            ? format(parseISO(formData.scheduledDate), DATE_FORMAT.DISPLAY)
-                            : "No date selected"}
-                        </span>
-                      </div>
-                      {formData.scheduledDate && (
-                        <span className="text-muted-foreground/70 ml-6 text-xs">
-                          {LAUNCH_SETTINGS.LAUNCH_HOUR_UTC}:00 UTC
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="bg-muted/30 border-t px-6 py-4">
@@ -1245,8 +910,8 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
                   <div className="space-y-1 text-sm">
                     <p className="font-medium">Ready to submit?</p>
                     <p className="text-muted-foreground text-xs">
-                      Please review all information carefully. Once submitted, your project will be
-                      scheduled for launch.
+                      Please review all information carefully. Once submitted, your solution goes
+                      live on the exchange.
                     </p>
                   </div>
                 </div>
@@ -1282,20 +947,12 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
           Previous
         </Button>
 
-        {currentStep < 4 ? (
+        {currentStep < 3 ? (
           <Button
             type="button"
             onClick={nextStep}
-            disabled={
-              isPending ||
-              isUploadingLogo ||
-              isUploadingProductImage ||
-              (currentStep === 3 && isLoadingDateCheck)
-            }
+            disabled={isPending || isUploadingLogo || isUploadingProductImage}
           >
-            {currentStep === 3 && isLoadingDateCheck && (
-              <RiLoader4Line className="mr-2 h-4 w-4 animate-spin" />
-            )}
             Next
             <RiArrowRightLine className="ml-2 h-4 w-4" />
           </Button>
