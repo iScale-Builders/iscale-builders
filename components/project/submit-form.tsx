@@ -29,7 +29,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Textarea } from "@/components/ui/textarea"
 import { RichTextDisplay, RichTextEditor } from "@/components/ui/rich-text-editor"
 import {
   Select,
@@ -40,6 +39,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 import { notifyDiscordLaunch } from "@/app/actions/discord"
 import {
   checkUserLaunchLimit,
@@ -435,12 +435,7 @@ export function SubmitProjectForm({ userId }: SubmitProjectFormProps) {
       if (formData.scheduledDate) {
         try {
           const formattedDate = format(parseISO(formData.scheduledDate), DATE_FORMAT.API)
-          const launchSuccess = await scheduleLaunch(
-            projectId,
-            formattedDate,
-            formData.launchType,
-            userId,
-          )
+          const launchSuccess = await scheduleLaunch(projectId, formattedDate, formData.launchType)
 
           if (!launchSuccess) {
             console.error(

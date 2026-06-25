@@ -11,6 +11,7 @@ import {
   LaunchType,
   project as projectTable,
 } from "@/drizzle/db/schema"
+import { auth } from "@clerk/nextjs/server"
 import { addDays, format, isBefore, parse } from "date-fns"
 import { and, count as drizzleCount, eq, gte, lt, ne, sql } from "drizzle-orm"
 
@@ -161,10 +162,26 @@ export async function scheduleLaunch(
   projectId: string,
   date: string,
   launchTypeValue: (typeof LAUNCH_TYPES)[keyof typeof LAUNCH_TYPES],
-  userId: string | undefined,
 ): Promise<boolean> {
+  // SECURITY: derive the caller from the server session. Never trust a
+  // client-supplied user id — previously this was an IDOR where any signed-in
+  // user could schedule/feature another user's project by passing its id.
+  const { userId } = await auth()
   if (!userId) {
-    throw new Error("User ID is required to schedule a launch.")
+    throw new Error("Authentication required to schedule a launch.")
+  }
+
+  // SECURITY: verify the caller owns this project before mutating it.
+  const [ownerRow] = await db
+    .select({ createdBy: projectTable.createdBy })
+    .from(projectTable)
+    .where(eq(projectTable.id, projectId))
+    .limit(1)
+  if (!ownerRow) {
+    throw new Error("Project not found.")
+  }
+  if (ownerRow.createdBy !== userId) {
+    throw new Error("You do not have permission to schedule this project.")
   }
 
   try {
@@ -279,7 +296,7 @@ export async function scheduleLaunch(
         featuredOnHomepage: launchTypeValue === LAUNCH_TYPES.PREMIUM_PLUS,
         updatedAt: new Date(),
       })
-      .where(eq(projectTable.id, projectId))
+      .where(and(eq(projectTable.id, projectId), eq(projectTable.createdBy, userId)))
 
     // Vérifier si la mise à jour a réussi
     if (!updateResult) {
@@ -331,56 +348,8 @@ export async function scheduleLaunch(
   }
 }
 
-// Mettre à jour le statut des chaînes dont la date de lancement est aujourd'hui
-export async function updateProjectStatusToOngoing() {
-  const todayStart = new Date()
-  // Utiliser l'heure de lancement définie dans les constantes
-  todayStart.setUTCHours(LAUNCH_SETTINGS.LAUNCH_HOUR_UTC, 0, 0, 0)
-
-  // Trouver les chaînes programmées pour aujourd'hui
-  // Ne mettre à jour que les chaînes avec le statut SCHEDULED (pas PAYMENT_PENDING)
-  const result = await db
-    .update(projectTable)
-    .set({
-      launchStatus: launchStatus.ONGOING,
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(projectTable.launchStatus, launchStatus.SCHEDULED),
-        gte(projectTable.scheduledLaunchDate, todayStart),
-        lt(projectTable.scheduledLaunchDate, addDays(todayStart, 1)),
-      ),
-    )
-
-  console.log(`Updated ${result.rowCount} projects to ONGOING`)
-  return { success: true, updatedCount: result.rowCount }
-}
-
-// Mettre à jour le statut des chaînes dont la date de lancement était hier
-export async function updateProjectStatusToLaunched() {
-  const today = new Date()
-  const yesterdayStart = new Date(today)
-  yesterdayStart.setDate(yesterdayStart.getDate() - 1)
-  // Utiliser l'heure de lancement définie dans les constantes
-  yesterdayStart.setUTCHours(LAUNCH_SETTINGS.LAUNCH_HOUR_UTC, 0, 0, 0)
-
-  // Trouver les chaînes en cours de lancement depuis hier
-  // Ne mettre à jour que les chaînes avec le statut ONGOING
-  const result = await db
-    .update(projectTable)
-    .set({
-      launchStatus: launchStatus.LAUNCHED,
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(projectTable.launchStatus, launchStatus.ONGOING),
-        gte(projectTable.scheduledLaunchDate, yesterdayStart),
-        lt(projectTable.scheduledLaunchDate, addDays(yesterdayStart, 1)),
-      ),
-    )
-
-  console.log(`Updated ${result.rowCount} projects to LAUNCHED`)
-  return { success: true, updatedCount: result.rowCount }
-}
+// NOTE: updateProjectStatusToOngoing / updateProjectStatusToLaunched were removed
+// (2026-06-25 security hardening). They were exported "use server" actions with NO
+// auth and NO caller, so any anonymous request could force-advance launch statuses
+// site-wide. The launch-status lifecycle is owned exclusively by the
+// CRON_API_KEY-protected app/api/cron/update-launches route.

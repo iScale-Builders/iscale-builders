@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2026-06-25
+
+### Security
+
+- Fixed an IDOR in launch scheduling: `scheduleLaunch` now derives the user from
+  the server session and verifies project ownership instead of trusting a
+  client-supplied user id.
+- Removed two unauthenticated exported server actions
+  (`updateProjectStatusToOngoing`, `updateProjectStatusToLaunched`); the launch
+  lifecycle is owned solely by the `CRON_API_KEY`-protected cron route.
+- Added baseline security headers (HSTS, X-Frame-Options, X-Content-Type-Options,
+  Referrer-Policy, Permissions-Policy) to every response.
+- Hardened `next/image`: disabled inline SVG, forced attachment disposition, and
+  set a long minimum cache TTL to blunt the remote-image proxy/DoS surface.
+- Added server-side validation of user-submitted URLs and field lengths in
+  `submitProject`.
+
+### Changed
+
+- Added a CI workflow that type-checks (`tsc --noEmit`) and lints on every push/PR.
+- Added top-level error boundaries so data-layer failures no longer 500 the page.
+- Removed the stale `bun.lockb` (npm is the canonical package manager) and a
+  broken `update-launches` script entry; renamed the package to `iscalexchange`.
+
 ## [0.4.4] - 2026-06-23
 
 ### Fixed

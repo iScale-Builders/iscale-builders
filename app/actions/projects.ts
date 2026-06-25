@@ -264,6 +264,30 @@ export async function submitProject(projectData: ProjectSubmissionData) {
       return { success: false, error: "Missing required fields" }
     }
 
+    // SECURITY: these values are stored and later rendered on public pages, so
+    // validate user-supplied URLs (only http(s) — blocks javascript:/data: in
+    // link/image fields) and bound field lengths against oversized payloads.
+    const isHttpUrl = (value: string) => {
+      try {
+        const u = new URL(value)
+        return u.protocol === "http:" || u.protocol === "https:"
+      } catch {
+        return false
+      }
+    }
+    const optionalUrls = [logoUrl, productImage, githubUrl, twitterUrl].filter(
+      (v): v is string => typeof v === "string" && v.length > 0,
+    )
+    if (!isHttpUrl(websiteUrl) || optionalUrls.some((u) => !isHttpUrl(u))) {
+      return { success: false, error: "Links must be valid http(s) URLs" }
+    }
+    if (name.length > 120 || description.length > 5000) {
+      return { success: false, error: "Name or description is too long" }
+    }
+    if (categories.length > 5 || techStack.length > 30 || platforms.length > 30) {
+      return { success: false, error: "Too many categories, tech, or platforms selected" }
+    }
+
     // Générer le slug à partir du nom dans projectData
     const slug = await generateUniqueSlug(name)
 

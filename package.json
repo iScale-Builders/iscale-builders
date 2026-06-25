@@ -1,6 +1,6 @@
 {
-  "name": "iscalebuilders",
-  "version": "0.7.3",
+  "name": "iscalexchange",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -13,8 +13,7 @@
     "prepare": "npx simple-git-hooks",
     "seed:iscalelabs-apps": "tsx scripts/seed-iscalelabs-apps.ts",
     "seo:indexnow": "tsx scripts/submit-indexnow.ts",
-    "start": "next start",
-    "update-launches": "bash ./scripts/update-launches.sh"
+    "start": "next start"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged --verbose",

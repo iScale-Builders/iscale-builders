@@ -21,7 +21,14 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const projects = await getExploreProjects(60)
+  // Degrade gracefully if the data layer is unavailable instead of 500-ing the
+  // homepage; app/error.tsx is the backstop for any other render failure.
+  let projects: ExploreProject[] = []
+  try {
+    projects = await getExploreProjects(60)
+  } catch (error) {
+    console.error("Home: failed to load explore projects:", error)
+  }
   const { userId } = await auth()
   const isAuthenticated = !!userId
 
@@ -52,29 +59,29 @@ export default async function Home() {
         <section className="relative isolate mx-auto mb-12 max-w-5xl px-4 py-8 text-center">
           <HeroNetwork />
           <div className="relative z-10">
-          <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
-            Where Problems Meet Solutions
-          </h1>
-          <p className="text-muted-foreground mx-auto mt-4 text-base leading-7 lg:whitespace-nowrap">
-            A two-way marketplace for challenges and the people who solve them.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild className="h-11 rounded-full px-6 font-semibold">
-              <Link href="/problems">
-                Problems
-                <RiArrowRightLine className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild className="h-11 rounded-full px-6 font-semibold">
-              <Link href="/solutions">
-                Solutions
-                <RiArrowRightLine className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-11 rounded-full px-6 font-semibold">
-              <Link href="/projects/submit">Post a problem or solution</Link>
-            </Button>
-          </div>
+            <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
+              Where Problems Meet Solutions
+            </h1>
+            <p className="text-muted-foreground mx-auto mt-4 text-base leading-7 lg:whitespace-nowrap">
+              A two-way marketplace for challenges and the people who solve them.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Button asChild className="h-11 rounded-full px-6 font-semibold">
+                <Link href="/problems">
+                  Problems
+                  <RiArrowRightLine className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild className="h-11 rounded-full px-6 font-semibold">
+                <Link href="/solutions">
+                  Solutions
+                  <RiArrowRightLine className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="h-11 rounded-full px-6 font-semibold">
+                <Link href="/projects/submit">Post a problem or solution</Link>
+              </Button>
+            </div>
           </div>
         </section>
 
