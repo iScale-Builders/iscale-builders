@@ -100,7 +100,7 @@ export function ExploreHeroCard({
                   alt=""
                   aria-hidden="true"
                   fetchPriority="low"
-                  className="absolute inset-0 h-full w-full scale-105 object-cover opacity-70 blur-lg"
+                  className="absolute inset-0 h-full w-full scale-105 object-cover opacity-70 blur-sm"
                 />
                 {/* the actual image, centered, fit top-to-bottom */}
                 <img
