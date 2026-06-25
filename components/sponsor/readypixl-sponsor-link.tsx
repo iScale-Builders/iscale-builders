@@ -30,9 +30,9 @@ export function ReadyPixlSponsorLink({ variant = "footer" }: ReadyPixlSponsorLin
         <img
           src="/images/sponsors/rp-square.png"
           alt=""
-          width={28}
-          height={28}
-          className="h-7 w-7 shrink-0 rounded-md"
+          width={36}
+          height={36}
+          className="h-9 w-9 shrink-0 rounded-md"
         />
         <span className="flex h-8 w-32 items-center justify-center overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
