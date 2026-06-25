@@ -210,7 +210,7 @@ export default async function Nav() {
                       </SheetClose>
                       <SheetClose asChild>
                         <Link
-                          href="https://www.skool.com/iScaleXchangegroup"
+                          href="https://www.skool.com/iscalexchange"
                           target="_blank"
                           rel="noreferrer"
                           className="hover:bg-muted/50 flex items-center gap-3 px-6 py-2.5 text-sm transition-colors"
