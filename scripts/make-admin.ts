@@ -11,8 +11,7 @@ import { eq } from "drizzle-orm"
 // here to promote.
 //
 // Run with:
-//   cd C:/Users/jose/.agent/apps/iscale-builders && \
-//   C:/Users/jose/.bun/bin/bun.exe scripts/make-admin.ts your@email.com
+//   bun scripts/make-admin.ts your@email.com
 //
 // Only promote a real Clerk-backed account that should administer the app.
 // ---------------------------------------------------------------------------
