@@ -14,6 +14,7 @@ import {
 } from "@/lib/seo/site"
 import Footer from "@/components/layout/footer"
 import Nav from "@/components/layout/nav"
+import { ScrollReveal } from "@/components/motion/scroll-reveal"
 import { JsonLd } from "@/components/seo/json-ld"
 import { ThemeProvider } from "@/components/theme/theme-provider"
 
@@ -78,6 +79,7 @@ export default function RootLayout({
               <Nav />
               <main className="flex-grow">{children}</main>
               <Footer />
+              <ScrollReveal />
             </div>
           </ThemeProvider>
           <Toaster />

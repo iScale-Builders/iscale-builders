@@ -46,13 +46,13 @@ export function HeroNetwork() {
       canvas.style.width = w + "px"
       canvas.style.height = h + "px"
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      const count = Math.max(16, Math.min(64, Math.round((w * h) / 14000)))
+      const count = Math.max(16, Math.min(64, Math.round((w * h) / 9000)))
       pts = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.25,
         vy: (Math.random() - 0.5) * 0.25,
-        r: Math.random() * 1.6 + 0.8,
+        r: Math.random() * 1.8 + 1.1,
         tint: tints[Math.floor(Math.random() * tints.length)],
       }))
     }
@@ -81,7 +81,7 @@ export function HeroNetwork() {
         }
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${p.tint},0.55)`
+        ctx.fillStyle = `rgba(${p.tint},0.8)`
         ctx.fill()
       }
 
@@ -91,7 +91,7 @@ export function HeroNetwork() {
           const b = pts[j]
           const d = Math.hypot(a.x - b.x, a.y - b.y)
           if (d < LINK) {
-            ctx.strokeStyle = `rgba(140,140,140,${(1 - d / LINK) * 0.16})`
+            ctx.strokeStyle = `rgba(150,150,150,${(1 - d / LINK) * 0.3})`
             ctx.lineWidth = 1
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
@@ -101,7 +101,7 @@ export function HeroNetwork() {
         }
         const md = Math.hypot(a.x - mouse.x, a.y - mouse.y)
         if (md < MOUSE_LINK) {
-          ctx.strokeStyle = `rgba(${a.tint},${(1 - md / MOUSE_LINK) * 0.4})`
+          ctx.strokeStyle = `rgba(${a.tint},${(1 - md / MOUSE_LINK) * 0.65})`
           ctx.lineWidth = 1
           ctx.beginPath()
           ctx.moveTo(a.x, a.y)
@@ -141,7 +141,7 @@ export function HeroNetwork() {
     <canvas
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_78%)]"
+      className="pointer-events-none absolute inset-0 h-full w-full [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_92%)]"
     />
   )
 }
