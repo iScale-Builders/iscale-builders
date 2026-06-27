@@ -40,15 +40,15 @@ export const iscaleLabsApps: IScaleLabsAppSeed[] = [
     name: "PinTwist",
     slug: "pintwist",
     description:
-      "PinTwist is the Pinterest research and automation app for print-on-demand sellers: scan Pinterest surfaces, collect pin signals, organize trend data, and turn visual research into product ideas and content direction. Now open source: the full Chrome-extension code is public on GitHub.",
+      "PinTwist is the open-source Pinterest research extension for print-on-demand sellers: it overlays save counts, reactions, comments, repins, and creation dates on every pin, then lets you sort, filter, build a local catalog, and export CSV — 100% local, no account or backend. Free and open source (Apache-2.0), full code public on GitHub.",
     websiteUrl: listingUrl("pintwist"),
     productImage: "/images/apps/pintwist-1.webp",
     logoUrl: "/images/apps/pintwist-3.webp",
     githubUrl: "https://github.com/iScale-Builders/pintwist",
-    techStack: ["Chrome Extension", "JavaScript", "Local Storage", "Open Source"],
+    techStack: ["Chrome Extension", "JavaScript", "Local-first", "Open Source", "Apache-2.0"],
     pricing: "free",
     platforms: ["web"],
-    categories: ["Research", "Automation", "Pinterest"],
+    categories: ["Research", "Pinterest", "Open Source"],
     popularity: 100,
   },
   {
