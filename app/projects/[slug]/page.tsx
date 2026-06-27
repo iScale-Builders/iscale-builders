@@ -404,6 +404,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {/* Sidebar - 1 colonne sur toute la hauteur */}
           <div className="lg:sticky lg:top-14 lg:h-fit">
             <div className="space-y-6 py-6">
+              {/* Visit Website / external link (renders website_url) */}
+              {projectData.websiteUrl && (
+                <Button asChild size="lg" className="w-full gap-2">
+                  <a
+                    href={projectData.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {projectData.websiteUrl.includes("github.com") && (
+                      <RiGithubFill className="h-4 w-4" />
+                    )}
+                    {projectData.websiteUrl.includes("github.com")
+                      ? "View on GitHub"
+                      : "Visit Website"}
+                  </a>
+                </Button>
+              )}
               {/* Achievement Badge */}
               {!isScheduled &&
                 projectData.launchStatus === "launched" &&
