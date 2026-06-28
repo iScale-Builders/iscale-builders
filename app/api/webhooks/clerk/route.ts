@@ -1,10 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server"
 
-import { verifyWebhook } from "@clerk/nextjs/webhooks"
-import { eq } from "drizzle-orm"
-
 import { db } from "@/drizzle/db"
 import { user as userTable } from "@/drizzle/db/schema"
+import { verifyWebhook } from "@clerk/nextjs/webhooks"
+import { eq, sql } from "drizzle-orm"
 
 /**
  * Best-effort Clerk webhook: keeps the local "user" table in sync on
@@ -42,11 +41,7 @@ export async function POST(req: NextRequest) {
         email.split("@")[0]
       const image = data.image_url ?? null
 
-      const [existing] = await db
-        .select()
-        .from(userTable)
-        .where(eq(userTable.id, id))
-        .limit(1)
+      const [existing] = await db.select().from(userTable).where(eq(userTable.id, id)).limit(1)
 
       if (existing) {
         // Preserve role on update.
@@ -55,16 +50,31 @@ export async function POST(req: NextRequest) {
           .set({ name, email, image, updatedAt: now })
           .where(eq(userTable.id, id))
       } else {
-        await db.insert(userTable).values({
-          id,
-          name,
-          email,
-          emailVerified: true,
-          image,
-          role: null,
-          createdAt: now,
-          updatedAt: now,
-        })
+        const [existingByEmail] = await db
+          .select()
+          .from(userTable)
+          .where(sql`lower(${userTable.email}) = lower(${email})`)
+          .limit(1)
+
+        if (existingByEmail) {
+          // Preserve the existing local id/role because projects and upvotes
+          // may already reference it.
+          await db
+            .update(userTable)
+            .set({ name, email, image, updatedAt: now })
+            .where(eq(userTable.id, existingByEmail.id))
+        } else {
+          await db.insert(userTable).values({
+            id,
+            name,
+            email,
+            emailVerified: true,
+            image,
+            role: null,
+            createdAt: now,
+            updatedAt: now,
+          })
+        }
       }
     } else if (evt.type === "user.deleted") {
       const id = evt.data.id

@@ -1,7 +1,7 @@
 import { db } from "@/drizzle/db"
 import { user as userTable } from "@/drizzle/db/schema"
 import { auth, currentUser } from "@clerk/nextjs/server"
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 
 export interface LocalUser {
   id: string
@@ -64,6 +64,36 @@ export async function ensureLocalUser(): Promise<LocalUser | null> {
       email,
       image,
       role: existing.role ?? null,
+    }
+  }
+
+  // Clerk can issue a new user id for an email that already exists locally
+  // (for example, after account recreation or provider changes). Since email is
+  // unique and existing projects/upvotes reference the old local id, reuse that
+  // local row instead of crashing on a duplicate email insert.
+  const [existingByEmail] = await db
+    .select()
+    .from(userTable)
+    .where(sql`lower(${userTable.email}) = lower(${email})`)
+    .limit(1)
+
+  if (existingByEmail) {
+    await db
+      .update(userTable)
+      .set({
+        name,
+        email,
+        image,
+        updatedAt: now,
+      })
+      .where(eq(userTable.id, existingByEmail.id))
+
+    return {
+      id: existingByEmail.id,
+      name,
+      email,
+      image,
+      role: existingByEmail.role ?? null,
     }
   }
 

@@ -44,6 +44,9 @@ async function generateUniqueSlug(name: string): Promise<string> {
 // / sitemap during build), so static generation of programmatic pages doesn't throw.
 async function getCurrentUserId() {
   try {
+    const localUser = await ensureLocalUser()
+    if (localUser) return localUser.id
+
     const { userId } = await auth()
     return userId ?? null
   } catch {
