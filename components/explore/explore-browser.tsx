@@ -107,6 +107,7 @@ export function ExploreBrowser({ projects, isAuthenticated = false }: ExploreBro
               description={p.description}
               images={galleryFor(p)}
               launchStatus={p.launchStatus}
+              websiteUrl={p.websiteUrl}
               submissionType={p.submissionType}
               upvoteCount={p.upvoteCount}
               commentCount={p.commentCount}

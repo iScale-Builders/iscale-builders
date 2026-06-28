@@ -129,14 +129,17 @@ export async function updateProject(
       }
     }
 
-    if (!data.name.trim() || !data.websiteUrl.trim() || !data.description.trim()) {
-      return { success: false, error: "Name, website URL, and description are required" }
+    if (!data.name.trim() || !data.description.trim()) {
+      return { success: false, error: "Name and description are required" }
     }
 
-    try {
-      new URL(data.websiteUrl)
-    } catch {
-      return { success: false, error: "Please enter a valid website URL" }
+    const normalizedWebsiteUrl = data.websiteUrl.trim()
+    if (normalizedWebsiteUrl) {
+      try {
+        new URL(normalizedWebsiteUrl)
+      } catch {
+        return { success: false, error: "Please enter a valid website URL" }
+      }
     }
     // Images may be absolute URLs, uploaded data: URLs, or in-app relative paths
     // (e.g. "/images/apps/foo.png"). Only reject clearly malformed values.
@@ -182,7 +185,7 @@ export async function updateProject(
       .update(project)
       .set({
         name: data.name.trim(),
-        websiteUrl: data.websiteUrl.trim(),
+        websiteUrl: normalizedWebsiteUrl || null,
         logoUrl: data.logoUrl.trim() || fallbackLogoUrl,
         productImage: primaryImage,
         coverImageUrl: coverImage,

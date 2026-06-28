@@ -103,7 +103,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   // Launch scheduling is retired — the exchange has no pre-public "coming soon"
   // state, so every listed post renders as live.
   const isScheduled = false
-  const statusLabel = toolStatusLabel(projectData.launchStatus)
+  const statusLabel = toolStatusLabel(projectData.launchStatus, projectData.websiteUrl)
 
   const isOwner = userId === projectData.createdBy
 
@@ -407,11 +407,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {/* Visit Website / external link (renders website_url) */}
               {projectData.websiteUrl && (
                 <Button asChild size="lg" className="w-full gap-2">
-                  <a
-                    href={projectData.websiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={projectData.websiteUrl} target="_blank" rel="noopener noreferrer">
                     {projectData.websiteUrl.includes("github.com") && (
                       <RiGithubFill className="h-4 w-4" />
                     )}

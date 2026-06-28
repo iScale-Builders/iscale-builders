@@ -49,6 +49,7 @@ export function ProjectCard({
   userHasUpvoted,
   categories,
   isAuthenticated,
+  websiteUrl,
 }: ProjectCardProps) {
   const router = useRouter()
   const projectPageUrl = `/projects/${slug}`
@@ -93,7 +94,7 @@ export function ProjectCard({
                 </h3>
               </Link>
               <span className="border-border bg-muted text-foreground rounded-full border px-2 py-0.5 text-[10px] font-black">
-                {toolStatusLabel(launchStatus)}
+                {toolStatusLabel(launchStatus, websiteUrl)}
               </span>
             </div>
 

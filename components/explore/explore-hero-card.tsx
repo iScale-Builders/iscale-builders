@@ -23,6 +23,7 @@ interface ExploreHeroCardProps {
   description: string
   images: string[]
   launchStatus: string
+  websiteUrl?: string | null
   category?: string
   creatorName?: string | null
   creatorImage?: string | null
@@ -40,6 +41,7 @@ export function ExploreHeroCard({
   description,
   images,
   launchStatus,
+  websiteUrl,
   category,
   creatorName,
   creatorImage,
@@ -125,13 +127,13 @@ export function ExploreHeroCard({
 
       {/* the text, underneath */}
       <div className="flex flex-col items-center gap-2 pt-4 text-center">
-        <div className="flex flex-wrap items-center justify-center gap-2 text-muted-foreground">
+        <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-2">
           <span className="border-border/60 bg-foreground/[0.03] inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold">
             <RiFireLine className="h-3 w-3" />
             Top tool
           </span>
           <span className="border-border/60 bg-foreground/[0.03] rounded-full border px-2.5 py-0.5 text-[11px] font-semibold">
-            {toolStatusLabel(launchStatus)}
+            {toolStatusLabel(launchStatus, websiteUrl)}
           </span>
           {category && (
             <span className="border-border/60 bg-foreground/[0.03] rounded-full border px-2.5 py-0.5 text-[11px] font-medium">
@@ -139,7 +141,7 @@ export function ExploreHeroCard({
             </span>
           )}
         </div>
-        <h2 className="font-heading mx-auto max-w-3xl text-2xl font-black tracking-tight text-foreground sm:text-4xl">
+        <h2 className="font-heading text-foreground mx-auto max-w-3xl text-2xl font-black tracking-tight sm:text-4xl">
           {name}
         </h2>
         <p className="text-muted-foreground mx-auto line-clamp-2 max-w-2xl text-sm leading-7 sm:text-base">
