@@ -107,7 +107,7 @@ export function NavMenu({ showDashboard = true }: NavMenuProps) {
               prefetch={false}
               className={`${navigationMenuTriggerStyle()} h-9 px-3 text-sm`}
             >
-              Submit
+              Post a Problem/Solution
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
