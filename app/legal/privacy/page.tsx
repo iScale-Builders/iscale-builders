@@ -16,12 +16,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="text-muted-foreground mb-6">
-            Last updated:{" "}
-            {new Date().toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
+            Last updated: June 30, 2026
           </p>
 
           <div className="space-y-6">
@@ -78,7 +73,9 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul className="mb-3 list-disc space-y-1 pl-6">
                 <li>
-                  <strong>With service providers</strong> who help us operate our platform
+                  <strong>With service providers</strong> who help us operate our platform — for
+                  example Clerk (authentication), Supabase (database), Vercel (application hosting),
+                  and Plausible (privacy-friendly analytics)
                 </li>
                 <li>
                   <strong>For legal obligations</strong> (when required by law or to protect our
@@ -167,7 +164,7 @@ export default function PrivacyPolicyPage() {
                 As an open source project, iScaleXchange is committed to transparency in how we
                 handle data. Our source code is publicly available on{" "}
                 <a
-                  href="https://github.com/iScale-Builders/iscale-builders"
+                  href="https://github.com/iScale-Builders/iscale-xchange"
                   className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"

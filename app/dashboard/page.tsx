@@ -93,7 +93,7 @@ export default async function Dashboard() {
               </CardHeader>
               <CardContent className="pb-1">
                 {createdProjects.length > 0 ? (
-                  <div className="space-y-3">
+                  <div className="grid gap-3 sm:grid-cols-2">
                     {createdProjects.map((project) => (
                       <DashboardProjectCard key={project.id} {...project} />
                     ))}
@@ -126,7 +126,7 @@ export default async function Dashboard() {
                 <CardDescription>Projects you&apos;ve recently upvoted</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
+                <div className="grid gap-3 sm:grid-cols-2">
                   {upvotedProjects.length > 0 ? (
                     upvotedProjects
                       .slice(0, 4)

@@ -18,12 +18,7 @@ export default function TermsOfServicePage() {
             Terms of Service
           </h1>
           <p className="text-muted-foreground mb-6">
-            Last updated:{" "}
-            {new Date().toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
+            Last updated: June 30, 2026
           </p>
 
           <div className="space-y-6">
@@ -85,7 +80,7 @@ export default function TermsOfServicePage() {
                 Open-Launch is an open source project licensed under the Open-Launch License. The
                 source code is available on{" "}
                 <a
-                  href="https://github.com/iScale-Builders/iscale-builders"
+                  href="https://github.com/iScale-Builders/iscale-xchange"
                   className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
