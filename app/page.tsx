@@ -1,10 +1,7 @@
 import { Metadata } from "next"
-import Link from "next/link"
 
 import { auth } from "@clerk/nextjs/server"
-import { RiArrowRightLine } from "@remixicon/react"
 
-import { Button } from "@/components/ui/button"
 import { ExploreBrowser } from "@/components/explore/explore-browser"
 import { ExploreHeroCard } from "@/components/explore/explore-hero-card"
 import { galleryFor } from "@/components/explore/explore-view"
@@ -66,23 +63,6 @@ export default async function Home() {
             <p className="text-muted-foreground mx-auto mt-4 text-base leading-7 lg:whitespace-nowrap">
               A two-way marketplace for challenges and the people who solve them.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Button asChild className="h-11 rounded-full px-6 font-semibold">
-                <Link href="/problems">
-                  Problems
-                  <RiArrowRightLine className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild className="h-11 rounded-full px-6 font-semibold">
-                <Link href="/solutions">
-                  Solutions
-                  <RiArrowRightLine className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="h-11 rounded-full px-6 font-semibold">
-                <Link href="/projects/submit">Post a problem or solution</Link>
-              </Button>
-            </div>
           </div>
         </section>
 

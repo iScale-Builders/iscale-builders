@@ -301,6 +301,11 @@ div[role="dialog"],
 
 .foundry-page {
   min-height: 100vh;
+}
+
+/* The dark page wash is only for the dark theme; in light mode it tinted the
+   whole page near-black. */
+.dark .foundry-page {
   background: linear-gradient(180deg, rgb(10 10 10 / 0.24) 0%, rgb(10 10 10 / 0.58) 100%);
 }
 
