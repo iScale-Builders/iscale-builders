@@ -273,7 +273,7 @@ export default async function CategoriesPage({
       <div className="foundry-container min-h-screen">
         <div className="scroll-live mb-8 flex flex-col gap-2">
           <p className="foundry-kicker">Constellation filters</p>
-          <h1 className="font-heading text-4xl font-black tracking-tight text-white sm:text-5xl">
+          <h1 className="font-heading text-4xl font-black tracking-tight text-foreground sm:text-5xl">
             Categories
           </h1>
 

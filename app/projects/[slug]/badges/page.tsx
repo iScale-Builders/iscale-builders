@@ -62,7 +62,7 @@ export default async function BadgesPage({ params }: BadgesPageProps) {
 
         <div className="foundry-panel flex flex-col gap-6 rounded-2xl p-4 sm:p-6">
           <div className="flex items-center gap-2 sm:gap-3">
-            <h1 className="text-lg font-black text-white sm:text-3xl">Your Achievement Badges</h1>
+            <h1 className="text-lg font-black text-foreground sm:text-3xl">Your Achievement Badges</h1>
           </div>
 
           <p className="text-muted-foreground text-sm sm:text-base">

@@ -14,7 +14,7 @@ export default function TermsOfServicePage() {
       <div className="mx-auto max-w-4xl px-4">
         <div className="foundry-panel rounded-2xl p-6 sm:p-8">
           <p className="foundry-kicker mb-3">Builder agreement</p>
-          <h1 className="font-heading mb-6 text-4xl font-black text-white sm:text-5xl">
+          <h1 className="font-heading mb-6 text-4xl font-black text-foreground sm:text-5xl">
             Terms of Service
           </h1>
           <p className="text-muted-foreground mb-6">
