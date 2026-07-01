@@ -62,7 +62,7 @@ export default async function BlogPage() {
         {/* Header */}
         <div className="scroll-live mb-8 text-center">
           <p className="foundry-kicker mb-3">Builder intelligence</p>
-          <h1 className="font-heading mb-4 text-4xl font-black text-white md:text-5xl">Blog</h1>
+          <h1 className="font-heading mb-4 text-4xl font-black text-foreground md:text-5xl">Blog</h1>
           <p className="text-muted-foreground text-md mx-auto max-w-4xl md:text-lg">
             Discover insights, tutorials, and resources to help you build and launch successful
             products.

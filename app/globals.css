@@ -356,11 +356,15 @@ div[role="dialog"],
 }
 
 .foundry-kicker {
-  color: rgb(229 229 229 / 0.78);
+  color: rgb(82 82 82);
   font-size: 0.75rem;
   font-weight: 900;
   letter-spacing: 0.24em;
   text-transform: uppercase;
+}
+
+.dark .foundry-kicker {
+  color: rgb(229 229 229 / 0.78);
 }
 
 .builder-command-strip {

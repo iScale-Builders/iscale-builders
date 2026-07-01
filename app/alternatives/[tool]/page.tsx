@@ -144,7 +144,7 @@ export default async function AlternativesPage({ params }: { params: Promise<{ t
 
         <header className="scroll-live mb-8 flex flex-col gap-3">
           <p className="foundry-kicker">Alternatives to {tool.name}</p>
-          <h1 className="font-heading text-4xl font-black tracking-tight text-white sm:text-5xl">
+          <h1 className="font-heading text-4xl font-black tracking-tight text-foreground sm:text-5xl">
             {tool.name} Alternatives ({YEAR})
           </h1>
           <p className="text-muted-foreground max-w-2xl text-base sm:text-lg">
@@ -199,7 +199,7 @@ export default async function AlternativesPage({ params }: { params: Promise<{ t
         )}
 
         <section className="mb-12 max-w-3xl">
-          <h2 className="font-heading mb-5 text-2xl font-bold text-white sm:text-3xl">
+          <h2 className="font-heading mb-5 text-2xl font-bold text-foreground sm:text-3xl">
             {tool.name} alternatives — frequently asked questions
           </h2>
           <div className="space-y-5">

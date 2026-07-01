@@ -70,7 +70,7 @@ export default function HowWeReviewPage() {
 
         <header className="mb-8">
           <p className="foundry-kicker mb-2">Our methodology</p>
-          <h1 className="font-heading text-4xl font-black tracking-tight text-white sm:text-5xl">
+          <h1 className="font-heading text-4xl font-black tracking-tight text-foreground sm:text-5xl">
             {TITLE}
           </h1>
           <p className="text-muted-foreground mt-4 text-lg leading-relaxed">{DESCRIPTION}</p>

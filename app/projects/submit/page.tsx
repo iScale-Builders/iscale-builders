@@ -41,7 +41,7 @@ export default async function SubmitProject({
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="scroll-live mb-6 space-y-2 sm:mb-8">
           <p className="foundry-kicker">Xchange gate</p>
-          <h1 className="font-heading text-4xl font-black tracking-tight text-white sm:text-5xl">
+          <h1 className="font-heading text-4xl font-black tracking-tight text-foreground sm:text-5xl">
             {heading}
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base">{sub}</p>
