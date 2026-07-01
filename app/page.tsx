@@ -29,11 +29,8 @@ export default async function Home() {
   const { userId } = await auth()
   const isAuthenticated = !!userId
 
-  // Featured rail: exactly these three, in this order.
-  const featuredSlugs = ["promoteflow", "pixel-mock-bulk-product-mockups", "pintwist"]
-  const featured = featuredSlugs
-    .map((slug) => projects.find((p) => p.slug === slug))
-    .filter((p): p is ExploreProject => Boolean(p))
+  // Carousel rail: all apps marked "available" (upvote-ordered from getExploreProjects).
+  const featured = projects.filter((p) => p.availability === "available")
 
   const heroProps = (p: ExploreProject) => ({
     slug: p.slug,

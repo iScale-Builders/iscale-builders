@@ -26,6 +26,7 @@ export interface ExploreProject {
   galleryImages: string[] | null
   websiteUrl: string | null
   launchStatus: string
+  availability: string
   launchType: string | null
   submissionType: string
   dailyRanking: number | null
@@ -59,6 +60,7 @@ export async function getExploreProjects(limit = 60): Promise<ExploreProject[]> 
       galleryImages: projectTable.galleryImages,
       websiteUrl: projectTable.websiteUrl,
       launchStatus: projectTable.launchStatus,
+      availability: projectTable.availability,
       launchType: projectTable.launchType,
       submissionType: projectTable.submissionType,
       dailyRanking: projectTable.dailyRanking,
@@ -126,6 +128,7 @@ export async function getExploreProjects(limit = 60): Promise<ExploreProject[]> 
     galleryImages: row.galleryImages,
     websiteUrl: row.websiteUrl,
     launchStatus: row.launchStatus,
+    availability: row.availability,
     launchType: row.launchType,
     submissionType: row.submissionType,
     dailyRanking: row.dailyRanking,
